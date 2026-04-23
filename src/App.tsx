@@ -137,17 +137,33 @@ function AnimatedHeading({ text, className = '' }: { text: string; className?: s
   const charDelay = 30
   useEffect(() => { const t = setTimeout(() => setAnimated(true), 200); return () => clearTimeout(t) }, [])
   const lines = text.split('\n')
+  let globalCharIdx = 0
   return (
     <h1 className={className} style={{ letterSpacing: '-0.04em' }}>
-      {lines.map((line, li) => (
-        <span key={li} style={{ display: 'block' }}>
-          {line.split('').map((char, ci) => (
-            <span key={ci} style={{ display: 'inline-block', opacity: animated ? 1 : 0, transform: animated ? 'translateX(0)' : 'translateX(-18px)', transition: 'opacity 500ms, transform 500ms', transitionDelay: `${(li * line.length * charDelay) + (ci * charDelay)}ms` }}>
-              {char === ' ' ? '\u00A0' : char}
-            </span>
-          ))}
-        </span>
-      ))}
+      {lines.map((line, li) => {
+        const words = line.split(' ')
+        return (
+          <span key={li} style={{ display: 'block' }}>
+            {words.map((word, wi) => {
+              const wordChars = word.split('')
+              const wordEl = (
+                <span key={wi} style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
+                  {wordChars.map((char, ci) => {
+                    const delay = globalCharIdx * charDelay
+                    globalCharIdx++
+                    return (
+                      <span key={ci} style={{ display: 'inline-block', opacity: animated ? 1 : 0, transform: animated ? 'translateX(0)' : 'translateX(-18px)', transition: 'opacity 500ms, transform 500ms', transitionDelay: `${delay}ms` }}>
+                        {char}
+                      </span>
+                    )
+                  })}
+                </span>
+              )
+              return wi < words.length - 1 ? <span key={wi}>{wordEl}{'\u00A0'}</span> : wordEl
+            })}
+          </span>
+        )
+      })}
     </h1>
   )
 }
@@ -617,7 +633,7 @@ function LeadMagnet() {
             <h3 className="text-2xl md:text-3xl text-text-primary mb-2" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>Free UK Tax Saving Checklist</h3>
             <p className="text-muted text-sm">Discover simple strategies to reduce your tax bill and stay compliant.</p>
           </div>
-          <a href="#contact" className="relative shrink-0 bg-white text-black px-8 py-3 rounded-xl font-medium text-sm hover:bg-gray-100 transition-colors duration-200">Download Now →</a>
+          <a href="/uk-tax-saving-checklist.pdf" download="UK-Tax-Saving-Checklist.pdf" className="relative shrink-0 bg-white text-black px-8 py-3 rounded-xl font-medium text-sm hover:bg-gray-100 transition-colors duration-200 cursor-pointer">Download Now →</a>
         </motion.div>
       </div>
     </section>
