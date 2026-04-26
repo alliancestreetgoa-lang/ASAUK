@@ -16,8 +16,8 @@ function SectionBg({ src, opacity = 0.28, position = 'right' }: { src: string; o
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
       <div className="absolute inset-0" style={{ backgroundImage: `url(${src})`, backgroundSize: 'cover', backgroundPosition: pos, opacity }} />
-      <div className="absolute inset-0" style={{ background: position === 'center' ? 'radial-gradient(ellipse at center, rgba(15,15,15,0.35) 0%, rgba(15,15,15,0.85) 75%)' : 'linear-gradient(to right, hsl(0 0% 6% / 0.9) 0%, hsl(0 0% 6% / 0.55) 55%, hsl(0 0% 6% / 0.25) 100%)' }} />
-      <div className="absolute inset-0 bg-gradient-to-t from-bg/90 via-transparent to-bg/40" />
+      <div className="absolute inset-0" style={{ background: position === 'center' ? 'radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.88) 75%)' : 'linear-gradient(to right, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.78) 55%, rgba(255,255,255,0.5) 100%)' }} />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(255,255,255,0.9) 0%, transparent 50%, rgba(255,255,255,0.4) 100%)' }} />
     </div>
   )
 }
@@ -69,7 +69,7 @@ function Modal({ data, onClose }: { data: ModalData; onClose: () => void }) {
             {data.tag && <span className="text-xs uppercase tracking-[0.25em] text-muted mb-3 inline-block">{data.tag}</span>}
             <h2 className="text-2xl sm:text-3xl text-text-primary mb-4 leading-tight" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{data.title}</h2>
             <div className="text-sm text-muted leading-relaxed space-y-4">{data.body}</div>
-            <div className="mt-8"><a href="#contact" onClick={onClose} className="inline-block bg-white text-black px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors">Get Started →</a></div>
+            <div className="mt-8"><a href="#contact" onClick={onClose} className="inline-block bg-gray-900 text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-700 transition-colors">Get Started →</a></div>
           </div>
         </motion.div>
       </motion.div>
@@ -97,25 +97,25 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
     return () => clearInterval(iv)
   }, [])
   return (
-    <motion.div className="fixed inset-0 z-[9999] bg-bg flex flex-col overflow-hidden" exit={{ opacity: 0 }} transition={{ duration: 0.6 }}>
+    <motion.div className="fixed inset-0 z-[9999] flex flex-col overflow-hidden" style={{ background: 'hsl(0 0% 2%)' }} exit={{ opacity: 0 }} transition={{ duration: 0.6 }}>
       <motion.div className="absolute top-8 left-8" initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>
         <img src={LOGO_URL} alt="Alliance Street Accountancy Ltd" className="h-[3.75rem] w-auto object-contain" />
       </motion.div>
       <div className="flex-1 flex items-center justify-center">
         <AnimatePresence mode="wait">
-          <motion.span key={wordIndex} className="text-4xl md:text-6xl lg:text-7xl text-text-primary/80"
-            style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}
+          <motion.span key={wordIndex} className="text-4xl md:text-6xl lg:text-7xl"
+            style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic', color: 'hsl(0 0% 95% / 0.8)' }}
             initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -20, opacity: 0 }} transition={{ duration: 0.3 }}>
             {LOADING_WORDS[wordIndex]}
           </motion.span>
         </AnimatePresence>
       </div>
       <div className="absolute bottom-12 right-8">
-        <span className="text-6xl md:text-8xl lg:text-9xl text-text-primary tabular-nums" style={{ fontFamily: "'Instrument Serif',serif" }}>
+        <span className="text-6xl md:text-8xl lg:text-9xl tabular-nums" style={{ fontFamily: "'Instrument Serif',serif", color: 'hsl(0 0% 95%)' }}>
           {String(count).padStart(3, '0')}
         </span>
       </div>
-      <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-stroke/50">
+      <div className="absolute bottom-0 left-0 right-0 h-[3px]" style={{ background: 'hsl(0 0% 18% / 0.5)' }}>
         <motion.div className="h-full origin-left" style={{ background: ACCENT }} animate={{ scaleX: count / 100 }} transition={{ duration: 0.05, ease: 'linear' }} />
       </div>
     </motion.div>
@@ -309,7 +309,7 @@ function WhyChooseUs() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {WHY_POINTS.map((p, i) => (
-              <motion.div key={i} className="p-6 bg-surface/50 border border-stroke rounded-2xl hover:border-white/20 transition-colors duration-300"
+              <motion.div key={i} className="p-6 bg-surface/50 border border-stroke rounded-2xl hover:border-gray-400 hover:shadow-sm transition-all duration-300"
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.5 }}>
                 <span className="inline-block text-xs font-medium text-black px-3 py-1 rounded-full mb-4" style={{ background: ACCENT }}>0{i + 1}</span>
                 <h3 className="text-text-primary font-medium text-sm mb-2">{p.title}</h3>
@@ -499,12 +499,12 @@ function Services() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {SERVICES_DATA.map((svc, i) => (
             <motion.div key={svc.name}
-              className="group relative rounded-3xl overflow-hidden cursor-pointer border border-stroke hover:border-white/30 transition-all duration-300"
+              className="group relative rounded-3xl overflow-hidden cursor-pointer border border-stroke hover:border-gray-400 hover:shadow-md transition-all duration-300"
               onClick={() => setModal({ title: svc.name, tag: svc.tag, img: svc.img, body: svc.body })}
               initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-50px' }} transition={{ duration: 0.7, delay: i * 0.1 }}>
               <div className="relative h-40 overflow-hidden">
                 <img src={svc.img} alt={svc.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/60 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
               </div>
               <div className="p-6 bg-surface/50">
                 <p className="text-[10px] uppercase tracking-[0.25em] text-muted mb-2">{svc.tag}</p>
@@ -538,7 +538,7 @@ function Pricing() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
             {PLANS.map((plan, i) => (
               <motion.div key={plan.name}
-                className={`relative p-8 rounded-3xl border transition-all duration-300 ${plan.popular ? 'bg-bg border-white/30 md:scale-105' : 'bg-bg border-stroke hover:border-white/20'}`}
+                className={`relative p-8 rounded-3xl border transition-all duration-300 ${plan.popular ? 'bg-white border-gray-400 shadow-lg md:scale-105' : 'bg-white border-stroke hover:border-gray-400'}`}
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15, duration: 0.6 }}>
                 {plan.popular && (
                   <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs px-4 py-1 rounded-full text-black font-medium" style={{ background: ACCENT }}>Most Popular</span>
@@ -553,7 +553,7 @@ function Pricing() {
                     </li>
                   ))}
                 </ul>
-                <a href="#contact" className={`block text-center py-3 rounded-xl text-sm font-medium transition-colors duration-200 ${plan.popular ? 'bg-white text-black hover:bg-gray-100' : 'border border-stroke text-text-primary hover:border-white/40'}`}>
+                <a href="#contact" className={`block text-center py-3 rounded-xl text-sm font-medium transition-colors duration-200 ${plan.popular ? 'bg-gray-900 text-white hover:bg-gray-700' : 'border border-stroke text-text-primary hover:border-gray-500'}`}>
                   {plan.name === 'Scale' ? 'Get a Quote' : 'Get Started'}
                 </a>
               </motion.div>
@@ -581,7 +581,7 @@ function FinalCTA() {
           <p className="text-muted text-base md:text-lg mb-10 max-w-lg mx-auto">
             Book a free 30-minute call. No obligation — just clear answers about your numbers, where you're overpaying, and what we'd do differently.
           </p>
-          <a href="#contact" className="inline-block bg-white text-black px-10 py-4 rounded-xl font-medium text-base hover:bg-gray-100 transition-colors duration-200">
+          <a href="#contact" className="inline-block bg-gray-900 text-white px-10 py-4 rounded-xl font-medium text-base hover:bg-gray-700 transition-colors duration-200">
             Book Your Free Call →
           </a>
         </motion.div>
@@ -606,7 +606,7 @@ function StarRow({ rating, size = 'sm' }: { rating: number; size?: 'sm' | 'md' }
   return (
     <div className={`flex gap-0.5 ${cls}`}>
       {[1, 2, 3, 4, 5].map(i => (
-        <span key={i} style={{ color: i <= rating ? '#FBBF24' : 'hsl(0 0% 25%)' }}>★</span>
+        <span key={i} style={{ color: i <= rating ? '#FBBF24' : 'hsl(0 0% 80%)' }}>★</span>
       ))}
     </div>
   )
@@ -666,13 +666,13 @@ function Reviews() {
                 <label className="text-xs text-muted uppercase tracking-[0.2em] mb-1 block">Your Name</label>
                 <input type="text" required value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
                   placeholder="Jane Doe"
-                  className="w-full bg-bg border border-stroke rounded-xl px-4 py-3 text-text-primary text-sm placeholder:text-muted/50 focus:outline-none focus:border-white/30 transition-colors" />
+                  className="w-full bg-bg border border-stroke rounded-xl px-4 py-3 text-text-primary text-sm placeholder:text-muted/50 focus:outline-none focus:border-gray-600 transition-colors" />
               </div>
               <div>
                 <label className="text-xs text-muted uppercase tracking-[0.2em] mb-1 block">Business / Role <span className="opacity-50 normal-case tracking-normal">(optional)</span></label>
                 <input type="text" value={form.role} onChange={e => setForm(f => ({ ...f, role: e.target.value }))}
                   placeholder="Founder, Acme Ltd"
-                  className="w-full bg-bg border border-stroke rounded-xl px-4 py-3 text-text-primary text-sm placeholder:text-muted/50 focus:outline-none focus:border-white/30 transition-colors" />
+                  className="w-full bg-bg border border-stroke rounded-xl px-4 py-3 text-text-primary text-sm placeholder:text-muted/50 focus:outline-none focus:border-gray-600 transition-colors" />
               </div>
               <div className="md:col-span-2">
                 <label className="text-xs text-muted uppercase tracking-[0.2em] mb-1 block">Rating</label>
@@ -680,7 +680,7 @@ function Reviews() {
                   {[1, 2, 3, 4, 5].map(n => (
                     <button key={n} type="button" onClick={() => setForm(f => ({ ...f, rating: n }))}
                       className="cursor-pointer transition-transform hover:scale-110"
-                      style={{ color: n <= form.rating ? '#FBBF24' : 'hsl(0 0% 25%)' }}
+                      style={{ color: n <= form.rating ? '#FBBF24' : 'hsl(0 0% 80%)' }}
                       aria-label={`${n} star${n > 1 ? 's' : ''}`}>★</button>
                   ))}
                 </div>
@@ -689,11 +689,11 @@ function Reviews() {
                 <label className="text-xs text-muted uppercase tracking-[0.2em] mb-1 block">Your Review</label>
                 <textarea required rows={4} value={form.quote} onChange={e => setForm(f => ({ ...f, quote: e.target.value }))}
                   placeholder="Tell us about your experience working with Alliance Street..."
-                  className="w-full bg-bg border border-stroke rounded-xl px-4 py-3 text-text-primary text-sm placeholder:text-muted/50 focus:outline-none focus:border-white/30 transition-colors resize-none" />
+                  className="w-full bg-bg border border-stroke rounded-xl px-4 py-3 text-text-primary text-sm placeholder:text-muted/50 focus:outline-none focus:border-gray-600 transition-colors resize-none" />
               </div>
               <div className="md:col-span-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <p className="text-xs text-muted">Reviews appear instantly here. We may also feature them on our marketing with your permission.</p>
-                <button type="submit" className="bg-white text-black px-8 py-3 rounded-xl font-medium text-sm hover:bg-gray-100 transition-colors duration-200 cursor-pointer">
+                <button type="submit" className="bg-gray-900 text-white px-8 py-3 rounded-xl font-medium text-sm hover:bg-gray-700 transition-colors duration-200 cursor-pointer">
                   {submitted ? 'Thanks — review posted ✓' : 'Submit Review'}
                 </button>
               </div>
@@ -741,18 +741,18 @@ function Contact() {
                       <label className="text-xs text-muted uppercase tracking-[0.2em] mb-1 block">{label}</label>
                       <input type={type} placeholder={placeholder} required value={form[key as keyof typeof form]}
                         onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))}
-                        className="w-full bg-bg border border-stroke rounded-xl px-4 py-3 text-text-primary text-sm placeholder:text-muted/50 focus:outline-none focus:border-white/30 transition-colors" />
+                        className="w-full bg-bg border border-stroke rounded-xl px-4 py-3 text-text-primary text-sm placeholder:text-muted/50 focus:outline-none focus:border-gray-600 transition-colors" />
                     </div>
                   ))}
                   <div>
                     <label className="text-xs text-muted uppercase tracking-[0.2em] mb-1 block">Business Type</label>
                     <select required value={form.type} onChange={e => setForm(f => ({ ...f, type: e.target.value }))}
-                      className="w-full bg-bg border border-stroke rounded-xl px-4 py-3 text-text-primary text-sm focus:outline-none focus:border-white/30 transition-colors">
+                      className="w-full bg-bg border border-stroke rounded-xl px-4 py-3 text-text-primary text-sm focus:outline-none focus:border-gray-600 transition-colors">
                       <option value="" disabled>Select your business type</option>
                       {['Startup', 'Agency', 'Freelancer', 'eCommerce', 'Other'].map(o => <option key={o}>{o}</option>)}
                     </select>
                   </div>
-                  <button type="submit" className="w-full bg-white text-black py-3 rounded-xl font-medium text-sm hover:bg-gray-100 transition-colors duration-200">Send Message</button>
+                  <button type="submit" className="w-full bg-gray-900 text-white py-3 rounded-xl font-medium text-sm hover:bg-gray-700 transition-colors duration-200">Send Message</button>
                 </form>
               )}
             </div>
@@ -772,7 +772,7 @@ function Footer() {
     return () => ctx.revert()
   }, [])
   return (
-    <footer className="bg-bg pt-16 md:pt-20 pb-8 md:pb-12 overflow-hidden relative">
+    <footer className="dark-section pt-16 md:pt-20 pb-8 md:pb-12 overflow-hidden relative">
       <div className="absolute inset-0 overflow-hidden">
         <HLSVideo src={HLS_SRC} autoPlay muted loop playsInline
           className="absolute top-1/2 left-1/2 min-w-full min-h-full object-cover"

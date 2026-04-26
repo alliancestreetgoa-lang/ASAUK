@@ -5,11 +5,11 @@
   --font-body: 'Inter', sans-serif;
   --font-display: 'Instrument Serif', serif;
 
-  --color-bg: hsl(0 0% 2%);
-  --color-surface: hsl(0 0% 12%);
-  --color-text-primary: hsl(0 0% 95%);
-  --color-muted: hsl(0 0% 60%);
-  --color-stroke: hsl(0 0% 18%);
+  --color-bg: #ffffff;
+  --color-surface: #f4f4f6;
+  --color-text-primary: hsl(0 0% 8%);
+  --color-muted: hsl(0 0% 42%);
+  --color-stroke: hsl(0 0% 87%);
   --color-accent: #E40014;
 
   --animate-scroll-down: scroll-down 1.5s ease-in-out infinite;
@@ -40,8 +40,8 @@ html { scroll-behavior: smooth; }
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background: hsl(0 0% 2%);
-  color: hsl(0 0% 95%);
+  background: #ffffff;
+  color: hsl(0 0% 8%);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -74,4 +74,14 @@ body {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
+}
+
+.dark-section {
+  background: hsl(0 0% 2%);
+  color: hsl(0 0% 95%);
+  --color-bg: hsl(0 0% 2%);
+  --color-surface: hsl(0 0% 12%);
+  --color-text-primary: hsl(0 0% 95%);
+  --color-muted: hsl(0 0% 60%);
+  --color-stroke: hsl(0 0% 18%);
 }
