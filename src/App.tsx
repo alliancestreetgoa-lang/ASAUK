@@ -172,72 +172,47 @@ function AnimatedHeading({ text, className = '' }: { text: string; className?: s
 const NAV_LINKS = ['Services', 'Pricing', 'About', 'Contact']
 
 function Hero() {
+  const [taxHov, setTaxHov] = useState(false)
   return (
     <section id="home" className="relative h-screen flex flex-col overflow-hidden">
-      {/* Video background */}
       <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" src={HERO_VIDEO} />
-      {/* Dark + red radial gradient overlay matching reference */}
-      <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 0% 0%, rgba(228,0,20,0.55) 0%, rgba(5,5,5,0.88) 55%)' }} />
-      <div className="absolute inset-0 bg-black/40" />
-
-      {/* Dark nav bar */}
-      <div className="relative z-10 px-5 md:px-10 lg:px-14 pt-5">
-        <nav className="flex items-center justify-between">
-          <a href="#home" className="flex items-center">
-            <img src={LOGO_URL} alt="Alliance Street Accountancy Ltd" className="h-11 md:h-13 w-auto object-contain" />
-          </a>
-          <div className="hidden md:flex items-center gap-2">
+      <div className="relative z-10 px-6 md:px-12 lg:px-16 pt-6">
+        <nav className="liquid-glass rounded-xl px-4 py-2 flex items-center justify-between">
+          <a href="#home" className="flex items-center"><img src={LOGO_URL} alt="Alliance Street Accountancy Ltd" className="h-12 md:h-14 w-auto object-contain" /></a>
+          <div className="hidden md:flex items-center gap-8">
             {NAV_LINKS.map(link => (
-              <a key={link} href={`#${link.toLowerCase()}`}
-                className="text-sm text-gray-300 hover:text-white border border-white/25 rounded-full px-4 py-1.5 transition-all duration-200 hover:border-white/50">
-                {link}
-              </a>
+              <a key={link} href={`#${link.toLowerCase()}`} className="text-sm text-white hover:text-gray-300 transition-colors duration-200">{link}</a>
             ))}
           </div>
-          <a href="#contact"
-            className="bg-white text-black px-5 py-2 rounded-full text-sm font-semibold hover:bg-gray-100 transition-colors duration-200 cursor-pointer">
-            Get in Touch
-          </a>
+          <a href="#contact" className="bg-white text-black px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors duration-200 cursor-pointer">Book Free Call</a>
         </nav>
       </div>
-
-      {/* White hero card */}
-      <div className="relative z-10 flex-1 flex flex-col justify-end px-5 md:px-10 lg:px-14">
-        <div className="bg-white rounded-t-[2rem] px-8 md:px-14 pt-10 md:pt-14 pb-0 shadow-2xl">
-          <div className="lg:grid lg:grid-cols-2 lg:gap-10 lg:items-start">
-            <div>
-              <AnimatedHeading
-                text={"UK Accounting Built\nAround Your Growth"}
-                className="text-4xl md:text-5xl lg:text-6xl xl:text-[4.5rem] font-bold text-gray-900 mb-5 leading-[1.05]"
-              />
-              <FadeIn delay={800} duration={1000}>
-                <p className="text-base md:text-lg text-gray-500 mb-8 max-w-lg leading-relaxed">
-                  Fixed monthly pricing, a dedicated UK accountant, and proactive tax planning — for limited companies, agencies, and freelancers who'd rather build a business than chase HMRC.
-                </p>
-              </FadeIn>
-              <FadeIn delay={1200} duration={1000}>
-                <div className="flex flex-wrap items-center gap-5 mb-10">
-                  <a href="#contact"
-                    className="bg-gray-900 text-white px-8 py-3.5 rounded-full font-semibold hover:bg-gray-700 transition-colors text-sm">
-                    Book Free Consultation
-                  </a>
-                  <a href="#services"
-                    className="text-gray-700 font-medium text-sm hover:text-gray-900 transition-colors flex items-center gap-1.5">
-                    Our services <span>→</span>
-                  </a>
-                </div>
-              </FadeIn>
-            </div>
-            <FadeIn delay={1400} duration={1000} className="hidden lg:flex items-start justify-end pt-4">
-              <div className="text-right">
-                <p className="text-xs uppercase tracking-[0.25em] text-gray-400 mb-2">Trusted by UK businesses</p>
-                <p className="text-4xl font-light text-gray-900" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>200+ clients</p>
-                <p className="text-sm text-gray-500 mt-1">4.9 / 5 average rating</p>
+      <div className="relative z-10 flex-1 flex flex-col justify-end px-6 md:px-12 lg:px-16 pb-12 lg:pb-16">
+        <div className="lg:grid lg:grid-cols-2 lg:items-end">
+          <div>
+            <AnimatedHeading text={"UK Accounting Built\nAround Your Growth"} className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal text-white mb-4" />
+            <FadeIn delay={800} duration={1000}>
+              <p className="text-base md:text-lg text-gray-300 mb-5">
+                Fixed monthly pricing, a dedicated UK accountant, and proactive tax planning — for limited companies, agencies, and freelancers who'd rather build a business than chase HMRC.
+              </p>
+            </FadeIn>
+            <FadeIn delay={1200} duration={1000}>
+              <div className="flex flex-wrap gap-4">
+                <a href="#contact" className="bg-white text-black px-8 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors">Book Free Consultation</a>
+                <button
+                  className="liquid-glass border border-white/20 text-white px-8 py-3 rounded-lg font-medium cursor-pointer transition-all duration-200"
+                  style={{ backgroundColor: taxHov ? 'white' : undefined, color: taxHov ? 'black' : undefined }}
+                  onMouseEnter={() => setTaxHov(true)} onMouseLeave={() => setTaxHov(false)}>
+                  Get Free Tax Review
+                </button>
               </div>
             </FadeIn>
           </div>
-          {/* Red/dark bar at bottom of card — matches reference */}
-          <div className="mt-8 h-10 rounded-t-lg mx-0" style={{ background: 'linear-gradient(90deg, #111111 0%, #7a0009 50%, #E40014 100%)' }} />
+          <FadeIn delay={1400} duration={1000} className="flex items-end justify-start lg:justify-end mt-8 lg:mt-0">
+            <div className="liquid-glass border border-white/20 px-6 py-3 rounded-xl">
+              <p className="text-lg md:text-xl lg:text-2xl font-light text-white">Fixed pricing · Dedicated expert · No long contracts</p>
+            </div>
+          </FadeIn>
         </div>
       </div>
     </section>
