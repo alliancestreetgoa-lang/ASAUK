@@ -2,11 +2,9 @@ import { useEffect, useRef, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import Hls from 'hls.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const HLS_SRC = 'https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8'
 const HERO_VIDEO = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4'
 const ACCENT = 'linear-gradient(90deg, #E40014 0%, #FB2C36 100%)'
 const LOGO_URL = '/logo.png?v=red'
@@ -20,22 +18,6 @@ function SectionBg({ src, opacity = 0.28, position = 'right' }: { src: string; o
       <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(255,255,255,0.65) 0%, transparent 50%, rgba(255,255,255,0.2) 100%)' }} />
     </div>
   )
-}
-
-function HLSVideo({ src, className, style, ...props }: React.VideoHTMLAttributes<HTMLVideoElement> & { src: string }) {
-  const ref = useRef<HTMLVideoElement>(null)
-  useEffect(() => {
-    const v = ref.current; if (!v) return
-    if (Hls.isSupported()) {
-      const hls = new Hls()
-      hls.loadSource(src); hls.attachMedia(v)
-      hls.on(Hls.Events.MANIFEST_PARSED, () => v.play().catch(() => {}))
-      return () => hls.destroy()
-    } else if (v.canPlayType('application/vnd.apple.mpegurl')) {
-      v.src = src; v.play().catch(() => {})
-    }
-  }, [src])
-  return <video ref={ref} className={className} style={style} {...props} />
 }
 
 interface ModalData { title: string; tag?: string; img?: string; body: React.ReactNode }
