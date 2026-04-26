@@ -782,7 +782,7 @@ function Footer() {
         <div className="overflow-hidden mb-12 md:mb-20" ref={marqueeRef}>
           <div className="marquee-inner whitespace-nowrap inline-flex">
             {Array(20).fill('UK ACCOUNTANT · BOOKKEEPING · VAT SERVICES · TAX PLANNING · CORPORATION TAX · PAYROLL · MTD COMPLIANT · ').map((text, i) => (
-              <span key={i} className="text-3xl md:text-5xl lg:text-7xl text-text-primary/10 pr-8" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{text}</span>
+              <span key={i} className="text-3xl md:text-5xl lg:text-7xl pr-8" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic', color: '#E40014' }}>{text}</span>
             ))}
           </div>
         </div>
