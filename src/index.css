@@ -5,12 +5,12 @@
   --font-body: 'Inter', sans-serif;
   --font-display: 'Instrument Serif', serif;
 
-  --color-bg: hsl(0 0% 6%);
-  --color-surface: hsl(0 0% 13%);
-  --color-text-primary: hsl(0 0% 100%);
-  --color-muted: hsl(0 0% 78%);
-  --color-stroke: hsl(0 0% 22%);
-  --color-accent: #FBBF24;
+  --color-bg: hsl(0 0% 2%);
+  --color-surface: hsl(0 0% 12%);
+  --color-text-primary: hsl(0 0% 95%);
+  --color-muted: hsl(0 0% 60%);
+  --color-stroke: hsl(0 0% 18%);
+  --color-accent: #E40014;
 
   --animate-scroll-down: scroll-down 1.5s ease-in-out infinite;
   --animate-role-fade-in: role-fade-in 0.4s ease-out;
@@ -40,14 +40,14 @@ html { scroll-behavior: smooth; }
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background: hsl(0 0% 6%);
-  color: hsl(0 0% 100%);
+  background: hsl(0 0% 2%);
+  color: hsl(0 0% 95%);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .accent-gradient {
-  background: linear-gradient(90deg, #FBBF24 0%, #F59E0B 100%);
+  background: linear-gradient(90deg, #E40014 0%, #FB2C36 100%);
 }
 
 .liquid-glass {

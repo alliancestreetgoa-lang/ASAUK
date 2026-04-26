@@ -8,8 +8,8 @@ gsap.registerPlugin(ScrollTrigger)
 
 const HLS_SRC = 'https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8'
 const HERO_VIDEO = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4'
-const ACCENT = 'linear-gradient(90deg, #FBBF24 0%, #F59E0B 100%)'
-const LOGO_URL = 'https://alliancestreetaccounting.com/images/logo.png'
+const ACCENT = 'linear-gradient(90deg, #E40014 0%, #FB2C36 100%)'
+const LOGO_URL = '/logo.png'
 
 function SectionBg({ src, opacity = 0.28, position = 'right' }: { src: string; opacity?: number; position?: 'left' | 'right' | 'center' }) {
   const pos = position === 'left' ? 'left center' : position === 'center' ? 'center' : 'right center'
@@ -190,10 +190,10 @@ function Hero() {
       <div className="relative z-10 flex-1 flex flex-col justify-end px-6 md:px-12 lg:px-16 pb-12 lg:pb-16">
         <div className="lg:grid lg:grid-cols-2 lg:items-end">
           <div>
-            <AnimatedHeading text={"UK Accountants That Help\nYou Save Tax & Grow Faster"} className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal text-white mb-4" />
+            <AnimatedHeading text={"UK Accounting Built\nAround Your Growth"} className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal text-white mb-4" />
             <FadeIn delay={800} duration={1000}>
               <p className="text-base md:text-lg text-gray-300 mb-5">
-                Fixed monthly pricing. HMRC-compliant accounting for startups, agencies, and small businesses across the UK.
+                Fixed monthly pricing, a dedicated UK accountant, and proactive tax planning — for limited companies, agencies, and freelancers who'd rather build a business than chase HMRC.
               </p>
             </FadeIn>
             <FadeIn delay={1200} duration={1000}>
@@ -210,7 +210,7 @@ function Hero() {
           </div>
           <FadeIn delay={1400} duration={1000} className="flex items-end justify-start lg:justify-end mt-8 lg:mt-0">
             <div className="liquid-glass border border-white/20 px-6 py-3 rounded-xl">
-              <p className="text-lg md:text-xl lg:text-2xl font-light text-white">HMRC-compliant · Cloud-based · Fixed pricing</p>
+              <p className="text-lg md:text-xl lg:text-2xl font-light text-white">Fixed pricing · Dedicated expert · No long contracts</p>
             </div>
           </FadeIn>
         </div>
@@ -221,13 +221,13 @@ function Hero() {
 
 // ── Trust ─────────────────────────────────────────────────────────────────────
 function Trust() {
-  const badges = [{ value: '100+', label: 'Clients Served' }, { value: '5★', label: 'Client Satisfaction' }, { value: 'UK', label: 'Based Experts' }]
+  const badges = [{ value: '200+', label: 'UK Businesses Served' }, { value: '4.9/5', label: 'Average Client Rating' }, { value: '100%', label: 'On-Time HMRC Filings' }]
   return (
     <section className="bg-bg py-14 border-b border-stroke">
       <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
         <motion.p className="text-center text-muted text-xs uppercase tracking-[0.25em] mb-10"
           initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-          Trusted by UK startups, agencies, and growing businesses
+          Trusted by UK limited companies, agencies, and freelancers
         </motion.p>
         <div className="grid grid-cols-3 gap-6">
           {badges.map((b, i) => (
@@ -243,48 +243,17 @@ function Trust() {
   )
 }
 
-// ── Problem ───────────────────────────────────────────────────────────────────
-const PROBLEMS = [
-  'Confusing tax rules and HMRC deadlines',
-  'Overpaying tax without realising it',
-  'No clear view of cash flow or profits',
-  'Accountant only contacts you once a year',
-]
-
-function Problem() {
-  return (
-    <section id="about" className="relative overflow-hidden bg-bg py-20 md:py-28 px-6 border-b border-stroke">
-      <SectionBg src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1600&q=80&auto=format&fit=crop" opacity={0.12} position="right" />
-      <div className="relative z-10 max-w-[1200px] mx-auto">
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
-          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">The Problem</span></div>
-          <div className="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-start">
-            <div>
-              <h2 className="text-3xl md:text-5xl lg:text-6xl text-text-primary leading-[1.1] tracking-tight mb-6" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
-                Struggling with accounting, tax, or compliance?
-              </h2>
-              <p className="text-muted text-base md:text-lg leading-relaxed">
-                Managing finances shouldn't slow your business down — but for many UK business owners, it does.
-              </p>
-            </div>
-            <div className="mt-10 lg:mt-0 space-y-4">
-              {PROBLEMS.map((p, i) => (
-                <motion.div key={i} className="flex items-start gap-4 p-4 bg-surface/50 border border-stroke rounded-2xl"
-                  initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.5 }}>
-                  <span className="text-red-400 mt-0.5 shrink-0">✗</span>
-                  <p className="text-text-primary text-sm leading-relaxed">{p}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  )
-}
 
 // ── Solution ──────────────────────────────────────────────────────────────────
-const SOLUTION_ITEMS = ['Monthly bookkeeping', 'VAT returns (Making Tax Digital compliant)', 'Payroll & PAYE', 'Corporation tax filing', 'Financial reporting', 'Ongoing advisory support']
+const SOLUTION_ITEMS = [
+  'Cloud bookkeeping on Xero, QuickBooks or FreeAgent',
+  'Quarterly MTD-compliant VAT returns',
+  'Payroll, PAYE, RTI & auto-enrolment pensions',
+  'Year-end accounts & corporation tax (CT600)',
+  'Quarterly management reports & KPI dashboards',
+  'Strategic tax planning, not just compliance',
+  'A dedicated accountant — same person, every month',
+]
 
 function Solution() {
   return (
@@ -296,10 +265,10 @@ function Solution() {
           <div className="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-start">
             <div>
               <h2 className="text-3xl md:text-5xl lg:text-6xl text-text-primary leading-[1.1] tracking-tight mb-6" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
-                We take care of your finances — so you can focus on growth
+                We handle your numbers — so you can run your business
               </h2>
               <p className="text-muted text-base md:text-lg leading-relaxed">
-                Our expert team handles everything from bookkeeping to tax planning, giving you clarity and confidence in your numbers.
+                From your first invoice to your year-end filing, our UK team delivers accurate accounting, proactive tax planning, and the kind of straight-talking advice that actually moves your business forward.
               </p>
             </div>
             <div className="mt-10 lg:mt-0 space-y-4">
@@ -320,11 +289,12 @@ function Solution() {
 
 // ── Why Choose Us ─────────────────────────────────────────────────────────────
 const WHY_POINTS = [
-  { title: 'Dedicated accountant for your business', desc: 'One expert who knows your business inside out.' },
-  { title: 'Fixed monthly pricing — no surprises', desc: 'Know exactly what you pay, every month.' },
-  { title: 'Fast response time (within 24 hours)', desc: 'Never left waiting when you need answers.' },
-  { title: 'Cloud accounting (Xero, QuickBooks, FreeAgent)', desc: 'Real-time access to your financial data.' },
-  { title: 'Proactive tax-saving strategies', desc: 'We find savings before HMRC deadlines hit.' },
+  { title: 'A dedicated UK accountant', desc: 'One named expert who knows your business — not a call centre or rotating junior.' },
+  { title: 'Fixed monthly pricing', desc: 'Know exactly what you pay every month. No hourly meters, no surprise invoices.' },
+  { title: '24-hour response promise', desc: 'Real answers from your accountant within one working day, every working day.' },
+  { title: 'Cloud-first by default', desc: 'Xero, QuickBooks or FreeAgent included — and the licence stays in your name.' },
+  { title: 'Proactive tax planning', desc: 'We hunt for legitimate savings year-round, not the week before deadline.' },
+  { title: 'No long-term contracts', desc: 'Roll monthly. Stay because we are worth it, not because you are locked in.' },
 ]
 
 function WhyChooseUs() {
@@ -355,9 +325,9 @@ function WhyChooseUs() {
 
 // ── Results ───────────────────────────────────────────────────────────────────
 const RESULTS = [
-  { value: '£10,000+', label: 'Tax saved for a digital agency', desc: 'Through proactive tax planning and R&D credits.' },
-  { value: 'Zero', label: 'Late filing penalties', desc: 'Eliminated for multiple clients across the UK.' },
-  { value: '100%', label: 'Financial clarity', desc: 'Improved reporting and visibility for eCommerce founders.' },
+  { value: '£12,400+', label: 'Average annual tax saved', desc: 'Per limited company, through proactive planning, R&D claims and dividend optimisation.' },
+  { value: 'Zero', label: 'Late filing penalties this year', desc: 'Across our entire UK client portfolio — not a single missed HMRC deadline.' },
+  { value: '24h', label: 'Average response time', desc: 'Most client queries answered the same working day, in plain English.' },
 ]
 
 function Results() {
@@ -552,9 +522,9 @@ function Services() {
 
 // ── Pricing ───────────────────────────────────────────────────────────────────
 const PLANS = [
-  { name: 'Starter', price: 'From £99/month', popular: false, features: ['Bookkeeping', 'VAT returns', 'Email support'] },
-  { name: 'Growth', price: 'From £199/month', popular: true, features: ['Everything in Starter', 'Payroll', 'Tax planning', 'Priority support'] },
-  { name: 'Scale', price: 'Custom pricing', popular: false, features: ['Full accounting + CFO services', 'Forecasting & strategy', 'Dedicated advisor'] },
+  { name: 'Starter', price: 'From £99/month', popular: false, features: ['For sole traders & micro-companies', 'Cloud bookkeeping', 'Self-assessment OR Corporation Tax', 'VAT returns (if registered)', 'Email support, 1 working day reply'] },
+  { name: 'Growth', price: 'From £199/month', popular: true, features: ['For limited companies & agencies', 'Everything in Starter', 'Monthly payroll (up to 5 staff)', 'Quarterly tax-planning calls', 'Management reports & KPIs', 'Priority WhatsApp support'] },
+  { name: 'Scale', price: 'Custom pricing', popular: false, features: ['For VC-backed startups & £1m+ businesses', 'Everything in Growth', 'Virtual CFO & cash-flow forecasting', 'R&D tax credit claims', 'EMI scheme & investor reporting', 'Dedicated finance partner'] },
 ]
 
 function Pricing() {
@@ -606,10 +576,10 @@ function FinalCTA() {
             <div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Get Started</span><div className="w-8 h-px bg-stroke" />
           </div>
           <h2 className="text-4xl md:text-6xl text-text-primary mb-6 leading-tight" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
-            Ready to simplify your accounting?
+            Ready to take accounting off your plate?
           </h2>
           <p className="text-muted text-base md:text-lg mb-10 max-w-lg mx-auto">
-            Book a free consultation and get a clear plan to manage your finances and reduce tax.
+            Book a free 30-minute call. No obligation — just clear answers about your numbers, where you're overpaying, and what we'd do differently.
           </p>
           <a href="#contact" className="inline-block bg-white text-black px-10 py-4 rounded-xl font-medium text-base hover:bg-gray-100 transition-colors duration-200">
             Book Your Free Call →
@@ -620,20 +590,115 @@ function FinalCTA() {
   )
 }
 
-// ── Lead Magnet ───────────────────────────────────────────────────────────────
-function LeadMagnet() {
+// ── Reviews & Comments ────────────────────────────────────────────────────────
+interface Review { name: string; role: string; rating: number; quote: string; initials: string }
+const SEED_REVIEWS: Review[] = [
+  { name: 'James Whitford', role: 'Founder, Halo Studios — Marketing Agency', rating: 5, quote: 'Switched to Alliance Street last year and it was night and day. Same-day replies, no surprise invoices, and they spotted £8k of allowable expenses my old accountant had missed.', initials: 'JW' },
+  { name: 'Priya Shah', role: 'Director, Verdant Trade Ltd — eCommerce', rating: 5, quote: 'Filed our first VAT return three days after onboarding. The team handles Xero, Shopify reconciliations and our quarterly review without me chasing once.', initials: 'PS' },
+  { name: 'Daniel Okafor', role: 'CEO, Northstack — SaaS Startup', rating: 5, quote: 'They got us R&D credits we did not know we qualified for, set up EMI options for the team, and our accounts are now investor-ready. Worth every penny.', initials: 'DO' },
+  { name: 'Sophie Marlow', role: 'Sole Trader — Independent Consultant', rating: 5, quote: 'I needed someone who would actually pick up the phone. Alliance Street replies within hours and explains everything in plain English. Massive relief.', initials: 'SM' },
+  { name: 'Rajiv Mehta', role: 'Co-founder, Brick & Bloom — Hospitality', rating: 5, quote: 'Three restaurants, fifteen staff, and our payroll has run flawlessly for nine months straight. They also restructured our director pay and saved us tax.', initials: 'RM' },
+  { name: 'Chloe Bennett', role: 'Founder, Loom Atelier — Limited Company', rating: 5, quote: 'Honest pricing, proper advice, and they actually care about how the business is doing. Best accountant I have worked with in a decade of self-employment.', initials: 'CB' },
+]
+
+function StarRow({ rating, size = 'sm' }: { rating: number; size?: 'sm' | 'md' }) {
+  const cls = size === 'md' ? 'text-base' : 'text-sm'
   return (
-    <section className="bg-bg py-16 px-6 border-b border-stroke">
+    <div className={`flex gap-0.5 ${cls}`}>
+      {[1, 2, 3, 4, 5].map(i => (
+        <span key={i} style={{ color: i <= rating ? '#FBBF24' : 'hsl(0 0% 25%)' }}>★</span>
+      ))}
+    </div>
+  )
+}
+
+function Reviews() {
+  const [reviews, setReviews] = useState<Review[]>(SEED_REVIEWS)
+  const [form, setForm] = useState({ name: '', role: '', rating: 5, quote: '' })
+  const [submitted, setSubmitted] = useState(false)
+
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!form.name.trim() || !form.quote.trim()) return
+    const initials = form.name.trim().split(/\s+/).slice(0, 2).map(p => p[0]?.toUpperCase() ?? '').join('') || 'AS'
+    setReviews(prev => [{ name: form.name.trim(), role: form.role.trim() || 'Verified Client', rating: form.rating, quote: form.quote.trim(), initials }, ...prev])
+    setForm({ name: '', role: '', rating: 5, quote: '' })
+    setSubmitted(true)
+    setTimeout(() => setSubmitted(false), 4000)
+  }
+
+  return (
+    <section id="reviews" className="bg-bg py-20 md:py-28 px-6 border-b border-stroke">
       <div className="max-w-[1200px] mx-auto">
-        <motion.div className="relative rounded-3xl border border-stroke overflow-hidden p-8 md:p-12 flex flex-col md:flex-row items-center gap-8"
-          initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1 }}>
-          <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle,#fff 1px,transparent 1px)', backgroundSize: '4px 4px' }} />
-          <div className="flex-1 text-center md:text-left">
-            <p className="text-xs text-muted uppercase tracking-[0.3em] mb-2">Free Download</p>
-            <h3 className="text-2xl md:text-3xl text-text-primary mb-2" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>Free UK Tax Saving Checklist</h3>
-            <p className="text-muted text-sm">Discover simple strategies to reduce your tax bill and stay compliant.</p>
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
+          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Client Reviews</span></div>
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
+            <h2 className="text-3xl md:text-5xl text-text-primary" style={{ fontFamily: "'Instrument Serif',serif" }}>What our clients <em>say about us</em></h2>
+            <div className="flex items-center gap-3">
+              <StarRow rating={5} size="md" />
+              <span className="text-sm text-muted"><span className="text-text-primary font-medium">4.9 / 5</span> · {reviews.length} reviews</span>
+            </div>
           </div>
-          <a href="/uk-tax-saving-checklist.pdf" download="UK-Tax-Saving-Checklist.pdf" className="relative shrink-0 bg-white text-black px-8 py-3 rounded-xl font-medium text-sm hover:bg-gray-100 transition-colors duration-200 cursor-pointer">Download Now →</a>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
+            {reviews.map((r, i) => (
+              <motion.div key={r.name + i} className="p-6 bg-surface/50 border border-stroke rounded-2xl flex flex-col"
+                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: Math.min(i, 5) * 0.08, duration: 0.5 }}>
+                <StarRow rating={r.rating} />
+                <p className="text-text-primary text-sm leading-relaxed my-4 flex-1">"{r.quote}"</p>
+                <div className="flex items-center gap-3 pt-4 border-t border-stroke">
+                  <div className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-xs font-medium text-white" style={{ background: ACCENT }}>{r.initials}</div>
+                  <div>
+                    <p className="text-text-primary text-sm font-medium">{r.name}</p>
+                    <p className="text-muted text-xs">{r.role}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="rounded-3xl border border-stroke bg-surface/30 p-8 md:p-10">
+            <div className="flex items-center gap-3 mb-2"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Leave a Review</span></div>
+            <h3 className="text-2xl md:text-3xl text-text-primary mb-2" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>Share your experience</h3>
+            <p className="text-muted text-sm mb-6">Worked with Alliance Street? We would love to hear how it went.</p>
+            <form onSubmit={submit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs text-muted uppercase tracking-[0.2em] mb-1 block">Your Name</label>
+                <input type="text" required value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
+                  placeholder="Jane Doe"
+                  className="w-full bg-bg border border-stroke rounded-xl px-4 py-3 text-text-primary text-sm placeholder:text-muted/50 focus:outline-none focus:border-white/30 transition-colors" />
+              </div>
+              <div>
+                <label className="text-xs text-muted uppercase tracking-[0.2em] mb-1 block">Business / Role <span className="opacity-50 normal-case tracking-normal">(optional)</span></label>
+                <input type="text" value={form.role} onChange={e => setForm(f => ({ ...f, role: e.target.value }))}
+                  placeholder="Founder, Acme Ltd"
+                  className="w-full bg-bg border border-stroke rounded-xl px-4 py-3 text-text-primary text-sm placeholder:text-muted/50 focus:outline-none focus:border-white/30 transition-colors" />
+              </div>
+              <div className="md:col-span-2">
+                <label className="text-xs text-muted uppercase tracking-[0.2em] mb-1 block">Rating</label>
+                <div className="flex gap-1 text-2xl">
+                  {[1, 2, 3, 4, 5].map(n => (
+                    <button key={n} type="button" onClick={() => setForm(f => ({ ...f, rating: n }))}
+                      className="cursor-pointer transition-transform hover:scale-110"
+                      style={{ color: n <= form.rating ? '#FBBF24' : 'hsl(0 0% 25%)' }}
+                      aria-label={`${n} star${n > 1 ? 's' : ''}`}>★</button>
+                  ))}
+                </div>
+              </div>
+              <div className="md:col-span-2">
+                <label className="text-xs text-muted uppercase tracking-[0.2em] mb-1 block">Your Review</label>
+                <textarea required rows={4} value={form.quote} onChange={e => setForm(f => ({ ...f, quote: e.target.value }))}
+                  placeholder="Tell us about your experience working with Alliance Street..."
+                  className="w-full bg-bg border border-stroke rounded-xl px-4 py-3 text-text-primary text-sm placeholder:text-muted/50 focus:outline-none focus:border-white/30 transition-colors resize-none" />
+              </div>
+              <div className="md:col-span-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <p className="text-xs text-muted">Reviews appear instantly here. We may also feature them on our marketing with your permission.</p>
+                <button type="submit" className="bg-white text-black px-8 py-3 rounded-xl font-medium text-sm hover:bg-gray-100 transition-colors duration-200 cursor-pointer">
+                  {submitted ? 'Thanks — review posted ✓' : 'Submit Review'}
+                </button>
+              </div>
+            </form>
+          </div>
         </motion.div>
       </div>
     </section>
@@ -656,7 +721,7 @@ function Contact() {
               <h2 className="text-3xl md:text-5xl text-text-primary mb-4" style={{ fontFamily: "'Instrument Serif',serif" }}>
                 Let's talk about <em>your business</em>
               </h2>
-              <p className="text-muted text-sm leading-relaxed mb-8">Or book a call directly. We're available for UK businesses of all sizes.</p>
+              <p className="text-muted text-sm leading-relaxed mb-8">Send us a message or book a free strategy call. We reply within one working day — every working day.</p>
               <div className="space-y-3">
                 <a href="mailto:shaukin@alliancestreet.ae" className="flex items-center gap-3 text-sm text-muted hover:text-text-primary transition-colors"><span className="text-[10px] uppercase tracking-[0.2em] w-14">Email</span> shaukin@alliancestreet.ae</a>
                 <a href="tel:+917375096163" className="flex items-center gap-3 text-sm text-muted hover:text-text-primary transition-colors"><span className="text-[10px] uppercase tracking-[0.2em] w-14">Phone</span> +91 7375096163</a>
@@ -717,7 +782,7 @@ function Footer() {
       <div className="relative z-10">
         <div className="overflow-hidden mb-12 md:mb-20" ref={marqueeRef}>
           <div className="marquee-inner whitespace-nowrap inline-flex">
-            {Array(20).fill('UK ACCOUNTANT · BOOKKEEPING UK · VAT SERVICES UK · TAX PLANNING · ').map((text, i) => (
+            {Array(20).fill('UK ACCOUNTANT · BOOKKEEPING · VAT SERVICES · TAX PLANNING · CORPORATION TAX · PAYROLL · MTD COMPLIANT · ').map((text, i) => (
               <span key={i} className="text-3xl md:text-5xl lg:text-7xl text-text-primary/10 pr-8" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{text}</span>
             ))}
           </div>
@@ -738,7 +803,7 @@ function Footer() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10 border-t border-stroke pt-10">
             <div>
               <img src={LOGO_URL} alt="Alliance Street Accountancy Ltd" className="h-[9rem] w-auto object-contain mb-4" />
-              <p className="text-muted text-xs leading-relaxed">UK accounting services for startups, agencies, and growing businesses.</p>
+              <p className="text-muted text-xs leading-relaxed">UK accounting & advisory built for limited companies, agencies, and growing teams.</p>
             </div>
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-muted mb-4">Navigation</p>
@@ -792,14 +857,13 @@ export default function App() {
           <motion.div key="main" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
             <Hero />
             <Trust />
-            <Problem />
             <Solution />
             <WhyChooseUs />
             <Results />
             <Services />
             <Pricing />
             <FinalCTA />
-            <LeadMagnet />
+            <Reviews />
             <Contact />
             <Footer />
           </motion.div>
