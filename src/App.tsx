@@ -724,7 +724,6 @@ function Contact() {
               <p className="text-muted text-sm leading-relaxed mb-8">Send us a message or book a free strategy call. We reply within one working day — every working day.</p>
               <div className="space-y-3">
                 <a href="mailto:Accounts@alliancestreet.co.uk" className="flex items-center gap-3 text-sm text-muted hover:text-text-primary transition-colors"><span className="text-[10px] uppercase tracking-[0.2em] w-14">Email</span> Accounts@alliancestreet.co.uk</a>
-                <a href="tel:+917375096163" className="flex items-center gap-3 text-sm text-muted hover:text-text-primary transition-colors"><span className="text-[10px] uppercase tracking-[0.2em] w-14">Phone</span> +91 7375096163</a>
                 <p className="flex items-start gap-3 text-sm text-muted"><span className="text-[10px] uppercase tracking-[0.2em] w-14 shrink-0 mt-1">Office</span> Pine Tree House, Gardiners Close,<br />Basildon, Essex, England, SS14 3AN</p>
               </div>
             </div>
@@ -797,7 +796,7 @@ function Footer() {
               Accounts@alliancestreet.co.uk
             </a>
           </div>
-          <p className="text-muted text-sm mt-4">+91 7375096163 · Serving UK businesses nationwide</p>
+          <p className="text-muted text-sm mt-4">Serving UK businesses nationwide</p>
         </div>
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10 border-t border-stroke pt-10">
@@ -825,7 +824,6 @@ function Footer() {
               <p className="text-xs uppercase tracking-[0.2em] text-muted mb-4">Contact</p>
               <ul className="space-y-2 text-muted text-xs">
                 <li>Accounts@alliancestreet.co.uk</li>
-                <li>+91 7375096163</li>
                 <li className="leading-relaxed">Pine Tree House, Gardiners Close, Basildon, Essex, England, SS14 3AN</li>
               </ul>
             </div>
