@@ -767,7 +767,7 @@ function Footer() {
   const marqueeRef = useRef<HTMLDivElement>(null)
   const [emailHov, setEmailHov] = useState(false)
   useEffect(() => {
-    const ctx = gsap.context(() => { gsap.to('.marquee-inner', { xPercent: -50, duration: 120, ease: 'none', repeat: -1 }) }, marqueeRef)
+    const ctx = gsap.context(() => { gsap.to('.marquee-inner', { xPercent: -50, duration: 300, ease: 'none', repeat: -1 }) }, marqueeRef)
     return () => ctx.revert()
   }, [])
   return (
