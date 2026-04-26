@@ -50,6 +50,14 @@ body {
   background: linear-gradient(90deg, #E40014 0%, #FB2C36 100%);
 }
 
+em {
+  background: linear-gradient(90deg, #E40014 0%, #FB2C36 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
 .liquid-glass {
   background: rgba(0, 0, 0, 0.4);
   background-blend-mode: luminosity;
