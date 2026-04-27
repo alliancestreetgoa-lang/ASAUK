@@ -169,7 +169,7 @@ function Hero() {
           <a href="#home" className="flex items-center"><img src={LOGO_URL} alt="Alliance Street Accountancy Ltd" className="h-20 md:h-24 w-auto object-contain" /></a>
           <div className="hidden md:flex items-center gap-8">
             {NAV_LINKS.map(link => (
-              <a key={link} href={`#${link.toLowerCase()}`} className="text-sm text-white hover:text-gray-300 transition-colors duration-200">{link}</a>
+              <a key={link} href={`#${link.toLowerCase()}`} className="text-base md:text-lg font-bold text-white hover:text-gray-300 transition-colors duration-200">{link}</a>
             ))}
           </div>
           <a href="#contact" className="bg-white text-black px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors duration-200 cursor-pointer">Book Free Call</a>
