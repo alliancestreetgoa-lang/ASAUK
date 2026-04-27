@@ -82,7 +82,7 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
   }, [])
   return (
     <motion.div className="fixed inset-0 z-[9999] flex flex-col overflow-hidden" style={{ background: 'hsl(0 0% 2%)' }} exit={{ opacity: 0 }} transition={{ duration: 0.6 }}>
-      <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-60" src="/loading-video-clean.mp4" />
+      <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-60" src="/loading-video-web.mp4" />
       <div className="absolute inset-0 bg-black/40" />
       <motion.div className="absolute top-8 left-8 relative z-10" initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>
         <img src={LOGO_URL} alt="Alliance Street Accountancy Ltd" className="h-[3.75rem] w-auto object-contain" />
