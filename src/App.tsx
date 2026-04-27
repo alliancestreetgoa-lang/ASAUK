@@ -352,17 +352,17 @@ const SOLUTION_ITEMS = [
 
 function Solution() {
   return (
-    <section className="relative overflow-hidden bg-surface/30 py-20 md:py-28 px-6 border-b border-stroke">
-      <SectionBg src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1600&q=80&auto=format&fit=crop" opacity={0.38} position="right" />
+    <section className="relative overflow-hidden py-20 md:py-28 px-6 border-b border-white/10">
+      <SectionBg src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1600&q=80&auto=format&fit=crop" opacity={0.46} position="right" />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
-          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Our Solution</span></div>
+          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-white/30" /><span className="text-xs text-white/50 uppercase tracking-[0.3em]">Our Solution</span></div>
           <div className="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-start">
             <div>
-              <h2 className="text-3xl md:text-5xl lg:text-6xl text-text-primary leading-[1.1] tracking-tight mb-6" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
+              <h2 className="text-3xl md:text-5xl lg:text-6xl text-white leading-[1.1] tracking-tight mb-6" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
                 We handle your numbers — so you can run your business
               </h2>
-              <p className="text-muted text-base md:text-lg leading-relaxed">
+              <p className="text-white/70 text-base md:text-lg leading-relaxed">
                 From your first invoice to your year-end filing, our UK team delivers accurate accounting, proactive tax planning, and the kind of straight-talking advice that actually moves your business forward.
               </p>
             </div>
@@ -370,8 +370,8 @@ function Solution() {
               {SOLUTION_ITEMS.map((item, i) => (
                 <motion.div key={i} className="flex items-center gap-4"
                   initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.5 }}>
-                  <span className="shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] text-black" style={{ background: ACCENT }}>✓</span>
-                  <p className="text-text-primary text-sm">{item}</p>
+                  <span className="shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] text-white font-bold" style={{ background: ACCENT }}>✓</span>
+                  <p className="text-white/90 text-sm">{item}</p>
                 </motion.div>
               ))}
             </div>
