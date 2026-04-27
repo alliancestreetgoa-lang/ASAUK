@@ -172,8 +172,8 @@ function Hero() {
         </nav>
       </div>
       <div className="relative z-10 flex-1 flex flex-col justify-end px-6 md:px-12 lg:px-16 pb-12 lg:pb-16">
-        <div className="lg:grid lg:grid-cols-2 lg:items-end">
-          <div>
+        <div>
+          <div className="max-w-4xl">
             <AnimatedHeading text={"Finance and Accounting Built\nfor International Growth"} className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal text-white mb-4" />
             <FadeIn delay={800} duration={1000}>
               <p className="text-base md:text-lg text-gray-300 mb-5">
