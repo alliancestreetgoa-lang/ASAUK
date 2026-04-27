@@ -1,11 +1,11 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const HERO_VIDEO = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4'
+const HERO_VIDEO = '/hero.mp4'
 const ACCENT = 'linear-gradient(90deg, #E40014 0%, #FB2C36 100%)'
 const WEB3FORMS_KEY = '9f92669a-aa40-4112-98a0-2bae71b40cab'
 const LOGO_URL = '/logo.png?v=4'
@@ -61,50 +61,6 @@ function Modal({ data, onClose }: { data: ModalData; onClose: () => void }) {
   )
 }
 
-const LOADING_WORDS = ['Accounting', 'Tax Planning', 'Advisory']
-
-function LoadingScreen({ onComplete }: { onComplete: () => void }) {
-  const [count, setCount] = useState(0)
-  const [wordIndex, setWordIndex] = useState(0)
-  useEffect(() => {
-    const start = performance.now(); const dur = 2700; let raf: number
-    const tick = (now: number) => {
-      const p = Math.min((now - start) / dur, 1)
-      setCount(Math.floor(p * 100))
-      if (p < 1) { raf = requestAnimationFrame(tick) } else { setCount(100); setTimeout(onComplete, 400) }
-    }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
-  }, [onComplete])
-  useEffect(() => {
-    const iv = setInterval(() => setWordIndex(i => (i + 1) % LOADING_WORDS.length), 900)
-    return () => clearInterval(iv)
-  }, [])
-  return (
-    <motion.div className="fixed inset-0 z-[9999] flex flex-col overflow-hidden" style={{ background: 'hsl(0 0% 2%)' }} exit={{ opacity: 0 }} transition={{ duration: 0.6 }}>
-      <motion.div className="absolute top-8 left-8" initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>
-        <img src={LOGO_URL} alt="Alliance Street Accountancy Ltd" className="h-[3.75rem] w-auto object-contain" />
-      </motion.div>
-      <div className="flex-1 flex items-center justify-center">
-        <AnimatePresence mode="wait">
-          <motion.span key={wordIndex} className="text-4xl md:text-6xl lg:text-7xl"
-            style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic', color: 'hsl(0 0% 95% / 0.8)' }}
-            initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -20, opacity: 0 }} transition={{ duration: 0.3 }}>
-            {LOADING_WORDS[wordIndex]}
-          </motion.span>
-        </AnimatePresence>
-      </div>
-      <div className="absolute bottom-12 right-8">
-        <span className="text-6xl md:text-8xl lg:text-9xl tabular-nums" style={{ fontFamily: "'Instrument Serif',serif", color: 'hsl(0 0% 95%)' }}>
-          {String(count).padStart(3, '0')}
-        </span>
-      </div>
-      <div className="absolute bottom-0 left-0 right-0 h-[3px]" style={{ background: 'hsl(0 0% 18% / 0.5)' }}>
-        <motion.div className="h-full origin-left" style={{ background: ACCENT }} animate={{ scaleX: count / 100 }} transition={{ duration: 0.05, ease: 'linear' }} />
-      </div>
-    </motion.div>
-  )
-}
 
 function FadeIn({ children, delay = 0, duration = 1000, className = '' }: { children: React.ReactNode; delay?: number; duration?: number; className?: string }) {
   const [visible, setVisible] = useState(false)
@@ -886,30 +842,19 @@ function Footer() {
 
 // ── App ───────────────────────────────────────────────────────────────────────
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true)
-  const handleComplete = useCallback(() => setIsLoading(false), [])
   return (
-    <>
-      <AnimatePresence>
-        {isLoading && <LoadingScreen onComplete={handleComplete} />}
-      </AnimatePresence>
-      <AnimatePresence>
-        {!isLoading && (
-          <motion.div key="main" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
-            <Hero />
-            <Trust />
-            <Solution />
-            <WhyChooseUs />
-            <Results />
-            <Services />
-            <Pricing />
-            <FinalCTA />
-            <Reviews />
-            <Contact />
-            <Footer />
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
+      <Hero />
+      <Trust />
+      <Solution />
+      <WhyChooseUs />
+      <Results />
+      <Services />
+      <Pricing />
+      <FinalCTA />
+      <Reviews />
+      <Contact />
+      <Footer />
+    </motion.div>
   )
 }
