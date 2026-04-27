@@ -53,7 +53,7 @@ function Modal({ data, onClose }: { data: ModalData; onClose: () => void }) {
             {data.tag && <span className="text-xs uppercase tracking-[0.25em] text-muted mb-3 inline-block">{data.tag}</span>}
             <h2 className="text-2xl sm:text-3xl text-text-primary mb-4 leading-tight" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{data.title}</h2>
             <div className="text-sm text-muted leading-relaxed space-y-4">{data.body}</div>
-            <div className="mt-8"><a href="#contact" onClick={onClose} className="inline-block bg-gray-900 text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-700 transition-colors">Get Started →</a></div>
+            <div className="mt-8"><a href="#contact" onClick={onClose} className="inline-block text-white px-6 py-2.5 rounded-lg text-sm font-medium transition-colors" style={{ background: ACCENT }}>Get Started →</a></div>
           </div>
         </motion.div>
       </motion.div>
@@ -542,9 +542,7 @@ function Pricing() {
                 </ul>
                 <a href="#contact"
                   className="block text-center py-3 rounded-xl text-sm font-medium transition-colors duration-200"
-                  style={plan.popular
-                    ? { background: '#fff', color: '#111' }
-                    : { border: '1px solid hsl(0 0% 28%)', color: 'hsl(0 0% 85%)' }}>
+                  style={{ background: ACCENT, color: '#fff' }}>
                   {plan.name === 'Scale' ? 'Get a Quote' : 'Get Started'}
                 </a>
               </motion.div>
