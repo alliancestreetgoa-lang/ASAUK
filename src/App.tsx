@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Lenis from 'lenis'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -10,14 +11,14 @@ const ACCENT = 'linear-gradient(90deg, #E40014 0%, #FB2C36 100%)'
 const WEB3FORMS_KEY = '9f92669a-aa40-4112-98a0-2bae71b40cab'
 const LOGO_URL = '/logo.png?v=4'
 
-function SectionBg({ src, opacity = 0.28, position = 'right', overlay = 1 }: { src: string; opacity?: number; position?: 'left' | 'right' | 'center'; overlay?: number }) {
+function SectionBg({ src, opacity = 0.18, position = 'right', overlay = 1 }: { src: string; opacity?: number; position?: 'left' | 'right' | 'center'; overlay?: number }) {
   const pos = position === 'left' ? 'left center' : position === 'center' ? 'center' : 'right center'
   const o = overlay
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
       <div className="absolute inset-0" style={{ backgroundImage: `url(${src})`, backgroundSize: 'cover', backgroundPosition: pos, opacity }} />
-      <div className="absolute inset-0" style={{ background: position === 'center' ? `radial-gradient(ellipse at center, rgba(255,255,255,0.0) 0%, rgba(255,255,255,${0.35 * o}) 75%)` : `linear-gradient(to right, rgba(255,255,255,${0.52 * o}) 0%, rgba(255,255,255,${0.25 * o}) 55%, rgba(255,255,255,${0.05 * o}) 100%)` }} />
-      <div className="absolute inset-0" style={{ background: `linear-gradient(to top, rgba(255,255,255,${0.45 * o}) 0%, transparent 50%, rgba(255,255,255,${0.05 * o}) 100%)` }} />
+      <div className="absolute inset-0" style={{ background: position === 'center' ? `radial-gradient(ellipse at center, rgba(10,10,10,0.0) 0%, rgba(10,10,10,${0.6 * o}) 75%)` : `linear-gradient(to right, rgba(10,10,10,${0.7 * o}) 0%, rgba(10,10,10,${0.4 * o}) 55%, rgba(10,10,10,${0.1 * o}) 100%)` }} />
+      <div className="absolute inset-0" style={{ background: `linear-gradient(to top, rgba(10,10,10,${0.6 * o}) 0%, transparent 50%, rgba(10,10,10,${0.1 * o}) 100%)` }} />
     </div>
   )
 }
