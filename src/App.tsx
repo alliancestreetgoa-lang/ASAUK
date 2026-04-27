@@ -250,7 +250,7 @@ function Solution() {
               <h2 className="text-3xl md:text-5xl lg:text-6xl text-text-primary leading-[1.1] tracking-tight mb-6" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
                 We handle your numbers — so you can run your business
               </h2>
-              <p className="text-muted text-base md:text-lg leading-relaxed">
+              <p className="text-muted text-base md:text-lg leading-relaxed text-pretty">
                 From your first invoice to your year-end filing, our UK team delivers accurate accounting, proactive tax planning, and the kind of straight-talking advice that actually moves your business forward.
               </p>
             </div>
