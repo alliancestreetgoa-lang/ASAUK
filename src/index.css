@@ -7,9 +7,9 @@
 
   --color-bg: #ffffff;
   --color-surface: #f4f4f6;
-  --color-text-primary: hsl(0 0% 8%);
-  --color-muted: hsl(0 0% 42%);
-  --color-stroke: hsl(0 0% 87%);
+  --color-text-primary: hsl(0 0% 5%);
+  --color-muted: hsl(0 0% 18%);
+  --color-stroke: hsl(0 0% 75%);
   --color-accent: #E40014;
 
   --animate-scroll-down: scroll-down 1.5s ease-in-out infinite;
