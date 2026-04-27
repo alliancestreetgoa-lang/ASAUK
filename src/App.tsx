@@ -818,8 +818,8 @@ function Footer() {
           <p className="text-xs text-muted uppercase tracking-[0.3em] mb-6">Let's simplify your accounting</p>
           <div className="relative inline-block rounded-full" onMouseEnter={() => setEmailHov(true)} onMouseLeave={() => setEmailHov(false)}>
             <span className="absolute rounded-full transition-opacity duration-300 pointer-events-none" style={{ inset: '-1px', background: ACCENT, opacity: emailHov ? 1 : 0 }} />
-            <a href="mailto:accounts@alliancestreet.co.uk"
-              className="relative block text-xl md:text-3xl lg:text-4xl text-text-primary px-10 py-5 rounded-full border border-stroke transition-colors duration-300"
+            <a href="mailto:accounts@alliancestreet.co.uk?subject=Enquiry%20from%20Alliance%20Street%20Website"
+              className="relative block text-xl md:text-3xl lg:text-4xl text-text-primary px-10 py-5 rounded-full border border-stroke transition-colors duration-300 cursor-pointer no-underline"
               style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic', borderColor: emailHov ? 'transparent' : undefined }}>
               accounts@alliancestreet.co.uk
             </a>
