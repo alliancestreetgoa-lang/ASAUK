@@ -108,10 +108,16 @@ const HERO_VIDEO = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwI
 const ACCENT = 'linear-gradient(90deg, #E40014 0%, #FB2C36 100%)'
 const LOGO_URL = '/logo.png?v=red'
 
-function submitToNetlify(formName: string, data: Record<string, string | number>) {
-  const body = new URLSearchParams({ 'form-name': formName })
-  Object.entries(data).forEach(([k, v]) => body.append(k, String(v)))
-  return fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body.toString() })
+// ── Web3Forms: sends submissions directly to accounts@alliancestreet.co.uk ───
+// Replace the placeholder below with the real key from web3forms.com
+const WEB3FORMS_KEY = 'PASTE_YOUR_WEB3FORMS_KEY_HERE'
+
+function submitForm(subject: string, data: Record<string, string | number>) {
+  return fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({ access_key: WEB3FORMS_KEY, subject, ...data }),
+  }).then(r => r.json())
 }
 
 function SectionBg({ src, opacity = 0.28, position = 'right' }: { src: string; opacity?: number; position?: 'left' | 'right' | 'center' }) {
@@ -710,11 +716,11 @@ function Reviews() {
     e.preventDefault()
     if (!form.name.trim() || !form.quote.trim()) return
     const initials = form.name.trim().split(/\s+/).slice(0, 2).map(p => p[0]?.toUpperCase() ?? '').join('') || 'AS'
-    submitToNetlify('review', {
+    submitForm('New Review — Alliance Street Accountancy', {
       name: form.name.trim(),
       role: form.role.trim() || 'Verified Client',
       rating: form.rating,
-      quote: form.quote.trim(),
+      review: form.quote.trim(),
     }).catch(() => {})
     setReviews(prev => [{ name: form.name.trim(), role: form.role.trim() || 'Verified Client', rating: form.rating, quote: form.quote.trim(), initials }, ...prev])
     setForm({ name: '', role: '', rating: 5, quote: '' })
@@ -806,7 +812,7 @@ function Contact() {
   const [sent, setSent] = useState(false)
   const handle = (e: React.FormEvent) => {
     e.preventDefault()
-    submitToNetlify('contact', {
+    submitForm('New Enquiry — Alliance Street Accountancy', {
       name: form.name,
       email: form.email,
       phone: form.phone,
