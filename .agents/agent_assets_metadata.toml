@@ -6,3 +6,9 @@ id = "qHE81jEZyVqqTa8XP8PsF"
 uri = "file://public/solution-bg.png"
 type = "image"
 title = "generated_image"
+
+[[generated]]
+id = "tudhmyVWlSjz8gSXTtkwy"
+uri = "file://public/results-bg.png"
+type = "image"
+title = "generated_image"
