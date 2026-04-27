@@ -533,7 +533,7 @@ function Pricing() {
       <SectionBg src="https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?w=1600&q=80&auto=format&fit=crop" opacity={0.35} position="right" />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
-          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px" style={{ background: 'hsl(0 0% 30%)' }} /><span className="text-xs uppercase tracking-[0.3em]" style={{ color: 'hsl(0 0% 55%)' }}>Transparent Pricing</span></div>
+          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px" style={{ background: 'hsl(0 0% 60%)' }} /><span className="text-xs uppercase tracking-[0.3em]" style={{ color: 'hsl(0 0% 80%)' }}>Transparent Pricing</span></div>
           <h2 className="text-3xl md:text-5xl mb-12" style={{ fontFamily: "'Instrument Serif',serif", color: 'hsl(0 0% 95%)' }}>Fixed monthly pricing — <em>no surprises</em></h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
             {PLANS.map((plan, i) => (
