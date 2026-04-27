@@ -61,57 +61,6 @@ function ScrollProgress() {
   )
 }
 
-// Subtle custom cursor follower — desktop only, lerped for buttery feel.
-// Uses event delegation on document so dynamically-rendered elements (modals,
-// review cards added on submit, etc.) automatically get the hover scale effect.
-function CursorFollower() {
-  const dotRef = useRef<HTMLDivElement>(null)
-  const ringRef = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    if (window.matchMedia('(hover: none)').matches) return
-    const dot = dotRef.current!
-    const ring = ringRef.current!
-    const INTERACTIVE = 'a, button, [role="button"], input, textarea, select, label'
-    let mx = window.innerWidth / 2, my = window.innerHeight / 2
-    let rx = mx, ry = my
-    let raf = 0
-
-    const move = (e: MouseEvent) => { mx = e.clientX; my = e.clientY }
-    const tick = () => {
-      rx += (mx - rx) * 0.18
-      ry += (my - ry) * 0.18
-      dot.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`
-      ring.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%) scale(var(--c-scale, 1))`
-      raf = requestAnimationFrame(tick)
-    }
-    // Delegated hover detection — works for any current OR future interactive element
-    const over = (e: MouseEvent) => {
-      const t = e.target as Element | null
-      if (t && t.closest && t.closest(INTERACTIVE)) ring.style.setProperty('--c-scale', '1.8')
-    }
-    const out = (e: MouseEvent) => {
-      const t = e.target as Element | null
-      if (t && t.closest && t.closest(INTERACTIVE)) ring.style.setProperty('--c-scale', '1')
-    }
-
-    document.addEventListener('mousemove', move)
-    document.addEventListener('mouseover', over)
-    document.addEventListener('mouseout', out)
-    raf = requestAnimationFrame(tick)
-    return () => {
-      cancelAnimationFrame(raf)
-      document.removeEventListener('mousemove', move)
-      document.removeEventListener('mouseover', over)
-      document.removeEventListener('mouseout', out)
-    }
-  }, [])
-  return (
-    <>
-      <div ref={ringRef} className="cursor-follower-ring" />
-      <div ref={dotRef} className="cursor-follower-dot" />
-    </>
-  )
-}
 
 // Parallax hook — translates an inner element subtly while parent scrolls past viewport.
 // Gated by IntersectionObserver so off-screen sections don't pay layout cost,

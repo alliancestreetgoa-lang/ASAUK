@@ -94,31 +94,6 @@ a, button {
 }
 .img-zoom:hover img { transform: scale(1.06); }
 
-/* ─────────────────────────────────────────────────────────────────────────── */
-/* Custom cursor follower (desktop only — hidden on touch)                     */
-/* ─────────────────────────────────────────────────────────────────────────── */
-.cursor-follower-dot,
-.cursor-follower-ring {
-  position: fixed;
-  top: 0; left: 0;
-  pointer-events: none;
-  z-index: 9998;
-  border-radius: 9999px;
-  mix-blend-mode: difference;
-}
-.cursor-follower-dot {
-  width: 6px; height: 6px;
-  background: #ffffff;
-}
-.cursor-follower-ring {
-  width: 34px; height: 34px;
-  border: 1px solid rgba(255,255,255,0.65);
-  transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
-  will-change: transform;
-}
-@media (hover: none), (max-width: 768px) {
-  .cursor-follower-dot, .cursor-follower-ring { display: none; }
-}
 
 /* Respect users who want less motion */
 @media (prefers-reduced-motion: reduce) {
