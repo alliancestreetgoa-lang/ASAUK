@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger)
 const HERO_VIDEO = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4'
 const ACCENT = 'linear-gradient(90deg, #E40014 0%, #FB2C36 100%)'
 const WEB3FORMS_KEY = '9f92669a-aa40-4112-98a0-2bae71b40cab'
-const LOGO_URL = '/logo.png?v=3'
+const LOGO_URL = '/logo.png?v=4'
 
 function SectionBg({ src, opacity = 0.28, position = 'right' }: { src: string; opacity?: number; position?: 'left' | 'right' | 'center' }) {
   const pos = position === 'left' ? 'left center' : position === 'center' ? 'center' : 'right center'
