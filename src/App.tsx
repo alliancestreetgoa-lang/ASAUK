@@ -530,7 +530,9 @@ const PLANS = [
 function Pricing() {
   return (
     <section id="pricing" className="relative overflow-hidden py-20 md:py-28 px-6" style={{ background: 'hsl(0 0% 4%)' }}>
-      <SectionBg src="https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?w=1600&q=80&auto=format&fit=crop" opacity={0.35} position="right" />
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?w=1600&q=80&auto=format&fit=crop)', backgroundSize: 'cover', backgroundPosition: 'right center', opacity: 0.25 }} />
+      </div>
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
           <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px" style={{ background: 'hsl(0 0% 60%)' }} /><span className="text-xs uppercase tracking-[0.3em]" style={{ color: 'hsl(0 0% 80%)' }}>Transparent Pricing</span></div>
