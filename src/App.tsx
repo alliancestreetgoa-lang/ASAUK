@@ -626,21 +626,39 @@ function Reviews() {
   const [submitted, setSubmitted] = useState(false)
 
   const [sending, setSending] = useState(false)
+  const [error, setError] = useState('')
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!form.name.trim() || !form.quote.trim() || sending) return
     setSending(true)
+    setError('')
     try {
-      const data = new FormData()
-      data.append('access_key', WEB3FORMS_KEY)
-      data.append('subject', `New Review from ${form.name.trim()} — ${form.rating}★`)
-      data.append('from_name', 'Alliance Street Website — Reviews')
-      data.append('name', form.name.trim())
-      data.append('business_role', form.role.trim() || 'N/A')
-      data.append('rating', `${form.rating} / 5`)
-      data.append('review', form.quote.trim())
-      await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data })
-    } catch { /* ignore network errors, still post locally */ }
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: `New Review from ${form.name.trim()} — ${form.rating} stars`,
+          from_name: 'Alliance Street Website — Reviews',
+          name: form.name.trim(),
+          business_role: form.role.trim() || 'N/A',
+          rating: `${form.rating} / 5`,
+          message: form.quote.trim(),
+        }),
+      })
+      const result = await res.json()
+      if (!result.success) {
+        console.error('Web3Forms error:', result)
+        setError(result.message || 'Could not send review. Please try again.')
+        setSending(false)
+        return
+      }
+    } catch (err) {
+      console.error('Network error:', err)
+      setError('Network error. Please check your connection and try again.')
+      setSending(false)
+      return
+    }
     const initials = form.name.trim().split(/\s+/).slice(0, 2).map(p => p[0]?.toUpperCase() ?? '').join('') || 'AS'
     setReviews(prev => [{ name: form.name.trim(), role: form.role.trim() || 'Verified Client', rating: form.rating, quote: form.quote.trim(), initials }, ...prev])
     setForm({ name: '', role: '', rating: 5, quote: '' })
@@ -719,6 +737,7 @@ function Reviews() {
                   {submitted ? 'Thanks — review posted ✓' : sending ? 'Sending…' : 'Submit Review'}
                 </button>
               </div>
+              {error && <p className="md:col-span-2 text-xs text-red-600">{error}</p>}
             </form>
           </div>
         </motion.div>
@@ -732,21 +751,40 @@ function Contact() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', type: '' })
   const [sent, setSent] = useState(false)
   const [sending, setSending] = useState(false)
+  const [error, setError] = useState('')
   const handle = async (e: React.FormEvent) => {
     e.preventDefault()
     if (sending) return
     setSending(true)
+    setError('')
     try {
-      const data = new FormData()
-      data.append('access_key', WEB3FORMS_KEY)
-      data.append('subject', `New Enquiry from ${form.name} — ${form.type}`)
-      data.append('from_name', 'Alliance Street Website — Get In Touch')
-      data.append('name', form.name)
-      data.append('email', form.email)
-      data.append('phone', form.phone)
-      data.append('business_type', form.type)
-      await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data })
-    } catch { /* network error — still show success */ }
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: `New Enquiry from ${form.name} — ${form.type}`,
+          from_name: 'Alliance Street Website — Get In Touch',
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          business_type: form.type,
+          replyto: form.email,
+        }),
+      })
+      const result = await res.json()
+      if (!result.success) {
+        console.error('Web3Forms error:', result)
+        setError(result.message || 'Could not send message. Please try again.')
+        setSending(false)
+        return
+      }
+    } catch (err) {
+      console.error('Network error:', err)
+      setError('Network error. Please check your connection and try again.')
+      setSending(false)
+      return
+    }
     setSending(false)
     setSent(true)
   }
@@ -792,6 +830,7 @@ function Contact() {
                     </select>
                   </div>
                   <button type="submit" disabled={sending} className="w-full bg-gray-900 text-white py-3 rounded-xl font-medium text-sm hover:bg-gray-700 transition-colors duration-200 disabled:opacity-60">{sending ? 'Sending…' : 'Send Message'}</button>
+                  {error && <p className="text-xs text-red-600">{error}</p>}
                 </form>
               )}
             </div>
