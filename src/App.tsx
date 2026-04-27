@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const HERO_VIDEO = '/hero.mp4'
+const HERO_VIDEO = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4'
 const ACCENT = 'linear-gradient(90deg, #E40014 0%, #FB2C36 100%)'
 const WEB3FORMS_KEY = '9f92669a-aa40-4112-98a0-2bae71b40cab'
 const LOGO_URL = '/logo.png?v=4'
@@ -61,6 +61,23 @@ function Modal({ data, onClose }: { data: ModalData; onClose: () => void }) {
   )
 }
 
+
+function LoadingScreen({ onComplete }: { onComplete: () => void }) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  useEffect(() => {
+    const v = videoRef.current
+    if (!v) return
+    const handleEnded = () => onComplete()
+    v.addEventListener('ended', handleEnded)
+    const fallback = setTimeout(onComplete, 9000)
+    return () => { v.removeEventListener('ended', handleEnded); clearTimeout(fallback) }
+  }, [onComplete])
+  return (
+    <motion.div className="fixed inset-0 z-[9999] bg-black overflow-hidden" exit={{ opacity: 0 }} transition={{ duration: 0.6 }}>
+      <video ref={videoRef} autoPlay muted playsInline className="absolute inset-0 w-full h-full object-cover" src="/hero.mp4" />
+    </motion.div>
+  )
+}
 
 function FadeIn({ children, delay = 0, duration = 1000, className = '' }: { children: React.ReactNode; delay?: number; duration?: number; className?: string }) {
   const [visible, setVisible] = useState(false)
@@ -842,19 +859,30 @@ function Footer() {
 
 // ── App ───────────────────────────────────────────────────────────────────────
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true)
+  const handleComplete = useCallback(() => setIsLoading(false), [])
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
-      <Hero />
-      <Trust />
-      <Solution />
-      <WhyChooseUs />
-      <Results />
-      <Services />
-      <Pricing />
-      <FinalCTA />
-      <Reviews />
-      <Contact />
-      <Footer />
-    </motion.div>
+    <>
+      <AnimatePresence>
+        {isLoading && <LoadingScreen onComplete={handleComplete} />}
+      </AnimatePresence>
+      <AnimatePresence>
+        {!isLoading && (
+          <motion.div key="main" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
+            <Hero />
+            <Trust />
+            <Solution />
+            <WhyChooseUs />
+            <Results />
+            <Services />
+            <Pricing />
+            <FinalCTA />
+            <Reviews />
+            <Contact />
+            <Footer />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   )
 }
