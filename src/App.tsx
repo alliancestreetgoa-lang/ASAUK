@@ -177,7 +177,7 @@ function Hero() {
             <AnimatedHeading text={"Finance and Accounting Built\nfor International Growth"} className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal text-white mb-4" />
             <FadeIn delay={800} duration={1000}>
               <p className="text-base md:text-lg text-gray-300 mb-5">
-                Fixed monthly pricing, a dedicated UK accountant, and proactive tax planning — for limited companies, agencies, and freelancers who'd rather build a business than chase HMRC.
+                Finance and Accounting Solutions focused on Growth — tax structuring and advisory services with international expertise across multiple markets. From UK & HMRC compliance to UAE restructuring, Bookkeeping, and Corporate Tax Solutions. ASA is built for founders, limited companies, and ambitious entrepreneurs who'd rather build a business and grow.
               </p>
             </FadeIn>
             <FadeIn delay={1200} duration={1000}>
