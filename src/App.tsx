@@ -529,31 +529,36 @@ const PLANS = [
 
 function Pricing() {
   return (
-    <section id="pricing" className="relative overflow-hidden bg-surface/30 py-20 md:py-28 px-6 border-b border-stroke">
-      <SectionBg src="https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?w=1600&q=80&auto=format&fit=crop" opacity={0.35} position="right" />
+    <section id="pricing" className="relative overflow-hidden py-20 md:py-28 px-6" style={{ background: 'hsl(0 0% 4%)' }}>
+      <SectionBg src="https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?w=1600&q=80&auto=format&fit=crop" opacity={0.18} position="right" />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
-          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Transparent Pricing</span></div>
-          <h2 className="text-3xl md:text-5xl text-text-primary mb-12" style={{ fontFamily: "'Instrument Serif',serif" }}>Fixed monthly pricing — <em>no surprises</em></h2>
+          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px" style={{ background: 'hsl(0 0% 30%)' }} /><span className="text-xs uppercase tracking-[0.3em]" style={{ color: 'hsl(0 0% 55%)' }}>Transparent Pricing</span></div>
+          <h2 className="text-3xl md:text-5xl mb-12" style={{ fontFamily: "'Instrument Serif',serif", color: 'hsl(0 0% 95%)' }}>Fixed monthly pricing — <em>no surprises</em></h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
             {PLANS.map((plan, i) => (
               <motion.div key={plan.name}
-                className={`relative p-8 rounded-3xl border transition-all duration-300 ${plan.popular ? 'bg-white border-gray-400 shadow-lg md:scale-105' : 'bg-white border-stroke hover:border-gray-400'}`}
+                className="relative p-8 rounded-3xl border transition-all duration-300"
+                style={{ background: plan.popular ? 'hsl(0 0% 12%)' : 'hsl(0 0% 9%)', borderColor: plan.popular ? 'hsl(0 0% 28%)' : 'hsl(0 0% 18%)' }}
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15, duration: 0.6 }}>
                 {plan.popular && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs px-4 py-1 rounded-full text-black font-medium" style={{ background: ACCENT }}>Most Popular</span>
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs px-4 py-1 rounded-full font-medium" style={{ background: ACCENT, color: '#fff' }}>Most Popular</span>
                 )}
-                <p className="text-xs text-muted uppercase tracking-[0.2em] mb-3">{plan.name} Plan</p>
-                <p className="text-2xl md:text-3xl text-text-primary mb-6" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{plan.price}</p>
+                <p className="text-xs uppercase tracking-[0.2em] mb-3" style={{ color: 'hsl(0 0% 50%)' }}>{plan.name} Plan</p>
+                <p className="text-2xl md:text-3xl mb-6" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic', color: 'hsl(0 0% 95%)' }}>{plan.price}</p>
                 <ul className="space-y-3 mb-8">
                   {plan.features.map((f, j) => (
-                    <li key={j} className="flex items-center gap-3 text-sm text-muted">
-                      <span className="shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-[9px] text-black" style={{ background: ACCENT }}>✓</span>
+                    <li key={j} className="flex items-center gap-3 text-sm" style={{ color: 'hsl(0 0% 65%)' }}>
+                      <span className="shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-[9px] text-white" style={{ background: ACCENT }}>✓</span>
                       {f}
                     </li>
                   ))}
                 </ul>
-                <a href="#contact" className={`block text-center py-3 rounded-xl text-sm font-medium transition-colors duration-200 ${plan.popular ? 'bg-gray-900 text-white hover:bg-gray-700' : 'border border-stroke text-text-primary hover:border-gray-500'}`}>
+                <a href="#contact"
+                  className="block text-center py-3 rounded-xl text-sm font-medium transition-colors duration-200"
+                  style={plan.popular
+                    ? { background: '#fff', color: '#111' }
+                    : { border: '1px solid hsl(0 0% 28%)', color: 'hsl(0 0% 85%)' }}>
                   {plan.name === 'Scale' ? 'Get a Quote' : 'Get Started'}
                 </a>
               </motion.div>
