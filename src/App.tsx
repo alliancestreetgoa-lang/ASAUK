@@ -9,6 +9,12 @@ const HERO_VIDEO = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwI
 const ACCENT = 'linear-gradient(90deg, #E40014 0%, #FB2C36 100%)'
 const LOGO_URL = '/logo.png?v=red'
 
+function submitToNetlify(formName: string, data: Record<string, string | number>) {
+  const body = new URLSearchParams({ 'form-name': formName })
+  Object.entries(data).forEach(([k, v]) => body.append(k, String(v)))
+  return fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body.toString() })
+}
+
 function SectionBg({ src, opacity = 0.28, position = 'right' }: { src: string; opacity?: number; position?: 'left' | 'right' | 'center' }) {
   const pos = position === 'left' ? 'left center' : position === 'center' ? 'center' : 'right center'
   return (
@@ -603,6 +609,12 @@ function Reviews() {
     e.preventDefault()
     if (!form.name.trim() || !form.quote.trim()) return
     const initials = form.name.trim().split(/\s+/).slice(0, 2).map(p => p[0]?.toUpperCase() ?? '').join('') || 'AS'
+    submitToNetlify('review', {
+      name: form.name.trim(),
+      role: form.role.trim() || 'Verified Client',
+      rating: form.rating,
+      quote: form.quote.trim(),
+    }).catch(() => {})
     setReviews(prev => [{ name: form.name.trim(), role: form.role.trim() || 'Verified Client', rating: form.rating, quote: form.quote.trim(), initials }, ...prev])
     setForm({ name: '', role: '', rating: 5, quote: '' })
     setSubmitted(true)
@@ -691,7 +703,16 @@ function Reviews() {
 function Contact() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', type: '' })
   const [sent, setSent] = useState(false)
-  const handle = (e: React.FormEvent) => { e.preventDefault(); setSent(true) }
+  const handle = (e: React.FormEvent) => {
+    e.preventDefault()
+    submitToNetlify('contact', {
+      name: form.name,
+      email: form.email,
+      phone: form.phone,
+      business_type: form.type,
+    }).catch(() => {})
+    setSent(true)
+  }
   return (
     <section id="contact" className="relative overflow-hidden bg-surface/30 py-20 md:py-28 px-6 border-b border-stroke">
       <SectionBg src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1600&q=80&auto=format&fit=crop" opacity={0.38} position="right" />
