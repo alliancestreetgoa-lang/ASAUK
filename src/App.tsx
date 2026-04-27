@@ -209,7 +209,7 @@ function Trust() {
   return (
     <section className="bg-bg py-14 border-b border-stroke">
       <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
-        <motion.p className="text-center text-muted text-xs uppercase tracking-[0.25em] mb-10"
+        <motion.p className="text-center text-muted text-xs uppercase tracking-[0.25em] mb-5"
           initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
           Trusted by UK limited companies, agencies, and freelancers
         </motion.p>
@@ -241,12 +241,12 @@ const SOLUTION_ITEMS = [
 
 function Solution() {
   return (
-    <section className="relative overflow-hidden bg-surface/30 py-20 md:py-28 px-6 border-b border-stroke">
+    <section className="relative overflow-hidden bg-surface/30 py-10 md:py-14 px-6 border-b border-stroke">
       <SectionBg src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1600&q=80&auto=format&fit=crop" opacity={0.55} position="right" />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
           <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Our Solution</span></div>
-          <div className="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-start">
+          <div className="lg:grid lg:grid-cols-2 lg:gap-8 lg:items-start">
             <div>
               <h2 className="text-3xl md:text-5xl lg:text-6xl text-text-primary leading-[1.1] tracking-tight mb-6" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
                 We handle your numbers — so you can run your business
@@ -255,7 +255,7 @@ function Solution() {
                 From your first invoice to your year-end filing, our UK team delivers accurate accounting, proactive tax planning, and the kind of straight-talking advice that actually moves your business forward.
               </p>
             </div>
-            <div className="mt-10 lg:mt-0 space-y-4">
+            <div className="mt-5 lg:mt-0 space-y-4">
               {SOLUTION_ITEMS.map((item, i) => (
                 <motion.div key={i} className="flex items-center gap-4"
                   initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.5 }}>
@@ -283,12 +283,12 @@ const WHY_POINTS = [
 
 function WhyChooseUs() {
   return (
-    <section className="relative overflow-hidden bg-bg py-20 md:py-28 px-6 border-b border-stroke">
+    <section className="relative overflow-hidden bg-bg py-10 md:py-14 px-6 border-b border-stroke">
       <SectionBg src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80&auto=format&fit=crop" opacity={0.52} position="right" />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
           <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Why Choose Us</span></div>
-          <h2 className="text-3xl md:text-5xl text-text-primary mb-12" style={{ fontFamily: "'Instrument Serif',serif" }}>
+          <h2 className="text-3xl md:text-5xl text-text-primary mb-6" style={{ fontFamily: "'Instrument Serif',serif" }}>
             Why UK businesses <em>choose us</em>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -316,12 +316,12 @@ const RESULTS = [
 
 function Results() {
   return (
-    <section className="relative overflow-hidden bg-surface/30 py-20 md:py-28 px-6 border-b border-stroke">
+    <section className="relative overflow-hidden bg-surface/30 py-10 md:py-14 px-6 border-b border-stroke">
       <SectionBg src="/results-bg.png" opacity={0.95} position="right" overlay={0.5} />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
           <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Real Results</span></div>
-          <h2 className="text-3xl md:text-5xl text-text-primary mb-12" style={{ fontFamily: "'Instrument Serif',serif" }}>
+          <h2 className="text-3xl md:text-5xl text-text-primary mb-6" style={{ fontFamily: "'Instrument Serif',serif" }}>
             Real results for growing <em>UK businesses</em>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -513,14 +513,14 @@ const PLANS = [
 
 function Pricing() {
   return (
-    <section id="pricing" className="relative overflow-hidden py-20 md:py-28 px-6" style={{ background: 'hsl(0 0% 4%)' }}>
+    <section id="pricing" className="relative overflow-hidden py-10 md:py-14 px-6" style={{ background: 'hsl(0 0% 4%)' }}>
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute inset-0" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?w=1600&q=80&auto=format&fit=crop)', backgroundSize: 'cover', backgroundPosition: 'right center', opacity: 0.25 }} />
       </div>
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
           <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px" style={{ background: 'hsl(0 0% 60%)' }} /><span className="text-xs uppercase tracking-[0.3em]" style={{ color: 'hsl(0 0% 80%)' }}>Transparent Pricing</span></div>
-          <h2 className="text-3xl md:text-5xl mb-12" style={{ fontFamily: "'Instrument Serif',serif", color: 'hsl(0 0% 95%)' }}>Fixed monthly pricing — <em>no surprises</em></h2>
+          <h2 className="text-3xl md:text-5xl mb-6" style={{ fontFamily: "'Instrument Serif',serif", color: 'hsl(0 0% 95%)' }}>Fixed monthly pricing — <em>no surprises</em></h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
             {PLANS.map((plan, i) => (
               <motion.div key={plan.name}
@@ -559,7 +559,7 @@ function Pricing() {
 // ── Final CTA ─────────────────────────────────────────────────────────────────
 function FinalCTA() {
   return (
-    <section className="relative overflow-hidden bg-surface/30 py-20 md:py-28 px-6 border-b border-stroke">
+    <section className="relative overflow-hidden bg-surface/30 py-10 md:py-14 px-6 border-b border-stroke">
       <SectionBg src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1600&q=80&auto=format&fit=crop" opacity={0.55} position="center" />
       <div className="relative z-10 max-w-[800px] mx-auto text-center">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
@@ -569,7 +569,7 @@ function FinalCTA() {
           <h2 className="text-4xl md:text-6xl text-text-primary mb-6 leading-tight" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
             Ready to take accounting off your plate?
           </h2>
-          <p className="text-muted text-base md:text-lg mb-10 max-w-lg mx-auto">
+          <p className="text-muted text-base md:text-lg mb-5 max-w-lg mx-auto">
             Book a free 30-minute call. No obligation — just clear answers about your numbers, where you're overpaying, and what we'd do differently.
           </p>
           <a href="#contact" className="inline-block bg-gray-900 text-white px-10 py-4 rounded-xl font-medium text-base hover:bg-gray-700 transition-colors duration-200">
@@ -651,11 +651,11 @@ function Reviews() {
   }
 
   return (
-    <section id="reviews" className="bg-bg py-20 md:py-28 px-6 border-b border-stroke">
+    <section id="reviews" className="bg-bg py-10 md:py-14 px-6 border-b border-stroke">
       <div className="max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
           <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Client Reviews</span></div>
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
             <h2 className="text-3xl md:text-5xl text-text-primary" style={{ fontFamily: "'Instrument Serif',serif" }}>What our clients <em>say about us</em></h2>
             <div className="flex items-center gap-3">
               <StarRow rating={5} size="md" />
@@ -663,7 +663,7 @@ function Reviews() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
             {reviews.map((r, i) => (
               <motion.div key={r.name + i} className="p-6 bg-surface/50 border border-stroke rounded-2xl flex flex-col"
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: Math.min(i, 5) * 0.08, duration: 0.5 }}>
@@ -772,12 +772,12 @@ function Contact() {
     setSent(true)
   }
   return (
-    <section id="contact" className="relative overflow-hidden bg-surface/30 py-20 md:py-28 px-6 border-b border-stroke">
+    <section id="contact" className="relative overflow-hidden bg-surface/30 py-10 md:py-14 px-6 border-b border-stroke">
       <SectionBg src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1600&q=80&auto=format&fit=crop" opacity={0.55} position="right" />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
           <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Get In Touch</span></div>
-          <div className="lg:grid lg:grid-cols-2 lg:gap-16">
+          <div className="lg:grid lg:grid-cols-2 lg:gap-8">
             <div>
               <h2 className="text-3xl md:text-5xl text-text-primary mb-4" style={{ fontFamily: "'Instrument Serif',serif" }}>
                 Let's talk about <em>your business</em>
@@ -788,7 +788,7 @@ function Contact() {
                 <p className="flex items-start gap-3 text-sm text-muted"><span className="text-[10px] uppercase tracking-[0.2em] w-14 shrink-0 mt-1">Office</span> Pine Tree House, Gardiners Close,<br />Basildon, Essex, England, SS14 3AN</p>
               </div>
             </div>
-            <div className="mt-10 lg:mt-0">
+            <div className="mt-5 lg:mt-0">
               {sent ? (
                 <div className="p-8 bg-bg border border-stroke rounded-3xl text-center">
                   <p className="text-text-primary font-medium">Message received</p>
@@ -836,7 +836,7 @@ function Footer() {
         <div className="absolute inset-0 bg-black/40" />
       </div>
       <div className="relative z-10">
-        <div className="text-center mb-16">
+        <div className="text-center mb-8">
           <p className="text-xs text-muted uppercase tracking-[0.3em] mb-6">Let's simplify your accounting</p>
           <div className="relative inline-block rounded-full" onMouseEnter={() => setEmailHov(true)} onMouseLeave={() => setEmailHov(false)}>
             <span className="absolute rounded-full transition-opacity duration-300 pointer-events-none" style={{ inset: '-1px', background: ACCENT, opacity: emailHov ? 1 : 0 }} />
@@ -849,7 +849,7 @@ function Footer() {
           <p className="text-muted text-sm mt-4">Serving UK businesses nationwide</p>
         </div>
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10 border-t border-stroke pt-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-5 border-t border-stroke pt-5">
             <div>
               <img src={LOGO_URL} alt="Alliance Street Accountancy Ltd" className="h-[9rem] w-auto object-contain mb-4" />
               <p className="text-muted text-xs leading-relaxed">UK accounting & advisory built for limited companies, agencies, and growing teams.</p>
