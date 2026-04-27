@@ -649,7 +649,8 @@ function Pricing() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
             {PLANS.map((plan, i) => (
               <motion.div key={plan.name}
-                className={`relative rounded-3xl p-8 flex flex-col transition-all duration-300 ${plan.popular ? 'bg-white shadow-2xl md:scale-105' : 'bg-white/95 shadow-lg'}`}
+                className={`relative rounded-3xl p-8 flex flex-col transition-all duration-300 ${plan.popular ? 'md:scale-105' : ''}`}
+                style={{ background: plan.popular ? '#2a2a2a' : '#1e1e1e', border: '1px solid rgba(255,255,255,0.08)' }}
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15, duration: 0.6 }}>
                 {/* Most Popular badge */}
                 {plan.popular && (
@@ -658,13 +659,13 @@ function Pricing() {
                   </span>
                 )}
                 {/* Plan label */}
-                <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-[0.25em] mb-3">{plan.name} Plan</p>
+                <p className="text-[10px] font-semibold text-white/40 uppercase tracking-[0.25em] mb-3">{plan.name} Plan</p>
                 {/* Price */}
-                <p className="text-2xl md:text-3xl text-gray-900 mb-6" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{plan.price}</p>
+                <p className="text-2xl md:text-3xl text-white mb-6" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{plan.price}</p>
                 {/* Features */}
                 <ul className="space-y-3 mb-8 flex-1">
                   {plan.features.map((f, j) => (
-                    <li key={j} className="flex items-start gap-3 text-sm text-gray-600">
+                    <li key={j} className="flex items-start gap-3 text-sm text-white/70">
                       <span className="shrink-0 mt-0.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px] text-white font-bold" style={{ background: ACCENT }}>✓</span>
                       {f}
                     </li>
@@ -672,7 +673,7 @@ function Pricing() {
                 </ul>
                 {/* CTA button */}
                 <a href="#contact"
-                  className={`block text-center py-3 rounded-xl text-sm font-semibold transition-colors duration-200 ${plan.popular ? 'bg-gray-900 text-white hover:bg-black' : 'border border-gray-200 text-gray-800 hover:border-gray-400 hover:bg-gray-50'}`}>
+                  className={`block text-center py-3 rounded-xl text-sm font-semibold transition-colors duration-200 ${plan.popular ? 'bg-white text-gray-900 hover:bg-gray-100' : 'border border-white/20 text-white/80 hover:border-white/40 hover:bg-white/5'}`}>
                   {plan.name === 'Scale' ? 'Get a Quote' : 'Get Started'}
                 </a>
               </motion.div>
