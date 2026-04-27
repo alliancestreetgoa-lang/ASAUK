@@ -168,7 +168,7 @@ function Hero() {
               <a key={link} href={`#${link.toLowerCase()}`} className="text-sm text-white hover:text-gray-300 transition-colors duration-200">{link}</a>
             ))}
           </div>
-          <a href="#contact" className="bg-white text-black px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors duration-200 cursor-pointer">Book Free Call</a>
+          <a href="#contact" className="text-white px-6 py-2 rounded-lg text-sm font-medium transition-colors duration-200 cursor-pointer" style={{ background: ACCENT }}>Book Free Call</a>
         </nav>
       </div>
       <div className="relative z-10 flex-1 flex flex-col justify-end px-6 md:px-12 lg:px-16 pb-12 lg:pb-16">
@@ -182,7 +182,7 @@ function Hero() {
             </FadeIn>
             <FadeIn delay={1200} duration={1000}>
               <div className="flex flex-wrap gap-4">
-                <a href="#contact" className="bg-white text-black px-8 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors">Book Free Consultation</a>
+                <a href="#contact" className="text-white px-8 py-3 rounded-lg font-medium transition-colors" style={{ background: ACCENT }}>Book Free Consultation</a>
                 <button
                   className="liquid-glass border border-white/20 text-white px-8 py-3 rounded-lg font-medium cursor-pointer transition-all duration-200"
                   style={{ backgroundColor: taxHov ? 'white' : undefined, color: taxHov ? 'black' : undefined }}
@@ -570,7 +570,7 @@ function FinalCTA() {
           <p className="text-muted text-base md:text-lg mb-5 max-w-lg mx-auto">
             Book a free 30-minute call. No obligation — just clear answers about your numbers, where you're overpaying, and what we'd do differently.
           </p>
-          <a href="#contact" className="inline-block bg-gray-900 text-white px-10 py-4 rounded-xl font-medium text-base hover:bg-gray-700 transition-colors duration-200">
+          <a href="#contact" className="inline-block text-white px-10 py-4 rounded-xl font-medium text-base transition-colors duration-200" style={{ background: ACCENT }}>
             Book Your Free Call →
           </a>
         </motion.div>
@@ -714,7 +714,7 @@ function Reviews() {
               </div>
               <div className="md:col-span-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <p className="text-xs text-muted">Reviews appear instantly here. We may also feature them on our marketing with your permission.</p>
-                <button type="submit" disabled={sending} className="bg-gray-900 text-white px-8 py-3 rounded-xl font-medium text-sm hover:bg-gray-700 transition-colors duration-200 cursor-pointer disabled:opacity-60">
+                <button type="submit" disabled={sending} className="text-white px-8 py-3 rounded-xl font-medium text-sm transition-colors duration-200 cursor-pointer disabled:opacity-60" style={{ background: ACCENT }}>
                   {submitted ? 'Thanks — review posted ✓' : sending ? 'Sending…' : 'Submit Review'}
                 </button>
               </div>
@@ -810,7 +810,7 @@ function Contact() {
                       {['Startup', 'Agency', 'Freelancer', 'eCommerce', 'Other'].map(o => <option key={o}>{o}</option>)}
                     </select>
                   </div>
-                  <button type="submit" disabled={sending} className="w-full bg-gray-900 text-white py-3 rounded-xl font-medium text-sm hover:bg-gray-700 transition-colors duration-200 disabled:opacity-60">{sending ? 'Sending…' : 'Send Message'}</button>
+                  <button type="submit" disabled={sending} className="w-full text-white py-3 rounded-xl font-medium text-sm transition-colors duration-200 disabled:opacity-60" style={{ background: ACCENT }}>{sending ? 'Sending…' : 'Send Message'}</button>
                   {error && <p className="text-xs text-red-600">{error}</p>}
                 </form>
               )}
