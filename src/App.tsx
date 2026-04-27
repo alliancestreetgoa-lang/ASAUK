@@ -259,7 +259,7 @@ function Solution() {
               {SOLUTION_ITEMS.map((item, i) => (
                 <motion.div key={i} className="flex items-center gap-4"
                   initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.5 }}>
-                  <span className="shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] text-black" style={{ background: ACCENT }}>✓</span>
+                  <span className="shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] text-white" style={{ background: ACCENT }}>✓</span>
                   <p className="text-text-primary text-sm">{item}</p>
                 </motion.div>
               ))}
@@ -295,7 +295,7 @@ function WhyChooseUs() {
             {WHY_POINTS.map((p, i) => (
               <motion.div key={i} className="p-6 bg-surface/50 border border-stroke rounded-2xl hover:border-gray-400 hover:shadow-sm transition-all duration-300"
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.5 }}>
-                <span className="inline-block text-xs font-medium text-black px-3 py-1 rounded-full mb-4" style={{ background: ACCENT }}>0{i + 1}</span>
+                <span className="inline-block text-xs font-medium text-white px-3 py-1 rounded-full mb-4" style={{ background: ACCENT }}>0{i + 1}</span>
                 <h3 className="text-text-primary font-medium text-sm mb-2">{p.title}</h3>
                 <p className="text-muted text-xs leading-relaxed">{p.desc}</p>
               </motion.div>
