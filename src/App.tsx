@@ -624,31 +624,51 @@ const PLANS = [
 
 function Pricing() {
   return (
-    <section id="pricing" className="relative overflow-hidden bg-surface/30 py-20 md:py-28 px-6 border-b border-stroke">
-      <SectionBg src="https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?w=1600&q=80&auto=format&fit=crop" opacity={0.35} position="right" />
+    <section id="pricing" className="relative overflow-hidden py-20 md:py-28 px-6">
+      {/* Dark cinematic background */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=80&auto=format&fit=crop)', backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.22 }} />
+        <div className="absolute inset-0" style={{ background: 'rgba(6,6,6,0.88)' }} />
+      </div>
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
-          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Transparent Pricing</span></div>
-          <h2 className="text-3xl md:text-5xl text-text-primary mb-12" style={{ fontFamily: "'Instrument Serif',serif" }}>Fixed monthly pricing — <em>no surprises</em></h2>
+          {/* Section header — white on dark */}
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-8 h-px bg-white/30" />
+            <span className="text-xs text-white/50 uppercase tracking-[0.3em]">Transparent Pricing</span>
+          </div>
+          <h2 className="text-3xl md:text-5xl text-white mb-12" style={{ fontFamily: "'Instrument Serif',serif" }}>
+            Fixed monthly pricing — <em>no surprises</em>
+          </h2>
+
+          {/* Pricing cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
             {PLANS.map((plan, i) => (
               <motion.div key={plan.name}
-                className={`relative p-8 rounded-3xl border transition-all duration-300 ${plan.popular ? 'bg-surface border-gray-500 shadow-lg md:scale-105' : 'bg-surface border-stroke hover:border-gray-500'}`}
+                className={`relative rounded-3xl p-8 flex flex-col transition-all duration-300 ${plan.popular ? 'bg-white shadow-2xl md:scale-105' : 'bg-white/95 shadow-lg'}`}
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15, duration: 0.6 }}>
+                {/* Most Popular badge */}
                 {plan.popular && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs px-4 py-1 rounded-full text-black font-medium" style={{ background: ACCENT }}>Most Popular</span>
+                  <span className="absolute -top-4 left-1/2 -translate-x-1/2 text-xs px-5 py-1.5 rounded-full text-white font-semibold tracking-wide shadow-lg" style={{ background: ACCENT }}>
+                    Most Popular
+                  </span>
                 )}
-                <p className="text-xs text-muted uppercase tracking-[0.2em] mb-3">{plan.name} Plan</p>
-                <p className="text-2xl md:text-3xl text-text-primary mb-6" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{plan.price}</p>
-                <ul className="space-y-3 mb-8">
+                {/* Plan label */}
+                <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-[0.25em] mb-3">{plan.name} Plan</p>
+                {/* Price */}
+                <p className="text-2xl md:text-3xl text-gray-900 mb-6" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{plan.price}</p>
+                {/* Features */}
+                <ul className="space-y-3 mb-8 flex-1">
                   {plan.features.map((f, j) => (
-                    <li key={j} className="flex items-center gap-3 text-sm text-muted">
-                      <span className="shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-[9px] text-black" style={{ background: ACCENT }}>✓</span>
+                    <li key={j} className="flex items-start gap-3 text-sm text-gray-600">
+                      <span className="shrink-0 mt-0.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px] text-white font-bold" style={{ background: ACCENT }}>✓</span>
                       {f}
                     </li>
                   ))}
                 </ul>
-                <a href="#contact" className={`block text-center py-3 rounded-xl text-sm font-medium transition-colors duration-200 ${plan.popular ? 'bg-gray-900 text-white hover:bg-gray-800' : 'border border-stroke text-text-primary hover:border-gray-500'}`}>
+                {/* CTA button */}
+                <a href="#contact"
+                  className={`block text-center py-3 rounded-xl text-sm font-semibold transition-colors duration-200 ${plan.popular ? 'bg-gray-900 text-white hover:bg-black' : 'border border-gray-200 text-gray-800 hover:border-gray-400 hover:bg-gray-50'}`}>
                   {plan.name === 'Scale' ? 'Get a Quote' : 'Get Started'}
                 </a>
               </motion.div>
