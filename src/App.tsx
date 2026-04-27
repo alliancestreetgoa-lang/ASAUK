@@ -316,7 +316,7 @@ const RESULTS = [
 function Results() {
   return (
     <section className="relative overflow-hidden bg-surface/30 py-20 md:py-28 px-6 border-b border-stroke">
-      <SectionBg src="/results-bg.png" opacity={0.55} position="right" />
+      <SectionBg src="/results-bg.png" opacity={0.72} position="right" />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
           <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Real Results</span></div>
