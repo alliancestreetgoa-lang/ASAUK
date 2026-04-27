@@ -775,7 +775,7 @@ function Footer() {
       <div className="absolute inset-0 overflow-hidden">
         <HLSVideo src={HLS_SRC} autoPlay muted loop playsInline
           className="absolute top-1/2 left-1/2 min-w-full min-h-full object-cover"
-          style={{ transform: 'translateX(-50%) translateY(-50%) scaleY(-1)' }} />
+          style={{ transform: 'translateX(-50%) translateY(-50%)' }} />
         <div className="absolute inset-0 bg-black/65" />
       </div>
       <div className="relative z-10">
