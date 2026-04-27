@@ -352,8 +352,10 @@ const SOLUTION_ITEMS = [
 
 function Solution() {
   return (
-    <section className="relative overflow-hidden py-20 md:py-28 px-6 border-b border-white/10">
-      <SectionBg src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1600&q=80&auto=format&fit=crop" opacity={0.46} position="right" />
+    <section className="relative overflow-hidden py-20 md:py-28 px-6 border-b border-white/10" style={{ background: '#0d0d0d' }}>
+      <SectionBg src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1600&q=80&auto=format&fit=crop" opacity={0.30} position="right" />
+      {/* Extra darkening layer so text stays crisp */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'rgba(0,0,0,0.45)' }} />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
           <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-white/30" /><span className="text-xs text-white/50 uppercase tracking-[0.3em]">Our Solution</span></div>
@@ -394,8 +396,9 @@ const WHY_POINTS = [
 
 function WhyChooseUs() {
   return (
-    <section className="relative overflow-hidden py-20 md:py-28 px-6 border-b border-white/10">
-      <SectionBg src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80&auto=format&fit=crop" opacity={0.44} position="right" />
+    <section className="relative overflow-hidden py-20 md:py-28 px-6 border-b border-white/10" style={{ background: '#0d0d0d' }}>
+      <SectionBg src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80&auto=format&fit=crop" opacity={0.30} position="right" />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'rgba(0,0,0,0.45)' }} />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
           <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-white/30" /><span className="text-xs text-white/50 uppercase tracking-[0.3em]">Why Choose Us</span></div>
@@ -427,8 +430,9 @@ const RESULTS = [
 
 function Results() {
   return (
-    <section className="relative overflow-hidden py-20 md:py-28 px-6 border-b border-white/10">
-      <SectionBg src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1600&q=80&auto=format&fit=crop" opacity={0.46} position="right" />
+    <section className="relative overflow-hidden py-20 md:py-28 px-6 border-b border-white/10" style={{ background: '#0d0d0d' }}>
+      <SectionBg src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1600&q=80&auto=format&fit=crop" opacity={0.30} position="right" />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'rgba(0,0,0,0.45)' }} />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
           <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-white/30" /><span className="text-xs text-white/50 uppercase tracking-[0.3em]">Real Results</span></div>
@@ -683,8 +687,9 @@ function Pricing() {
 // ── Final CTA ─────────────────────────────────────────────────────────────────
 function FinalCTA() {
   return (
-    <section className="relative overflow-hidden py-20 md:py-28 px-6 border-b border-white/10">
-      <SectionBg src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1600&q=80&auto=format&fit=crop" opacity={0.46} position="center" />
+    <section className="relative overflow-hidden py-20 md:py-28 px-6 border-b border-white/10" style={{ background: '#0d0d0d' }}>
+      <SectionBg src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1600&q=80&auto=format&fit=crop" opacity={0.30} position="center" />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'rgba(0,0,0,0.45)' }} />
       <div className="relative z-10 max-w-[800px] mx-auto text-center">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
           <div className="flex items-center justify-center gap-3 mb-6">
@@ -841,8 +846,9 @@ function Contact() {
     setSent(true)
   }
   return (
-    <section id="contact" className="relative overflow-hidden py-20 md:py-28 px-6 border-b border-white/10">
-      <SectionBg src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1600&q=80&auto=format&fit=crop" opacity={0.46} position="right" />
+    <section id="contact" className="relative overflow-hidden py-20 md:py-28 px-6 border-b border-white/10" style={{ background: '#0d0d0d' }}>
+      <SectionBg src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1600&q=80&auto=format&fit=crop" opacity={0.30} position="right" />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'rgba(0,0,0,0.45)' }} />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
           <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-white/30" /><span className="text-xs text-white/50 uppercase tracking-[0.3em]">Get In Touch</span></div>
