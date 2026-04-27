@@ -2,8 +2,61 @@ import { useEffect, useState, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Lenis from 'lenis'
 
 gsap.registerPlugin(ScrollTrigger)
+
+/* ── Scroll Progress Bar ─────────────────────────────────────── */
+function ScrollProgressBar() {
+  const barRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const bar = barRef.current
+    if (!bar) return
+    gsap.to(bar, {
+      scaleX: 1,
+      ease: 'none',
+      scrollTrigger: { trigger: document.documentElement, start: 'top top', end: 'bottom bottom', scrub: 0 },
+    })
+  }, [])
+  return <div ref={barRef} className="scroll-progress" />
+}
+
+/* ── Custom Cursor (desktop only) ────────────────────────────── */
+function CustomCursor() {
+  const innerRef = useRef<HTMLDivElement>(null)
+  const outerRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (window.matchMedia('(pointer: coarse)').matches) return
+    const inner = innerRef.current
+    const outer = outerRef.current
+    if (!inner || !outer) return
+    const move = (e: MouseEvent) => {
+      gsap.to(inner, { x: e.clientX, y: e.clientY, duration: 0.12, ease: 'power3.out' })
+      gsap.to(outer, { x: e.clientX, y: e.clientY, duration: 0.45, ease: 'power3.out' })
+    }
+    const expand = () => document.body.classList.add('cursor-expanded')
+    const contract = () => document.body.classList.remove('cursor-expanded')
+    const interactives = 'a, button, [role="button"], input, select, textarea, label'
+    window.addEventListener('mousemove', move)
+    document.querySelectorAll(interactives).forEach(el => {
+      el.addEventListener('mouseenter', expand)
+      el.addEventListener('mouseleave', contract)
+    })
+    return () => {
+      window.removeEventListener('mousemove', move)
+      document.querySelectorAll(interactives).forEach(el => {
+        el.removeEventListener('mouseenter', expand)
+        el.removeEventListener('mouseleave', contract)
+      })
+    }
+  }, [])
+  return (
+    <>
+      <div ref={innerRef} className="cursor-dot cursor-dot-inner" />
+      <div ref={outerRef} className="cursor-dot cursor-dot-outer" />
+    </>
+  )
+}
 
 const HERO_VIDEO = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4'
 const ACCENT = 'linear-gradient(90deg, #E40014 0%, #FB2C36 100%)'
@@ -15,7 +68,7 @@ function SectionBg({ src, opacity = 0.28, position = 'right', overlay = 1 }: { s
   const o = overlay
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      <div className="absolute inset-0" style={{ backgroundImage: `url(${src})`, backgroundSize: 'cover', backgroundPosition: pos, opacity }} />
+      <div data-parallax className="absolute inset-0" style={{ backgroundImage: `url(${src})`, backgroundSize: 'cover', backgroundPosition: pos, opacity }} />
       <div className="absolute inset-0" style={{ background: position === 'center' ? `radial-gradient(ellipse at center, rgba(255,255,255,0.0) 0%, rgba(255,255,255,${0.35 * o}) 75%)` : `linear-gradient(to right, rgba(255,255,255,${0.52 * o}) 0%, rgba(255,255,255,${0.25 * o}) 55%, rgba(255,255,255,${0.05 * o}) 100%)` }} />
       <div className="absolute inset-0" style={{ background: `linear-gradient(to top, rgba(255,255,255,${0.45 * o}) 0%, transparent 50%, rgba(255,255,255,${0.05 * o}) 100%)` }} />
     </div>
@@ -138,10 +191,10 @@ function Hero() {
           <a href="#home" className="flex items-center"><img src={LOGO_URL} alt="Alliance Street Accountancy Ltd" className="h-12 md:h-14 w-auto object-contain" /></a>
           <div className="hidden md:flex items-center gap-8">
             {NAV_LINKS.map(link => (
-              <a key={link} href={`#${link.toLowerCase()}`} className="text-sm text-white hover:text-gray-300 transition-colors duration-200">{link}</a>
+              <a key={link} href={`#${link.toLowerCase()}`} className="nav-link text-sm text-white hover:text-gray-300 transition-colors duration-200">{link}</a>
             ))}
           </div>
-          <a href="#contact" className="text-white px-6 py-2 rounded-lg text-sm font-medium transition-colors duration-200 cursor-pointer" style={{ background: ACCENT }}>Book Free Call</a>
+          <a href="#contact" className="btn-lift text-white px-6 py-2 rounded-lg text-sm font-medium cursor-pointer" style={{ background: ACCENT }}>Book Free Call</a>
         </nav>
       </div>
       <div className="relative z-10 flex-1 flex flex-col justify-end px-6 md:px-12 lg:px-16 pb-12 lg:pb-16">
@@ -155,7 +208,7 @@ function Hero() {
             </FadeIn>
             <FadeIn delay={1200} duration={1000}>
               <div className="flex flex-wrap gap-4">
-                <a href="#contact" className="text-white px-8 py-3 rounded-lg font-medium transition-colors" style={{ background: ACCENT }}>Book Free Consultation</a>
+                <a href="#contact" className="btn-lift text-white px-8 py-3 rounded-lg font-medium" style={{ background: ACCENT }}>Book Free Consultation</a>
                 <button
                   className="liquid-glass border border-white/20 text-white px-8 py-3 rounded-lg font-medium cursor-pointer transition-all duration-200"
                   style={{ backgroundColor: taxHov ? 'white' : undefined, color: taxHov ? 'black' : undefined }}
@@ -261,7 +314,7 @@ function WhyChooseUs() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {WHY_POINTS.map((p, i) => (
-              <motion.div key={i} className="p-6 bg-surface/50 border border-stroke rounded-2xl hover:border-gray-400 hover:shadow-sm transition-all duration-300"
+              <motion.div key={i} className="card-lift p-6 bg-surface/50 border border-stroke rounded-2xl"
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.5 }}>
                 <span className="inline-block text-xs font-medium text-white px-3 py-1 rounded-full mb-4" style={{ background: ACCENT }}>0{i + 1}</span>
                 <h3 className="text-text-primary font-medium text-sm mb-2">{p.title}</h3>
@@ -538,7 +591,7 @@ function FinalCTA() {
           <p className="text-muted text-base md:text-lg mb-5 max-w-lg mx-auto">
             Book a free 30-minute call. No obligation — just clear answers about your numbers, where you're overpaying, and what we'd do differently.
           </p>
-          <a href="#contact" className="inline-block text-white px-10 py-4 rounded-xl font-medium text-base transition-colors duration-200" style={{ background: ACCENT }}>
+          <a href="#contact" className="btn-lift inline-block text-white px-10 py-4 rounded-xl font-medium text-base" style={{ background: ACCENT }}>
             Book Your Free Call →
           </a>
         </motion.div>
@@ -631,7 +684,7 @@ function Reviews() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
             {reviews.map((r, i) => (
-              <motion.div key={r.name + i} className="p-6 bg-surface/50 border border-stroke rounded-2xl flex flex-col"
+              <motion.div key={r.name + i} className="card-lift p-6 bg-surface/50 border border-stroke rounded-2xl flex flex-col"
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: Math.min(i, 5) * 0.08, duration: 0.5 }}>
                 <StarRow rating={r.rating} />
                 <p className="text-text-primary text-sm leading-relaxed my-4 flex-1">"{r.quote}"</p>
@@ -682,7 +735,7 @@ function Reviews() {
               </div>
               <div className="md:col-span-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <p className="text-xs text-muted">Reviews appear instantly here. We may also feature them on our marketing with your permission.</p>
-                <button type="submit" disabled={sending} className="text-white px-8 py-3 rounded-xl font-medium text-sm transition-colors duration-200 cursor-pointer disabled:opacity-60" style={{ background: ACCENT }}>
+                <button type="submit" disabled={sending} className="btn-lift text-white px-8 py-3 rounded-xl font-medium text-sm cursor-pointer disabled:opacity-60" style={{ background: ACCENT }}>
                   {submitted ? 'Thanks — review posted ✓' : sending ? 'Sending…' : 'Submit Review'}
                 </button>
               </div>
@@ -778,7 +831,7 @@ function Contact() {
                       {['Startup', 'Agency', 'Freelancer', 'eCommerce', 'Other'].map(o => <option key={o}>{o}</option>)}
                     </select>
                   </div>
-                  <button type="submit" disabled={sending} className="w-full text-white py-3 rounded-xl font-medium text-sm transition-colors duration-200 disabled:opacity-60" style={{ background: ACCENT }}>{sending ? 'Sending…' : 'Send Message'}</button>
+                  <button type="submit" disabled={sending} className="btn-lift w-full text-white py-3 rounded-xl font-medium text-sm disabled:opacity-60" style={{ background: ACCENT }}>{sending ? 'Sending…' : 'Send Message'}</button>
                   {error && <p className="text-xs text-red-600">{error}</p>}
                 </form>
               )}
@@ -861,8 +914,65 @@ function Footer() {
 export default function App() {
   const [isLoading, setIsLoading] = useState(true)
   const handleComplete = useCallback(() => setIsLoading(false), [])
+
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.25,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+    })
+    lenis.on('scroll', ScrollTrigger.update)
+    const lenisRaf = (time: number) => lenis.raf(time)
+    gsap.ticker.add(lenisRaf)
+    gsap.ticker.lagSmoothing(0)
+    return () => {
+      lenis.destroy()
+      gsap.ticker.remove(lenisRaf)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (isLoading) return
+    const ctx = gsap.context(() => {
+      gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((el) => {
+        gsap.fromTo(el,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1, y: 0,
+            duration: 0.9,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+          }
+        )
+      })
+      gsap.utils.toArray<HTMLElement>('[data-stagger]').forEach((container) => {
+        const children = Array.from(container.children) as HTMLElement[]
+        gsap.fromTo(children,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1, y: 0,
+            duration: 0.7,
+            ease: 'power3.out',
+            stagger: 0.1,
+            scrollTrigger: { trigger: container, start: 'top 85%', once: true },
+          }
+        )
+      })
+      gsap.utils.toArray<HTMLElement>('[data-parallax]').forEach((el) => {
+        gsap.to(el, {
+          yPercent: -18,
+          ease: 'none',
+          scrollTrigger: { trigger: el.parentElement, scrub: 1.5, start: 'top bottom', end: 'bottom top' },
+        })
+      })
+    })
+    return () => ctx.revert()
+  }, [isLoading])
+
   return (
     <>
+      <ScrollProgressBar />
+      <CustomCursor />
       <AnimatePresence>
         {isLoading && <LoadingScreen onComplete={handleComplete} />}
       </AnimatePresence>
