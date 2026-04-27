@@ -20,8 +20,8 @@ function SectionBg({ src, opacity = 0.28, position = 'right' }: { src: string; o
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
       <div className="absolute inset-0" style={{ backgroundImage: `url(${src})`, backgroundSize: 'cover', backgroundPosition: pos, opacity }} />
-      <div className="absolute inset-0" style={{ background: position === 'center' ? 'radial-gradient(ellipse at center, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.55) 75%)' : 'linear-gradient(to right, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0.45) 55%, rgba(255,255,255,0.15) 100%)' }} />
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(255,255,255,0.65) 0%, transparent 50%, rgba(255,255,255,0.2) 100%)' }} />
+      <div className="absolute inset-0" style={{ background: position === 'center' ? 'radial-gradient(ellipse at center, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.55) 75%)' : 'linear-gradient(to right, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.45) 55%, rgba(0,0,0,0.15) 100%)' }} />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 50%, rgba(0,0,0,0.2) 100%)' }} />
     </div>
   )
 }
@@ -57,7 +57,7 @@ function Modal({ data, onClose }: { data: ModalData; onClose: () => void }) {
             {data.tag && <span className="text-xs uppercase tracking-[0.25em] text-muted mb-3 inline-block">{data.tag}</span>}
             <h2 className="text-2xl sm:text-3xl text-text-primary mb-4 leading-tight" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{data.title}</h2>
             <div className="text-sm text-muted leading-relaxed space-y-4">{data.body}</div>
-            <div className="mt-8"><a href="#contact" onClick={onClose} className="inline-block bg-gray-900 text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-700 transition-colors">Get Started →</a></div>
+            <div className="mt-8"><a href="#contact" onClick={onClose} className="inline-block bg-white text-black px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">Get Started →</a></div>
           </div>
         </motion.div>
       </motion.div>
@@ -526,7 +526,7 @@ function Pricing() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
             {PLANS.map((plan, i) => (
               <motion.div key={plan.name}
-                className={`relative p-8 rounded-3xl border transition-all duration-300 ${plan.popular ? 'bg-white border-gray-400 shadow-lg md:scale-105' : 'bg-white border-stroke hover:border-gray-400'}`}
+                className={`relative p-8 rounded-3xl border transition-all duration-300 ${plan.popular ? 'bg-surface border-gray-500 shadow-lg md:scale-105' : 'bg-surface border-stroke hover:border-gray-500'}`}
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15, duration: 0.6 }}>
                 {plan.popular && (
                   <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs px-4 py-1 rounded-full text-black font-medium" style={{ background: ACCENT }}>Most Popular</span>
@@ -541,7 +541,7 @@ function Pricing() {
                     </li>
                   ))}
                 </ul>
-                <a href="#contact" className={`block text-center py-3 rounded-xl text-sm font-medium transition-colors duration-200 ${plan.popular ? 'bg-gray-900 text-white hover:bg-gray-700' : 'border border-stroke text-text-primary hover:border-gray-500'}`}>
+                <a href="#contact" className={`block text-center py-3 rounded-xl text-sm font-medium transition-colors duration-200 ${plan.popular ? 'bg-white text-black hover:bg-gray-200' : 'border border-stroke text-text-primary hover:border-gray-500'}`}>
                   {plan.name === 'Scale' ? 'Get a Quote' : 'Get Started'}
                 </a>
               </motion.div>
@@ -569,7 +569,7 @@ function FinalCTA() {
           <p className="text-muted text-base md:text-lg mb-10 max-w-lg mx-auto">
             Book a free 30-minute call. No obligation — just clear answers about your numbers, where you're overpaying, and what we'd do differently.
           </p>
-          <a href="#contact" className="inline-block bg-gray-900 text-white px-10 py-4 rounded-xl font-medium text-base hover:bg-gray-700 transition-colors duration-200">
+          <a href="#contact" className="inline-block bg-white text-black px-10 py-4 rounded-xl font-medium text-base hover:bg-gray-200 transition-colors duration-200">
             Book Your Free Call →
           </a>
         </motion.div>
@@ -687,7 +687,7 @@ function Reviews() {
               </div>
               <div className="md:col-span-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <p className="text-xs text-muted">Reviews appear instantly here. We may also feature them on our marketing with your permission.</p>
-                <button type="submit" className="bg-gray-900 text-white px-8 py-3 rounded-xl font-medium text-sm hover:bg-gray-700 transition-colors duration-200 cursor-pointer">
+                <button type="submit" className="bg-white text-black px-8 py-3 rounded-xl font-medium text-sm hover:bg-gray-200 transition-colors duration-200 cursor-pointer">
                   {submitted ? 'Thanks — review posted ✓' : 'Submit Review'}
                 </button>
               </div>
@@ -754,7 +754,7 @@ function Contact() {
                       {['Startup', 'Agency', 'Freelancer', 'eCommerce', 'Other'].map(o => <option key={o}>{o}</option>)}
                     </select>
                   </div>
-                  <button type="submit" className="w-full bg-gray-900 text-white py-3 rounded-xl font-medium text-sm hover:bg-gray-700 transition-colors duration-200">Send Message</button>
+                  <button type="submit" className="w-full bg-white text-black py-3 rounded-xl font-medium text-sm hover:bg-gray-200 transition-colors duration-200">Send Message</button>
                 </form>
               )}
             </div>
