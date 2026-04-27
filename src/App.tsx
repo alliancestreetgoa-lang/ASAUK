@@ -769,12 +769,7 @@ function Contact() {
 
 // ── Footer ────────────────────────────────────────────────────────────────────
 function Footer() {
-  const marqueeRef = useRef<HTMLDivElement>(null)
   const [emailHov, setEmailHov] = useState(false)
-  useEffect(() => {
-    const ctx = gsap.context(() => { gsap.to('.marquee-inner', { xPercent: -50, duration: 300, ease: 'none', repeat: -1 }) }, marqueeRef)
-    return () => ctx.revert()
-  }, [])
   return (
     <footer className="dark-section pt-16 md:pt-20 pb-8 md:pb-12 overflow-hidden relative">
       <div className="absolute inset-0 overflow-hidden">
@@ -784,13 +779,6 @@ function Footer() {
         <div className="absolute inset-0 bg-black/65" />
       </div>
       <div className="relative z-10">
-        <div className="overflow-hidden mb-12 md:mb-20" ref={marqueeRef}>
-          <div className="marquee-inner whitespace-nowrap inline-flex">
-            {Array(20).fill('UK ACCOUNTANT · BOOKKEEPING · VAT SERVICES · TAX PLANNING · CORPORATION TAX · PAYROLL · MTD COMPLIANT · ').map((text, i) => (
-              <span key={i} className="text-3xl md:text-5xl lg:text-7xl text-text-primary/10 pr-8" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{text}</span>
-            ))}
-          </div>
-        </div>
         <div className="text-center mb-16">
           <p className="text-xs text-muted uppercase tracking-[0.3em] mb-6">Let's simplify your accounting</p>
           <div className="relative inline-block rounded-full" onMouseEnter={() => setEmailHov(true)} onMouseLeave={() => setEmailHov(false)}>
