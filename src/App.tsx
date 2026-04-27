@@ -326,7 +326,7 @@ function Results() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {RESULTS.map((r, i) => (
-              <motion.div key={i} className="p-8 bg-bg border border-stroke rounded-3xl"
+              <motion.div key={i} className="p-8 border border-stroke rounded-3xl" style={{ background: 'rgba(255,255,255,0.5)', backdropFilter: 'blur(8px)' }}
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15, duration: 0.6 }}>
                 <p className="text-4xl md:text-5xl text-text-primary mb-2" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{r.value}</p>
                 <p className="text-text-primary text-sm font-medium mb-2">{r.label}</p>
