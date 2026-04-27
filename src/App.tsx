@@ -10,13 +10,14 @@ const ACCENT = 'linear-gradient(90deg, #E40014 0%, #FB2C36 100%)'
 const WEB3FORMS_KEY = '9f92669a-aa40-4112-98a0-2bae71b40cab'
 const LOGO_URL = '/logo.png?v=4'
 
-function SectionBg({ src, opacity = 0.28, position = 'right' }: { src: string; opacity?: number; position?: 'left' | 'right' | 'center' }) {
+function SectionBg({ src, opacity = 0.28, position = 'right', overlay = 1 }: { src: string; opacity?: number; position?: 'left' | 'right' | 'center'; overlay?: number }) {
   const pos = position === 'left' ? 'left center' : position === 'center' ? 'center' : 'right center'
+  const o = overlay
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
       <div className="absolute inset-0" style={{ backgroundImage: `url(${src})`, backgroundSize: 'cover', backgroundPosition: pos, opacity }} />
-      <div className="absolute inset-0" style={{ background: position === 'center' ? 'radial-gradient(ellipse at center, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.35) 75%)' : 'linear-gradient(to right, rgba(255,255,255,0.52) 0%, rgba(255,255,255,0.25) 55%, rgba(255,255,255,0.05) 100%)' }} />
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(255,255,255,0.45) 0%, transparent 50%, rgba(255,255,255,0.05) 100%)' }} />
+      <div className="absolute inset-0" style={{ background: position === 'center' ? `radial-gradient(ellipse at center, rgba(255,255,255,0.0) 0%, rgba(255,255,255,${0.35 * o}) 75%)` : `linear-gradient(to right, rgba(255,255,255,${0.52 * o}) 0%, rgba(255,255,255,${0.25 * o}) 55%, rgba(255,255,255,${0.05 * o}) 100%)` }} />
+      <div className="absolute inset-0" style={{ background: `linear-gradient(to top, rgba(255,255,255,${0.45 * o}) 0%, transparent 50%, rgba(255,255,255,${0.05 * o}) 100%)` }} />
     </div>
   )
 }
@@ -316,7 +317,7 @@ const RESULTS = [
 function Results() {
   return (
     <section className="relative overflow-hidden bg-surface/30 py-20 md:py-28 px-6 border-b border-stroke">
-      <SectionBg src="/results-bg.png" opacity={0.95} position="right" />
+      <SectionBg src="/results-bg.png" opacity={0.95} position="right" overlay={0.5} />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
           <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Real Results</span></div>
