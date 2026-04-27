@@ -86,10 +86,10 @@ em {
 
 .dark-section {
   background: hsl(0 0% 2%);
-  color: hsl(0 0% 95%);
+  color: hsl(0 0% 98%);
   --color-bg: hsl(0 0% 2%);
   --color-surface: hsl(0 0% 12%);
-  --color-text-primary: hsl(0 0% 95%);
-  --color-muted: hsl(0 0% 60%);
-  --color-stroke: hsl(0 0% 18%);
+  --color-text-primary: hsl(0 0% 98%);
+  --color-muted: hsl(0 0% 88%);
+  --color-stroke: hsl(0 0% 35%);
 }
