@@ -328,9 +328,9 @@ function Results() {
             {RESULTS.map((r, i) => (
               <motion.div key={i} className="p-8 border border-stroke rounded-3xl" style={{ background: 'rgba(255,255,255,0.5)', backdropFilter: 'blur(8px)' }}
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15, duration: 0.6 }}>
-                <p className="text-4xl md:text-5xl text-text-primary mb-2" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{r.value}</p>
-                <p className="text-text-primary text-sm font-medium mb-2">{r.label}</p>
-                <p className="text-muted text-xs leading-relaxed">{r.desc}</p>
+                <p className="text-4xl md:text-5xl mb-2" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic', color: '#111' }}>{r.value}</p>
+                <p className="text-sm font-medium mb-2" style={{ color: '#111' }}>{r.label}</p>
+                <p className="text-xs leading-relaxed" style={{ color: '#333' }}>{r.desc}</p>
               </motion.div>
             ))}
           </div>
