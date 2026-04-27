@@ -288,9 +288,9 @@ function Results() {
       <SectionBg src="/results-bg.png?v=2" opacity={0.95} position="right" overlay={0.5} />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
-          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Real Results</span></div>
-          <h2 className="text-3xl md:text-5xl text-text-primary mb-6" style={{ fontFamily: "'Instrument Serif',serif" }}>
-            Real results for growing <em>UK businesses</em>
+          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-white/60" /><span className="text-xs uppercase tracking-[0.3em] font-semibold text-white">Real Results</span></div>
+          <h2 className="text-3xl md:text-5xl mb-6" style={{ fontFamily: "'Instrument Serif',serif", color: '#fff' }}>
+            Real results for growing <em style={{ color: '#FB2C36' }}>UK businesses</em>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {RESULTS.map((r, i) => (
