@@ -833,7 +833,7 @@ function Footer() {
         <video autoPlay loop muted playsInline src={HERO_VIDEO}
           className="absolute top-1/2 left-1/2 min-w-full min-h-full object-cover"
           style={{ transform: 'translateX(-50%) translateY(-50%)' }} />
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-black/75" />
       </div>
       <div className="relative z-10">
         <div className="text-center mb-8">
