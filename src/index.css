@@ -35,7 +35,12 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+/* Lenis owns smooth scrolling — disable native to avoid conflict */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
 
 body {
   margin: 0;
@@ -44,6 +49,85 @@ body {
   color: hsl(0 0% 96%);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* Premium micro-interactions                                                  */
+/* ─────────────────────────────────────────────────────────────────────────── */
+
+/* Smooth color/bg/border transitions on every link & button (no transform — avoids
+   jitter on icon close buttons, logo wrappers, and other absolute-positioned controls) */
+a, button {
+  transition: background-color 0.25s ease, color 0.25s ease,
+              border-color 0.25s ease, opacity 0.25s ease, box-shadow 0.3s ease;
+}
+
+/* Opt-in CTA lift class — applied to primary call-to-action buttons */
+.btn-lift {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              background-color 0.25s ease, color 0.25s ease;
+  will-change: transform;
+}
+.btn-lift:hover { transform: translateY(-2px); box-shadow: 0 12px 28px -14px rgba(255,255,255,0.25); }
+.btn-lift:active { transform: translateY(0); }
+
+/* Pricing / why / results / review cards: lift + soft glow on hover */
+.bg-surface\/50:hover,
+.bg-surface\/30:hover,
+.bg-bg.border.border-stroke:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px -20px rgba(228, 0, 20, 0.18),
+              0 8px 24px -12px rgba(0, 0, 0, 0.6);
+}
+.bg-surface\/50, .bg-surface\/30, .bg-bg.border.border-stroke {
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.3s ease;
+}
+
+/* Image hover zoom — opt-in via class */
+.img-zoom { overflow: hidden; }
+.img-zoom img {
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.img-zoom:hover img { transform: scale(1.06); }
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* Custom cursor follower (desktop only — hidden on touch)                     */
+/* ─────────────────────────────────────────────────────────────────────────── */
+.cursor-follower-dot,
+.cursor-follower-ring {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  border-radius: 9999px;
+  mix-blend-mode: difference;
+}
+.cursor-follower-dot {
+  width: 6px; height: 6px;
+  background: #ffffff;
+}
+.cursor-follower-ring {
+  width: 34px; height: 34px;
+  border: 1px solid rgba(255,255,255,0.65);
+  transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+  will-change: transform;
+}
+@media (hover: none), (max-width: 768px) {
+  .cursor-follower-dot, .cursor-follower-ring { display: none; }
+}
+
+/* Respect users who want less motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 .accent-gradient {

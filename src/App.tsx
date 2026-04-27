@@ -2,8 +2,158 @@ import { useEffect, useRef, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Lenis from 'lenis'
 
 gsap.registerPlugin(ScrollTrigger)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Premium motion layer: Lenis smooth scroll + ScrollTrigger sync.
+// Initialised once at App mount. Touch devices skip smoothing for native feel.
+// ─────────────────────────────────────────────────────────────────────────────
+function useSmoothScroll() {
+  useEffect(() => {
+    const isTouch = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches
+    const lenis = new Lenis({
+      duration: 1.15,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: !isTouch,
+      wheelMultiplier: 1,
+      touchMultiplier: 1.5,
+    })
+
+    lenis.on('scroll', ScrollTrigger.update)
+
+    const tick = (time: number) => { lenis.raf(time * 1000) }
+    gsap.ticker.add(tick)
+    gsap.ticker.lagSmoothing(0)
+
+    return () => {
+      gsap.ticker.remove(tick)
+      lenis.destroy()
+    }
+  }, [])
+}
+
+// Top scroll-progress bar (premium agency staple)
+function ScrollProgress() {
+  const ref = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const update = () => {
+      const h = document.documentElement
+      const total = h.scrollHeight - h.clientHeight
+      const p = total > 0 ? h.scrollTop / total : 0
+      el.style.transform = `scaleX(${p})`
+    }
+    update()
+    window.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update)
+    return () => {
+      window.removeEventListener('scroll', update)
+      window.removeEventListener('resize', update)
+    }
+  }, [])
+  return (
+    <div className="fixed top-0 left-0 right-0 h-[2px] z-[10000] pointer-events-none">
+      <div ref={ref} className="h-full origin-left" style={{ background: ACCENT, transform: 'scaleX(0)', willChange: 'transform' }} />
+    </div>
+  )
+}
+
+// Subtle custom cursor follower — desktop only, lerped for buttery feel.
+// Uses event delegation on document so dynamically-rendered elements (modals,
+// review cards added on submit, etc.) automatically get the hover scale effect.
+function CursorFollower() {
+  const dotRef = useRef<HTMLDivElement>(null)
+  const ringRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (window.matchMedia('(hover: none)').matches) return
+    const dot = dotRef.current!
+    const ring = ringRef.current!
+    const INTERACTIVE = 'a, button, [role="button"], input, textarea, select, label'
+    let mx = window.innerWidth / 2, my = window.innerHeight / 2
+    let rx = mx, ry = my
+    let raf = 0
+
+    const move = (e: MouseEvent) => { mx = e.clientX; my = e.clientY }
+    const tick = () => {
+      rx += (mx - rx) * 0.18
+      ry += (my - ry) * 0.18
+      dot.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`
+      ring.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%) scale(var(--c-scale, 1))`
+      raf = requestAnimationFrame(tick)
+    }
+    // Delegated hover detection — works for any current OR future interactive element
+    const over = (e: MouseEvent) => {
+      const t = e.target as Element | null
+      if (t && t.closest && t.closest(INTERACTIVE)) ring.style.setProperty('--c-scale', '1.8')
+    }
+    const out = (e: MouseEvent) => {
+      const t = e.target as Element | null
+      if (t && t.closest && t.closest(INTERACTIVE)) ring.style.setProperty('--c-scale', '1')
+    }
+
+    document.addEventListener('mousemove', move)
+    document.addEventListener('mouseover', over)
+    document.addEventListener('mouseout', out)
+    raf = requestAnimationFrame(tick)
+    return () => {
+      cancelAnimationFrame(raf)
+      document.removeEventListener('mousemove', move)
+      document.removeEventListener('mouseover', over)
+      document.removeEventListener('mouseout', out)
+    }
+  }, [])
+  return (
+    <>
+      <div ref={ringRef} className="cursor-follower-ring" />
+      <div ref={dotRef} className="cursor-follower-dot" />
+    </>
+  )
+}
+
+// Parallax hook — translates an inner element subtly while parent scrolls past viewport.
+// Gated by IntersectionObserver so off-screen sections don't pay layout cost,
+// and rAF-batched so we never read/write the DOM more than once per frame.
+function useParallax(ref: React.RefObject<HTMLDivElement | null>, intensity = 0.12) {
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const parent = el.parentElement as HTMLElement | null
+    if (!parent) return
+
+    let visible = false
+    let raf = 0
+    const apply = () => {
+      raf = 0
+      if (!visible) return
+      const rect = parent.getBoundingClientRect()
+      const vh = window.innerHeight
+      const center = rect.top + rect.height / 2
+      const progress = (center - vh / 2) / (vh + rect.height)
+      const y = -progress * rect.height * intensity
+      el.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0) scale(1.08)`
+    }
+    const schedule = () => { if (!raf) raf = requestAnimationFrame(apply) }
+
+    const io = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting
+      if (visible) schedule()
+    }, { rootMargin: '120px 0px' })
+    io.observe(parent)
+
+    window.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule)
+    return () => {
+      io.disconnect()
+      if (raf) cancelAnimationFrame(raf)
+      window.removeEventListener('scroll', schedule)
+      window.removeEventListener('resize', schedule)
+    }
+  }, [ref, intensity])
+}
 
 const HERO_VIDEO = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4'
 const ACCENT = 'linear-gradient(90deg, #E40014 0%, #FB2C36 100%)'
@@ -17,9 +167,11 @@ function submitToNetlify(formName: string, data: Record<string, string | number>
 
 function SectionBg({ src, opacity = 0.28, position = 'right' }: { src: string; opacity?: number; position?: 'left' | 'right' | 'center' }) {
   const pos = position === 'left' ? 'left center' : position === 'center' ? 'center' : 'right center'
+  const parallaxRef = useRef<HTMLDivElement>(null)
+  useParallax(parallaxRef, 0.14)
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      <div className="absolute inset-0" style={{ backgroundImage: `url(${src})`, backgroundSize: 'cover', backgroundPosition: pos, opacity }} />
+      <div ref={parallaxRef} className="absolute inset-0 will-change-transform" style={{ backgroundImage: `url(${src})`, backgroundSize: 'cover', backgroundPosition: pos, opacity }} />
       <div className="absolute inset-0" style={{ background: position === 'center' ? 'radial-gradient(ellipse at center, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.55) 75%)' : 'linear-gradient(to right, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.45) 55%, rgba(0,0,0,0.15) 100%)' }} />
       <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 50%, rgba(0,0,0,0.2) 100%)' }} />
     </div>
@@ -57,7 +209,7 @@ function Modal({ data, onClose }: { data: ModalData; onClose: () => void }) {
             {data.tag && <span className="text-xs uppercase tracking-[0.25em] text-muted mb-3 inline-block">{data.tag}</span>}
             <h2 className="text-2xl sm:text-3xl text-text-primary mb-4 leading-tight" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{data.title}</h2>
             <div className="text-sm text-muted leading-relaxed space-y-4">{data.body}</div>
-            <div className="mt-8"><a href="#contact" onClick={onClose} className="inline-block bg-white text-black px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">Get Started →</a></div>
+            <div className="mt-8"><a href="#contact" onClick={onClose} className="btn-lift inline-block bg-white text-black px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-200">Get Started →</a></div>
           </div>
         </motion.div>
       </motion.div>
@@ -569,7 +721,7 @@ function FinalCTA() {
           <p className="text-muted text-base md:text-lg mb-10 max-w-lg mx-auto">
             Book a free 30-minute call. No obligation — just clear answers about your numbers, where you're overpaying, and what we'd do differently.
           </p>
-          <a href="#contact" className="inline-block bg-white text-black px-10 py-4 rounded-xl font-medium text-base hover:bg-gray-200 transition-colors duration-200">
+          <a href="#contact" className="btn-lift inline-block bg-white text-black px-10 py-4 rounded-xl font-medium text-base hover:bg-gray-200">
             Book Your Free Call →
           </a>
         </motion.div>
@@ -687,7 +839,7 @@ function Reviews() {
               </div>
               <div className="md:col-span-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <p className="text-xs text-muted">Reviews appear instantly here. We may also feature them on our marketing with your permission.</p>
-                <button type="submit" className="bg-white text-black px-8 py-3 rounded-xl font-medium text-sm hover:bg-gray-200 transition-colors duration-200 cursor-pointer">
+                <button type="submit" className="btn-lift bg-white text-black px-8 py-3 rounded-xl font-medium text-sm hover:bg-gray-200 cursor-pointer">
                   {submitted ? 'Thanks — review posted ✓' : 'Submit Review'}
                 </button>
               </div>
@@ -754,7 +906,7 @@ function Contact() {
                       {['Startup', 'Agency', 'Freelancer', 'eCommerce', 'Other'].map(o => <option key={o}>{o}</option>)}
                     </select>
                   </div>
-                  <button type="submit" className="w-full bg-white text-black py-3 rounded-xl font-medium text-sm hover:bg-gray-200 transition-colors duration-200">Send Message</button>
+                  <button type="submit" className="btn-lift w-full bg-white text-black py-3 rounded-xl font-medium text-sm hover:bg-gray-200">Send Message</button>
                 </form>
               )}
             </div>
@@ -848,6 +1000,7 @@ function Footer() {
 export default function App() {
   const [isLoading, setIsLoading] = useState(true)
   const handleComplete = useCallback(() => setIsLoading(false), [])
+  useSmoothScroll()
   return (
     <>
       <AnimatePresence>
@@ -855,7 +1008,9 @@ export default function App() {
       </AnimatePresence>
       <AnimatePresence>
         {!isLoading && (
-          <motion.div key="main" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
+          <motion.div key="main" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
+            <ScrollProgress />
+            <CursorFollower />
             <Hero />
             <Trust />
             <Solution />
