@@ -573,20 +573,27 @@ function Pricing() {
 // ── Final CTA ─────────────────────────────────────────────────────────────────
 function FinalCTA() {
   return (
-    <section className="relative overflow-hidden bg-surface/30 py-20 md:py-28 px-6 border-b border-stroke">
-      <SectionBg src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1600&q=80&auto=format&fit=crop" opacity={0.55} position="center" />
+    <section className="relative overflow-hidden py-20 md:py-28 px-6" style={{ background: 'hsl(0 0% 2%)' }}>
+      <div className="absolute inset-0 overflow-hidden">
+        <HLSVideo src={HLS_SRC} autoPlay muted loop playsInline
+          className="absolute top-1/2 left-1/2 min-w-full min-h-full object-cover"
+          style={{ transform: 'translateX(-50%) translateY(-50%)' }} />
+        <div className="absolute inset-0 bg-black/60" />
+      </div>
       <div className="relative z-10 max-w-[800px] mx-auto text-center">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
           <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Get Started</span><div className="w-8 h-px bg-stroke" />
+            <div className="w-8 h-px" style={{ background: 'hsl(0 0% 40%)' }} />
+            <span className="text-xs uppercase tracking-[0.3em]" style={{ color: 'hsl(0 0% 65%)' }}>Get Started</span>
+            <div className="w-8 h-px" style={{ background: 'hsl(0 0% 40%)' }} />
           </div>
-          <h2 className="text-4xl md:text-6xl text-text-primary mb-6 leading-tight" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
+          <h2 className="text-4xl md:text-6xl mb-6 leading-tight" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic', color: 'hsl(0 0% 95%)' }}>
             Ready to take accounting off your plate?
           </h2>
-          <p className="text-muted text-base md:text-lg mb-10 max-w-lg mx-auto">
+          <p className="text-base md:text-lg mb-10 max-w-lg mx-auto" style={{ color: 'hsl(0 0% 65%)' }}>
             Book a free 30-minute call. No obligation — just clear answers about your numbers, where you're overpaying, and what we'd do differently.
           </p>
-          <a href="#contact" className="inline-block bg-gray-900 text-white px-10 py-4 rounded-xl font-medium text-base hover:bg-gray-700 transition-colors duration-200">
+          <a href="#contact" className="inline-block px-10 py-4 rounded-xl font-medium text-base transition-colors duration-200" style={{ background: '#E40014', color: '#fff' }}>
             Book Your Free Call →
           </a>
         </motion.div>
