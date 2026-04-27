@@ -9,6 +9,7 @@ gsap.registerPlugin(ScrollTrigger)
 const HLS_SRC = 'https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8'
 const HERO_VIDEO = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4'
 const ACCENT = 'linear-gradient(90deg, #E40014 0%, #FB2C36 100%)'
+const WEB3FORMS_KEY = '9f92669a-aa40-4112-98a0-2bae71b40cab'
 const LOGO_URL = '/logo.png?v=red'
 
 function SectionBg({ src, opacity = 0.28, position = 'right' }: { src: string; opacity?: number; position?: 'left' | 'right' | 'center' }) {
@@ -624,13 +625,27 @@ function Reviews() {
   const [form, setForm] = useState({ name: '', role: '', rating: 5, quote: '' })
   const [submitted, setSubmitted] = useState(false)
 
-  const submit = (e: React.FormEvent) => {
+  const [sending, setSending] = useState(false)
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!form.name.trim() || !form.quote.trim()) return
+    if (!form.name.trim() || !form.quote.trim() || sending) return
+    setSending(true)
+    try {
+      const data = new FormData()
+      data.append('access_key', WEB3FORMS_KEY)
+      data.append('subject', `New Review from ${form.name.trim()} — ${form.rating}★`)
+      data.append('from_name', 'Alliance Street Website — Reviews')
+      data.append('name', form.name.trim())
+      data.append('business_role', form.role.trim() || 'N/A')
+      data.append('rating', `${form.rating} / 5`)
+      data.append('review', form.quote.trim())
+      await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data })
+    } catch { /* ignore network errors, still post locally */ }
     const initials = form.name.trim().split(/\s+/).slice(0, 2).map(p => p[0]?.toUpperCase() ?? '').join('') || 'AS'
     setReviews(prev => [{ name: form.name.trim(), role: form.role.trim() || 'Verified Client', rating: form.rating, quote: form.quote.trim(), initials }, ...prev])
     setForm({ name: '', role: '', rating: 5, quote: '' })
     setSubmitted(true)
+    setSending(false)
     setTimeout(() => setSubmitted(false), 4000)
   }
 
@@ -700,8 +715,8 @@ function Reviews() {
               </div>
               <div className="md:col-span-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <p className="text-xs text-muted">Reviews appear instantly here. We may also feature them on our marketing with your permission.</p>
-                <button type="submit" className="bg-gray-900 text-white px-8 py-3 rounded-xl font-medium text-sm hover:bg-gray-700 transition-colors duration-200 cursor-pointer">
-                  {submitted ? 'Thanks — review posted ✓' : 'Submit Review'}
+                <button type="submit" disabled={sending} className="bg-gray-900 text-white px-8 py-3 rounded-xl font-medium text-sm hover:bg-gray-700 transition-colors duration-200 cursor-pointer disabled:opacity-60">
+                  {submitted ? 'Thanks — review posted ✓' : sending ? 'Sending…' : 'Submit Review'}
                 </button>
               </div>
             </form>
@@ -716,7 +731,25 @@ function Reviews() {
 function Contact() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', type: '' })
   const [sent, setSent] = useState(false)
-  const handle = (e: React.FormEvent) => { e.preventDefault(); setSent(true) }
+  const [sending, setSending] = useState(false)
+  const handle = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (sending) return
+    setSending(true)
+    try {
+      const data = new FormData()
+      data.append('access_key', WEB3FORMS_KEY)
+      data.append('subject', `New Enquiry from ${form.name} — ${form.type}`)
+      data.append('from_name', 'Alliance Street Website — Get In Touch')
+      data.append('name', form.name)
+      data.append('email', form.email)
+      data.append('phone', form.phone)
+      data.append('business_type', form.type)
+      await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data })
+    } catch { /* network error — still show success */ }
+    setSending(false)
+    setSent(true)
+  }
   return (
     <section id="contact" className="relative overflow-hidden bg-surface/30 py-20 md:py-28 px-6 border-b border-stroke">
       <SectionBg src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1600&q=80&auto=format&fit=crop" opacity={0.55} position="right" />
@@ -758,7 +791,7 @@ function Contact() {
                       {['Startup', 'Agency', 'Freelancer', 'eCommerce', 'Other'].map(o => <option key={o}>{o}</option>)}
                     </select>
                   </div>
-                  <button type="submit" className="w-full bg-gray-900 text-white py-3 rounded-xl font-medium text-sm hover:bg-gray-700 transition-colors duration-200">Send Message</button>
+                  <button type="submit" disabled={sending} className="w-full bg-gray-900 text-white py-3 rounded-xl font-medium text-sm hover:bg-gray-700 transition-colors duration-200 disabled:opacity-60">{sending ? 'Sending…' : 'Send Message'}</button>
                 </form>
               )}
             </div>
