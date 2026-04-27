@@ -394,21 +394,21 @@ const WHY_POINTS = [
 
 function WhyChooseUs() {
   return (
-    <section className="relative overflow-hidden bg-bg py-20 md:py-28 px-6 border-b border-stroke">
-      <SectionBg src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80&auto=format&fit=crop" opacity={0.35} position="right" />
+    <section className="relative overflow-hidden py-20 md:py-28 px-6 border-b border-white/10">
+      <SectionBg src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80&auto=format&fit=crop" opacity={0.44} position="right" />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
-          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Why Choose Us</span></div>
-          <h2 className="text-3xl md:text-5xl text-text-primary mb-12" style={{ fontFamily: "'Instrument Serif',serif" }}>
+          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-white/30" /><span className="text-xs text-white/50 uppercase tracking-[0.3em]">Why Choose Us</span></div>
+          <h2 className="text-3xl md:text-5xl text-white mb-12" style={{ fontFamily: "'Instrument Serif',serif" }}>
             Why UK businesses <em>choose us</em>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {WHY_POINTS.map((p, i) => (
-              <motion.div key={i} className="p-6 bg-surface/50 border border-stroke rounded-2xl hover:border-gray-400 hover:shadow-sm transition-all duration-300"
+              <motion.div key={i} className="p-6 bg-white/10 border border-white/15 rounded-2xl hover:bg-white/15 hover:border-white/30 transition-all duration-300 backdrop-blur-sm"
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.5 }}>
-                <span className="inline-block text-xs font-medium text-black px-3 py-1 rounded-full mb-4" style={{ background: ACCENT }}>0{i + 1}</span>
-                <h3 className="text-text-primary font-medium text-sm mb-2">{p.title}</h3>
-                <p className="text-muted text-xs leading-relaxed">{p.desc}</p>
+                <span className="inline-block text-xs font-medium text-white px-3 py-1 rounded-full mb-4" style={{ background: ACCENT }}>0{i + 1}</span>
+                <h3 className="text-white font-medium text-sm mb-2">{p.title}</h3>
+                <p className="text-white/60 text-xs leading-relaxed">{p.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -427,21 +427,21 @@ const RESULTS = [
 
 function Results() {
   return (
-    <section className="relative overflow-hidden bg-surface/30 py-20 md:py-28 px-6 border-b border-stroke">
-      <SectionBg src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1600&q=80&auto=format&fit=crop" opacity={0.38} position="right" />
+    <section className="relative overflow-hidden py-20 md:py-28 px-6 border-b border-white/10">
+      <SectionBg src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1600&q=80&auto=format&fit=crop" opacity={0.46} position="right" />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
-          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Real Results</span></div>
-          <h2 className="text-3xl md:text-5xl text-text-primary mb-12" style={{ fontFamily: "'Instrument Serif',serif" }}>
+          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-white/30" /><span className="text-xs text-white/50 uppercase tracking-[0.3em]">Real Results</span></div>
+          <h2 className="text-3xl md:text-5xl text-white mb-12" style={{ fontFamily: "'Instrument Serif',serif" }}>
             Real results for growing <em>UK businesses</em>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {RESULTS.map((r, i) => (
-              <motion.div key={i} className="p-8 bg-bg border border-stroke rounded-3xl"
+              <motion.div key={i} className="p-8 bg-white/10 border border-white/15 rounded-3xl backdrop-blur-sm"
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15, duration: 0.6 }}>
-                <p className="text-4xl md:text-5xl text-text-primary mb-2" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{r.value}</p>
-                <p className="text-text-primary text-sm font-medium mb-2">{r.label}</p>
-                <p className="text-muted text-xs leading-relaxed">{r.desc}</p>
+                <p className="text-4xl md:text-5xl text-white mb-2" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{r.value}</p>
+                <p className="text-white text-sm font-medium mb-2">{r.label}</p>
+                <p className="text-white/60 text-xs leading-relaxed">{r.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -683,20 +683,20 @@ function Pricing() {
 // ── Final CTA ─────────────────────────────────────────────────────────────────
 function FinalCTA() {
   return (
-    <section className="relative overflow-hidden bg-surface/30 py-20 md:py-28 px-6 border-b border-stroke">
-      <SectionBg src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1600&q=80&auto=format&fit=crop" opacity={0.38} position="center" />
+    <section className="relative overflow-hidden py-20 md:py-28 px-6 border-b border-white/10">
+      <SectionBg src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1600&q=80&auto=format&fit=crop" opacity={0.46} position="center" />
       <div className="relative z-10 max-w-[800px] mx-auto text-center">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
           <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Get Started</span><div className="w-8 h-px bg-stroke" />
+            <div className="w-8 h-px bg-white/30" /><span className="text-xs text-white/50 uppercase tracking-[0.3em]">Get Started</span><div className="w-8 h-px bg-white/30" />
           </div>
-          <h2 className="text-4xl md:text-6xl text-text-primary mb-6 leading-tight" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
+          <h2 className="text-4xl md:text-6xl text-white mb-6 leading-tight" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
             Ready to take accounting off your plate?
           </h2>
-          <p className="text-muted text-base md:text-lg mb-10 max-w-lg mx-auto">
+          <p className="text-white/70 text-base md:text-lg mb-10 max-w-lg mx-auto">
             Book a free 30-minute call. No obligation — just clear answers about your numbers, where you're overpaying, and what we'd do differently.
           </p>
-          <a href="#contact" className="btn-lift inline-block bg-gray-900 text-white px-10 py-4 rounded-xl font-medium text-base hover:bg-gray-800">
+          <a href="#contact" className="btn-lift inline-block bg-white text-gray-900 px-10 py-4 rounded-xl font-medium text-base hover:bg-gray-100">
             Book Your Free Call →
           </a>
         </motion.div>
@@ -841,47 +841,47 @@ function Contact() {
     setSent(true)
   }
   return (
-    <section id="contact" className="relative overflow-hidden bg-surface/30 py-20 md:py-28 px-6 border-b border-stroke">
-      <SectionBg src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1600&q=80&auto=format&fit=crop" opacity={0.38} position="right" />
+    <section id="contact" className="relative overflow-hidden py-20 md:py-28 px-6 border-b border-white/10">
+      <SectionBg src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1600&q=80&auto=format&fit=crop" opacity={0.46} position="right" />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
-          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Get In Touch</span></div>
+          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-white/30" /><span className="text-xs text-white/50 uppercase tracking-[0.3em]">Get In Touch</span></div>
           <div className="lg:grid lg:grid-cols-2 lg:gap-16">
             <div>
-              <h2 className="text-3xl md:text-5xl text-text-primary mb-4" style={{ fontFamily: "'Instrument Serif',serif" }}>
+              <h2 className="text-3xl md:text-5xl text-white mb-4" style={{ fontFamily: "'Instrument Serif',serif" }}>
                 Let's talk about <em>your business</em>
               </h2>
-              <p className="text-muted text-sm leading-relaxed mb-8">Send us a message or book a free strategy call. We reply within one working day — every working day.</p>
+              <p className="text-white/70 text-sm leading-relaxed mb-8">Send us a message or book a free strategy call. We reply within one working day — every working day.</p>
               <div className="space-y-3">
-                <a href="mailto:accounts@alliancestreet.co.uk" className="flex items-center gap-3 text-sm text-muted hover:text-text-primary transition-colors"><span className="text-[10px] uppercase tracking-[0.2em] w-14">Email</span> accounts@alliancestreet.co.uk</a>
-                <p className="flex items-start gap-3 text-sm text-muted"><span className="text-[10px] uppercase tracking-[0.2em] w-14 shrink-0 mt-1">Office</span> Pine Tree House, Gardiners Close,<br />Basildon, Essex, England, SS14 3AN</p>
+                <a href="mailto:accounts@alliancestreet.co.uk" className="flex items-center gap-3 text-sm text-white/70 hover:text-white transition-colors"><span className="text-[10px] uppercase tracking-[0.2em] w-14 text-white/40">Email</span> accounts@alliancestreet.co.uk</a>
+                <p className="flex items-start gap-3 text-sm text-white/70"><span className="text-[10px] uppercase tracking-[0.2em] w-14 shrink-0 mt-1 text-white/40">Office</span> Pine Tree House, Gardiners Close,<br />Basildon, Essex, England, SS14 3AN</p>
               </div>
             </div>
             <div className="mt-10 lg:mt-0">
               {sent ? (
-                <div className="p-8 bg-bg border border-stroke rounded-3xl text-center">
-                  <p className="text-text-primary font-medium">Message received</p>
-                  <p className="text-muted text-sm mt-2">We'll be in touch within 24 hours.</p>
+                <div className="p-8 bg-white/10 border border-white/20 rounded-3xl text-center backdrop-blur-sm">
+                  <p className="text-white font-medium">Message received</p>
+                  <p className="text-white/60 text-sm mt-2">We'll be in touch within 24 hours.</p>
                 </div>
               ) : (
                 <form onSubmit={handle} className="space-y-4">
                   {[{ key: 'name', label: 'Name', type: 'text', placeholder: 'Your full name' }, { key: 'email', label: 'Email', type: 'email', placeholder: 'your@email.com' }, { key: 'phone', label: 'Phone', type: 'tel', placeholder: '+44 ...' }].map(({ key, label, type, placeholder }) => (
                     <div key={key}>
-                      <label className="text-xs text-muted uppercase tracking-[0.2em] mb-1 block">{label}</label>
+                      <label className="text-xs text-white/50 uppercase tracking-[0.2em] mb-1 block">{label}</label>
                       <input type={type} placeholder={placeholder} required value={form[key as keyof typeof form]}
                         onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))}
-                        className="w-full bg-bg border border-stroke rounded-xl px-4 py-3 text-text-primary text-sm placeholder:text-muted/50 focus:outline-none focus:border-gray-600 transition-colors" />
+                        className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white text-sm placeholder:text-white/30 focus:outline-none focus:border-white/50 transition-colors" />
                     </div>
                   ))}
                   <div>
-                    <label className="text-xs text-muted uppercase tracking-[0.2em] mb-1 block">Business Type</label>
+                    <label className="text-xs text-white/50 uppercase tracking-[0.2em] mb-1 block">Business Type</label>
                     <select required value={form.type} onChange={e => setForm(f => ({ ...f, type: e.target.value }))}
-                      className="w-full bg-bg border border-stroke rounded-xl px-4 py-3 text-text-primary text-sm focus:outline-none focus:border-gray-600 transition-colors">
-                      <option value="" disabled>Select your business type</option>
-                      {['Startup', 'Agency', 'Freelancer', 'eCommerce', 'Other'].map(o => <option key={o}>{o}</option>)}
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-white/50 transition-colors">
+                      <option value="" disabled className="text-gray-800">Select your business type</option>
+                      {['Startup', 'Agency', 'Freelancer', 'eCommerce', 'Other'].map(o => <option key={o} className="text-gray-800">{o}</option>)}
                     </select>
                   </div>
-                  <button type="submit" className="btn-lift w-full bg-gray-900 text-white py-3 rounded-xl font-medium text-sm hover:bg-gray-800">Send Message</button>
+                  <button type="submit" className="btn-lift w-full bg-white text-gray-900 py-3 rounded-xl font-medium text-sm hover:bg-gray-100">Send Message</button>
                 </form>
               )}
             </div>
