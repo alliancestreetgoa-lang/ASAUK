@@ -192,11 +192,6 @@ function Hero() {
               </div>
             </FadeIn>
           </div>
-          <FadeIn delay={1400} duration={1000} className="flex items-end justify-start lg:justify-end mt-8 lg:mt-0">
-            <div className="liquid-glass border border-white/20 px-6 py-3 rounded-xl">
-              <p className="text-lg md:text-xl lg:text-2xl font-light text-white">Fixed pricing · Dedicated expert · No long contracts</p>
-            </div>
-          </FadeIn>
         </div>
       </div>
     </section>
