@@ -2,7 +2,11 @@ import { useEffect, useState, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { initLenis, initHeroParallax, initScrollAnimations, destroyAnimations } from './animations'
+import {
+  initLenis, initHeroParallax, initScrollAnimations,
+  initScrollProgress, initSectionBgParallax, initLineGrow, initHeadingReveal,
+  destroyAnimations,
+} from './animations'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -16,7 +20,7 @@ function SectionBg({ src, opacity = 0.28, position = 'right', overlay = 1 }: { s
   const o = overlay
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      <div className="absolute inset-0" style={{ backgroundImage: `url(${src})`, backgroundSize: 'cover', backgroundPosition: pos, opacity }} />
+      <div className="section-parallax-bg absolute inset-0" style={{ backgroundImage: `url(${src})`, backgroundSize: 'cover', backgroundPosition: pos, opacity }} />
       <div className="absolute inset-0" style={{ background: position === 'center' ? `radial-gradient(ellipse at center, rgba(255,255,255,0.0) 0%, rgba(255,255,255,${0.35 * o}) 75%)` : `linear-gradient(to right, rgba(255,255,255,${0.52 * o}) 0%, rgba(255,255,255,${0.25 * o}) 55%, rgba(255,255,255,${0.05 * o}) 100%)` }} />
       <div className="absolute inset-0" style={{ background: `linear-gradient(to top, rgba(255,255,255,${0.45 * o}) 0%, transparent 50%, rgba(255,255,255,${0.05 * o}) 100%)` }} />
     </div>
@@ -214,10 +218,10 @@ function Solution() {
       <SectionBg src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1600&q=80&auto=format&fit=crop" opacity={0.55} position="right" />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
-          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Our Solution</span></div>
+          <div className="flex items-center gap-3 mb-6"><div className="gsap-line-grow w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Our Solution</span></div>
           <div className="lg:grid lg:grid-cols-2 lg:gap-8 lg:items-start">
             <div>
-              <h2 className="text-3xl md:text-5xl lg:text-6xl text-text-primary leading-[1.1] tracking-tight mb-6" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
+              <h2 className="gsap-heading-reveal text-3xl md:text-5xl lg:text-6xl text-text-primary leading-[1.1] tracking-tight mb-6" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
                 We handle your numbers — so you can run your business
               </h2>
               <p className="text-muted text-base md:text-lg leading-relaxed text-pretty">
@@ -256,8 +260,8 @@ function WhyChooseUs() {
       <SectionBg src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80&auto=format&fit=crop" opacity={0.52} position="right" />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
-          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Why Choose Us</span></div>
-          <h2 className="text-3xl md:text-5xl text-text-primary mb-6" style={{ fontFamily: "'Instrument Serif',serif" }}>
+          <div className="flex items-center gap-3 mb-6"><div className="gsap-line-grow w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Why Choose Us</span></div>
+          <h2 className="gsap-heading-reveal text-3xl md:text-5xl text-text-primary mb-6" style={{ fontFamily: "'Instrument Serif',serif" }}>
             Why UK businesses <em>choose us</em>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -446,8 +450,8 @@ function Services() {
       {modal && <Modal data={modal} onClose={() => setModal(null)} />}
       <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
         <motion.div className="mb-12" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 1 }}>
-          <div className="flex items-center gap-3 mb-3"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Accounting Services UK</span></div>
-          <h2 className="text-3xl md:text-5xl text-text-primary" style={{ fontFamily: "'Instrument Serif',serif" }}>Everything you need to <em>stay compliant & grow</em></h2>
+          <div className="flex items-center gap-3 mb-3"><div className="gsap-line-grow w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Accounting Services UK</span></div>
+          <h2 className="gsap-heading-reveal text-3xl md:text-5xl text-text-primary" style={{ fontFamily: "'Instrument Serif',serif" }}>Everything you need to <em>stay compliant & grow</em></h2>
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {SERVICES_DATA.map((svc, i) => (
@@ -489,7 +493,7 @@ function Pricing() {
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
           <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px" style={{ background: 'hsl(0 0% 60%)' }} /><span className="text-xs uppercase tracking-[0.3em]" style={{ color: 'hsl(0 0% 80%)' }}>Transparent Pricing</span></div>
-          <h2 className="text-3xl md:text-5xl mb-6" style={{ fontFamily: "'Instrument Serif',serif", color: 'hsl(0 0% 95%)' }}>Fixed monthly pricing — <em>no surprises</em></h2>
+          <h2 className="gsap-heading-reveal text-3xl md:text-5xl mb-6" style={{ fontFamily: "'Instrument Serif',serif", color: 'hsl(0 0% 95%)' }}>Fixed monthly pricing — <em>no surprises</em></h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
             {PLANS.map((plan, i) => (
               <motion.div key={plan.name}
@@ -531,9 +535,9 @@ function FinalCTA() {
       <div className="relative z-10 max-w-[800px] mx-auto text-center">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
           <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Get Started</span><div className="w-8 h-px bg-stroke" />
+            <div className="gsap-line-grow w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Get Started</span><div className="gsap-line-grow w-8 h-px bg-stroke" />
           </div>
-          <h2 className="text-4xl md:text-6xl text-text-primary mb-6 leading-tight" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
+          <h2 className="gsap-heading-reveal text-4xl md:text-6xl text-text-primary mb-6 leading-tight" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
             Ready to take accounting off your plate?
           </h2>
           <p className="text-muted text-base md:text-lg mb-5 max-w-lg mx-auto">
@@ -621,9 +625,9 @@ function Reviews() {
     <section id="reviews" className="bg-bg py-10 md:py-14 px-6 border-b border-stroke">
       <div className="max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
-          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Client Reviews</span></div>
+          <div className="flex items-center gap-3 mb-6"><div className="gsap-line-grow w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Client Reviews</span></div>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
-            <h2 className="text-3xl md:text-5xl text-text-primary" style={{ fontFamily: "'Instrument Serif',serif" }}>What our clients <em>say about us</em></h2>
+            <h2 className="gsap-heading-reveal text-3xl md:text-5xl text-text-primary" style={{ fontFamily: "'Instrument Serif',serif" }}>What our clients <em>say about us</em></h2>
             <div className="flex items-center gap-3">
               <StarRow rating={5} size="md" />
               <span className="text-sm text-muted"><span className="text-text-primary font-medium">4.9 / 5</span> · {reviews.length} reviews</span>
@@ -648,7 +652,7 @@ function Reviews() {
           </div>
 
           <div className="rounded-3xl border border-stroke bg-surface/30 p-8 md:p-10">
-            <div className="flex items-center gap-3 mb-2"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Leave a Review</span></div>
+            <div className="flex items-center gap-3 mb-2"><div className="gsap-line-grow w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Leave a Review</span></div>
             <h3 className="text-2xl md:text-3xl text-text-primary mb-2" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>Share your experience</h3>
             <p className="text-muted text-sm mb-6">Worked with Alliance Street? We would love to hear how it went.</p>
             <form onSubmit={submit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -743,7 +747,7 @@ function Contact() {
       <SectionBg src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1600&q=80&auto=format&fit=crop" opacity={0.55} position="right" />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
-          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Get In Touch</span></div>
+          <div className="flex items-center gap-3 mb-6"><div className="gsap-line-grow w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Get In Touch</span></div>
           <div className="lg:grid lg:grid-cols-2 lg:gap-8">
             <div>
               <h2 className="text-3xl md:text-5xl text-text-primary mb-4" style={{ fontFamily: "'Instrument Serif',serif" }}>
@@ -867,7 +871,11 @@ export default function App() {
     if (isLoading) return
     initLenis()
     const frame = requestAnimationFrame(() => {
+      initScrollProgress()
       initHeroParallax()
+      initSectionBgParallax()
+      initLineGrow()
+      initHeadingReveal()
       initScrollAnimations()
     })
     return () => {
@@ -878,6 +886,10 @@ export default function App() {
 
   return (
     <>
+      <div
+        className="scroll-progress-bar"
+        style={{ position: 'fixed', top: 0, left: 0, right: 0, height: 3, zIndex: 9999, transformOrigin: 'left center', transform: 'scaleX(0)', background: 'linear-gradient(90deg, #E40014 0%, #FB2C36 100%)', pointerEvents: 'none' }}
+      />
       <AnimatePresence>
         {isLoading && <LoadingScreen onComplete={handleComplete} />}
       </AnimatePresence>
