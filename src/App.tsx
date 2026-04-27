@@ -763,7 +763,7 @@ function Contact() {
               </h2>
               <p className="text-muted text-sm leading-relaxed mb-8">Send us a message or book a free strategy call. We reply within one working day — every working day.</p>
               <div className="space-y-3">
-                <a href="mailto:Accounts@alliancestreet.co.uk" className="flex items-center gap-3 text-sm text-muted hover:text-text-primary transition-colors"><span className="text-[10px] uppercase tracking-[0.2em] w-14">Email</span> Accounts@alliancestreet.co.uk</a>
+                <a href="mailto:accounts@alliancestreet.co.uk" className="flex items-center gap-3 text-sm text-muted hover:text-text-primary transition-colors"><span className="text-[10px] uppercase tracking-[0.2em] w-14">Email</span> accounts@alliancestreet.co.uk</a>
                 <p className="flex items-start gap-3 text-sm text-muted"><span className="text-[10px] uppercase tracking-[0.2em] w-14 shrink-0 mt-1">Office</span> Pine Tree House, Gardiners Close,<br />Basildon, Essex, England, SS14 3AN</p>
               </div>
             </div>
@@ -818,10 +818,10 @@ function Footer() {
           <p className="text-xs text-muted uppercase tracking-[0.3em] mb-6">Let's simplify your accounting</p>
           <div className="relative inline-block rounded-full" onMouseEnter={() => setEmailHov(true)} onMouseLeave={() => setEmailHov(false)}>
             <span className="absolute rounded-full transition-opacity duration-300 pointer-events-none" style={{ inset: '-1px', background: ACCENT, opacity: emailHov ? 1 : 0 }} />
-            <a href="mailto:Accounts@alliancestreet.co.uk"
+            <a href="mailto:accounts@alliancestreet.co.uk"
               className="relative block text-xl md:text-3xl lg:text-4xl text-text-primary px-10 py-5 rounded-full border border-stroke transition-colors duration-300"
               style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic', borderColor: emailHov ? 'transparent' : undefined }}>
-              Accounts@alliancestreet.co.uk
+              accounts@alliancestreet.co.uk
             </a>
           </div>
           <p className="text-muted text-sm mt-4">Serving UK businesses nationwide</p>
@@ -851,7 +851,7 @@ function Footer() {
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-muted mb-4">Contact</p>
               <ul className="space-y-2 text-muted text-xs">
-                <li>Accounts@alliancestreet.co.uk</li>
+                <li>accounts@alliancestreet.co.uk</li>
                 <li className="leading-relaxed">Pine Tree House, Gardiners Close, Basildon, Essex, England, SS14 3AN</li>
               </ul>
             </div>
