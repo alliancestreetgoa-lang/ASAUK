@@ -110,7 +110,7 @@ const LOGO_URL = '/logo.png?v=red'
 
 // ── Web3Forms: sends submissions directly to accounts@alliancestreet.co.uk ───
 // Replace the placeholder below with the real key from web3forms.com
-const WEB3FORMS_KEY = 'PASTE_YOUR_WEB3FORMS_KEY_HERE'
+const WEB3FORMS_KEY = '9f92669a-aa40-4112-98a0-2bae71b40cab'
 
 function submitForm(subject: string, data: Record<string, string | number>) {
   return fetch('https://api.web3forms.com/submit', {
