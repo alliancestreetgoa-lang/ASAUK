@@ -165,8 +165,8 @@ function Hero() {
     <section id="home" className="relative h-screen flex flex-col overflow-hidden">
       <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" src={HERO_VIDEO} />
       <div className="relative z-10 px-6 md:px-12 lg:px-16 pt-6">
-        <nav className="liquid-glass rounded-xl px-4 py-3 flex items-center justify-between">
-          <a href="#home" className="flex items-center"><img src={LOGO_URL} alt="Alliance Street Accountancy Ltd" className="h-20 md:h-24 lg:h-28 w-auto object-contain" /></a>
+        <nav className="liquid-glass rounded-xl px-4 py-2 flex items-center justify-between">
+          <a href="#home" className="flex items-center"><img src={LOGO_URL} alt="Alliance Street Accountancy Ltd" className="h-12 md:h-14 w-auto object-contain" /></a>
           <div className="hidden md:flex items-center gap-8">
             {NAV_LINKS.map(link => (
               <a key={link} href={`#${link.toLowerCase()}`} className="text-sm text-white hover:text-gray-300 transition-colors duration-200">{link}</a>
