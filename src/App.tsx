@@ -164,7 +164,7 @@ function Modal({ data, onClose }: { data: ModalData; onClose: () => void }) {
             {data.tag && <span className="text-xs uppercase tracking-[0.25em] text-muted mb-3 inline-block">{data.tag}</span>}
             <h2 className="text-2xl sm:text-3xl text-text-primary mb-4 leading-tight" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{data.title}</h2>
             <div className="text-sm text-muted leading-relaxed space-y-4">{data.body}</div>
-            <div className="mt-8"><a href="#contact" onClick={onClose} className="btn-lift inline-block bg-white text-black px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-200">Get Started →</a></div>
+            <div className="mt-8"><a href="#contact" onClick={onClose} className="btn-lift inline-block bg-gray-900 text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-800">Get Started →</a></div>
           </div>
         </motion.div>
       </motion.div>
@@ -648,7 +648,7 @@ function Pricing() {
                     </li>
                   ))}
                 </ul>
-                <a href="#contact" className={`block text-center py-3 rounded-xl text-sm font-medium transition-colors duration-200 ${plan.popular ? 'bg-white text-black hover:bg-gray-200' : 'border border-stroke text-text-primary hover:border-gray-500'}`}>
+                <a href="#contact" className={`block text-center py-3 rounded-xl text-sm font-medium transition-colors duration-200 ${plan.popular ? 'bg-gray-900 text-white hover:bg-gray-800' : 'border border-stroke text-text-primary hover:border-gray-500'}`}>
                   {plan.name === 'Scale' ? 'Get a Quote' : 'Get Started'}
                 </a>
               </motion.div>
@@ -676,7 +676,7 @@ function FinalCTA() {
           <p className="text-muted text-base md:text-lg mb-10 max-w-lg mx-auto">
             Book a free 30-minute call. No obligation — just clear answers about your numbers, where you're overpaying, and what we'd do differently.
           </p>
-          <a href="#contact" className="btn-lift inline-block bg-white text-black px-10 py-4 rounded-xl font-medium text-base hover:bg-gray-200">
+          <a href="#contact" className="btn-lift inline-block bg-gray-900 text-white px-10 py-4 rounded-xl font-medium text-base hover:bg-gray-800">
             Book Your Free Call →
           </a>
         </motion.div>
@@ -794,7 +794,7 @@ function Reviews() {
               </div>
               <div className="md:col-span-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <p className="text-xs text-muted">Reviews appear instantly here. We may also feature them on our marketing with your permission.</p>
-                <button type="submit" className="btn-lift bg-white text-black px-8 py-3 rounded-xl font-medium text-sm hover:bg-gray-200 cursor-pointer">
+                <button type="submit" className="btn-lift bg-gray-900 text-white px-8 py-3 rounded-xl font-medium text-sm hover:bg-gray-800 cursor-pointer">
                   {submitted ? 'Thanks — review posted ✓' : 'Submit Review'}
                 </button>
               </div>
@@ -861,7 +861,7 @@ function Contact() {
                       {['Startup', 'Agency', 'Freelancer', 'eCommerce', 'Other'].map(o => <option key={o}>{o}</option>)}
                     </select>
                   </div>
-                  <button type="submit" className="btn-lift w-full bg-white text-black py-3 rounded-xl font-medium text-sm hover:bg-gray-200">Send Message</button>
+                  <button type="submit" className="btn-lift w-full bg-gray-900 text-white py-3 rounded-xl font-medium text-sm hover:bg-gray-800">Send Message</button>
                 </form>
               )}
             </div>
