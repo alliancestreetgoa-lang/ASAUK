@@ -2,135 +2,40 @@ import { useEffect, useRef, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import Lenis from 'lenis'
+import Hls from 'hls.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Premium motion layer: Lenis smooth scroll + ScrollTrigger sync.
-// Initialised once at App mount. Touch devices skip smoothing for native feel.
-// ─────────────────────────────────────────────────────────────────────────────
-function useSmoothScroll() {
-  useEffect(() => {
-    const isTouch = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches
-    const lenis = new Lenis({
-      duration: 1.15,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: !isTouch,
-      wheelMultiplier: 1,
-      touchMultiplier: 1.5,
-    })
-
-    lenis.on('scroll', ScrollTrigger.update)
-
-    const tick = (time: number) => { lenis.raf(time * 1000) }
-    gsap.ticker.add(tick)
-    gsap.ticker.lagSmoothing(0)
-
-    return () => {
-      gsap.ticker.remove(tick)
-      lenis.destroy()
-    }
-  }, [])
-}
-
-// Top scroll-progress bar (premium agency staple)
-function ScrollProgress() {
-  const ref = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const update = () => {
-      const h = document.documentElement
-      const total = h.scrollHeight - h.clientHeight
-      const p = total > 0 ? h.scrollTop / total : 0
-      el.style.transform = `scaleX(${p})`
-    }
-    update()
-    window.addEventListener('scroll', update, { passive: true })
-    window.addEventListener('resize', update)
-    return () => {
-      window.removeEventListener('scroll', update)
-      window.removeEventListener('resize', update)
-    }
-  }, [])
-  return (
-    <div className="fixed top-0 left-0 right-0 h-[2px] z-[10000] pointer-events-none">
-      <div ref={ref} className="h-full origin-left" style={{ background: ACCENT, transform: 'scaleX(0)', willChange: 'transform' }} />
-    </div>
-  )
-}
-
-
-// Parallax hook — translates an inner element subtly while parent scrolls past viewport.
-// Gated by IntersectionObserver so off-screen sections don't pay layout cost,
-// and rAF-batched so we never read/write the DOM more than once per frame.
-function useParallax(ref: React.RefObject<HTMLDivElement | null>, intensity = 0.12) {
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const parent = el.parentElement as HTMLElement | null
-    if (!parent) return
-
-    let visible = false
-    let raf = 0
-    const apply = () => {
-      raf = 0
-      if (!visible) return
-      const rect = parent.getBoundingClientRect()
-      const vh = window.innerHeight
-      const center = rect.top + rect.height / 2
-      const progress = (center - vh / 2) / (vh + rect.height)
-      const y = -progress * rect.height * intensity
-      el.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0) scale(1.08)`
-    }
-    const schedule = () => { if (!raf) raf = requestAnimationFrame(apply) }
-
-    const io = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting
-      if (visible) schedule()
-    }, { rootMargin: '120px 0px' })
-    io.observe(parent)
-
-    window.addEventListener('scroll', schedule, { passive: true })
-    window.addEventListener('resize', schedule)
-    return () => {
-      io.disconnect()
-      if (raf) cancelAnimationFrame(raf)
-      window.removeEventListener('scroll', schedule)
-      window.removeEventListener('resize', schedule)
-    }
-  }, [ref, intensity])
-}
-
+const HLS_SRC = 'https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8'
 const HERO_VIDEO = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4'
 const ACCENT = 'linear-gradient(90deg, #E40014 0%, #FB2C36 100%)'
 const LOGO_URL = '/logo.png?v=red'
 
-// ── Web3Forms: sends submissions directly to accounts@alliancestreet.co.uk ───
-// Replace the placeholder below with the real key from web3forms.com
-const WEB3FORMS_KEY = '9f92669a-aa40-4112-98a0-2bae71b40cab'
-
-function submitForm(subject: string, data: Record<string, string | number>) {
-  return fetch('https://api.web3forms.com/submit', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify({ access_key: WEB3FORMS_KEY, subject, ...data }),
-  }).then(r => r.json())
-}
-
 function SectionBg({ src, opacity = 0.28, position = 'right' }: { src: string; opacity?: number; position?: 'left' | 'right' | 'center' }) {
   const pos = position === 'left' ? 'left center' : position === 'center' ? 'center' : 'right center'
-  const parallaxRef = useRef<HTMLDivElement>(null)
-  useParallax(parallaxRef, 0.14)
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      <div ref={parallaxRef} className="absolute inset-0 will-change-transform" style={{ backgroundImage: `url(${src})`, backgroundSize: 'cover', backgroundPosition: pos, opacity }} />
-      <div className="absolute inset-0" style={{ background: position === 'center' ? 'radial-gradient(ellipse at center, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.55) 75%)' : 'linear-gradient(to right, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.45) 55%, rgba(0,0,0,0.15) 100%)' }} />
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 50%, rgba(0,0,0,0.2) 100%)' }} />
+      <div className="absolute inset-0" style={{ backgroundImage: `url(${src})`, backgroundSize: 'cover', backgroundPosition: pos, opacity }} />
+      <div className="absolute inset-0" style={{ background: position === 'center' ? 'radial-gradient(ellipse at center, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.55) 75%)' : 'linear-gradient(to right, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0.45) 55%, rgba(255,255,255,0.15) 100%)' }} />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(255,255,255,0.65) 0%, transparent 50%, rgba(255,255,255,0.2) 100%)' }} />
     </div>
   )
+}
+
+function HLSVideo({ src, className, style, ...props }: React.VideoHTMLAttributes<HTMLVideoElement> & { src: string }) {
+  const ref = useRef<HTMLVideoElement>(null)
+  useEffect(() => {
+    const v = ref.current; if (!v) return
+    if (Hls.isSupported()) {
+      const hls = new Hls()
+      hls.loadSource(src); hls.attachMedia(v)
+      hls.on(Hls.Events.MANIFEST_PARSED, () => v.play().catch(() => {}))
+      return () => hls.destroy()
+    } else if (v.canPlayType('application/vnd.apple.mpegurl')) {
+      v.src = src; v.play().catch(() => {})
+    }
+  }, [src])
+  return <video ref={ref} className={className} style={style} {...props} />
 }
 
 interface ModalData { title: string; tag?: string; img?: string; body: React.ReactNode }
@@ -164,7 +69,7 @@ function Modal({ data, onClose }: { data: ModalData; onClose: () => void }) {
             {data.tag && <span className="text-xs uppercase tracking-[0.25em] text-muted mb-3 inline-block">{data.tag}</span>}
             <h2 className="text-2xl sm:text-3xl text-text-primary mb-4 leading-tight" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{data.title}</h2>
             <div className="text-sm text-muted leading-relaxed space-y-4">{data.body}</div>
-            <div className="mt-8"><a href="#contact" onClick={onClose} className="btn-lift inline-block bg-gray-900 text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-800">Get Started →</a></div>
+            <div className="mt-8"><a href="#contact" onClick={onClose} className="inline-block bg-gray-900 text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-700 transition-colors">Get Started →</a></div>
           </div>
         </motion.div>
       </motion.div>
@@ -276,7 +181,7 @@ function Hero() {
           <a href="#home" className="flex items-center"><img src={LOGO_URL} alt="Alliance Street Accountancy Ltd" className="h-12 md:h-14 w-auto object-contain" /></a>
           <div className="hidden md:flex items-center gap-8">
             {NAV_LINKS.map(link => (
-              <a key={link} href={`#${link.toLowerCase()}`} className="text-base md:text-lg font-bold text-white hover:text-gray-300 transition-colors duration-200">{link}</a>
+              <a key={link} href={`#${link.toLowerCase()}`} className="text-sm text-white hover:text-gray-300 transition-colors duration-200">{link}</a>
             ))}
           </div>
           <a href="#contact" className="bg-white text-black px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors duration-200 cursor-pointer">Book Free Call</a>
@@ -352,19 +257,17 @@ const SOLUTION_ITEMS = [
 
 function Solution() {
   return (
-    <section className="relative overflow-hidden py-20 md:py-28 px-6 border-b border-white/10" style={{ background: '#0d0d0d' }}>
-      <SectionBg src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1600&q=80&auto=format&fit=crop" opacity={0.30} position="right" />
-      {/* Extra darkening layer so text stays crisp */}
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'rgba(0,0,0,0.45)' }} />
+    <section className="relative overflow-hidden bg-surface/30 py-20 md:py-28 px-6 border-b border-stroke">
+      <SectionBg src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1600&q=80&auto=format&fit=crop" opacity={0.38} position="right" />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
-          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-white/30" /><span className="text-xs text-white/50 uppercase tracking-[0.3em]">Our Solution</span></div>
+          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Our Solution</span></div>
           <div className="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-start">
             <div>
-              <h2 className="text-3xl md:text-5xl lg:text-6xl text-white leading-[1.1] tracking-tight mb-6" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
+              <h2 className="text-3xl md:text-5xl lg:text-6xl text-text-primary leading-[1.1] tracking-tight mb-6" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
                 We handle your numbers — so you can run your business
               </h2>
-              <p className="text-white/70 text-base md:text-lg leading-relaxed">
+              <p className="text-muted text-base md:text-lg leading-relaxed">
                 From your first invoice to your year-end filing, our UK team delivers accurate accounting, proactive tax planning, and the kind of straight-talking advice that actually moves your business forward.
               </p>
             </div>
@@ -372,8 +275,8 @@ function Solution() {
               {SOLUTION_ITEMS.map((item, i) => (
                 <motion.div key={i} className="flex items-center gap-4"
                   initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.5 }}>
-                  <span className="shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] text-white font-bold" style={{ background: ACCENT }}>✓</span>
-                  <p className="text-white/90 text-sm">{item}</p>
+                  <span className="shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] text-black" style={{ background: ACCENT }}>✓</span>
+                  <p className="text-text-primary text-sm">{item}</p>
                 </motion.div>
               ))}
             </div>
@@ -396,22 +299,21 @@ const WHY_POINTS = [
 
 function WhyChooseUs() {
   return (
-    <section className="relative overflow-hidden py-20 md:py-28 px-6 border-b border-white/10" style={{ background: '#0d0d0d' }}>
-      <SectionBg src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80&auto=format&fit=crop" opacity={0.30} position="right" />
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'rgba(0,0,0,0.45)' }} />
+    <section className="relative overflow-hidden bg-bg py-20 md:py-28 px-6 border-b border-stroke">
+      <SectionBg src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80&auto=format&fit=crop" opacity={0.35} position="right" />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
-          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-white/30" /><span className="text-xs text-white/50 uppercase tracking-[0.3em]">Why Choose Us</span></div>
-          <h2 className="text-3xl md:text-5xl text-white mb-12" style={{ fontFamily: "'Instrument Serif',serif" }}>
+          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Why Choose Us</span></div>
+          <h2 className="text-3xl md:text-5xl text-text-primary mb-12" style={{ fontFamily: "'Instrument Serif',serif" }}>
             Why UK businesses <em>choose us</em>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {WHY_POINTS.map((p, i) => (
-              <motion.div key={i} className="p-6 bg-white/10 border border-white/15 rounded-2xl hover:bg-white/15 hover:border-white/30 transition-all duration-300 backdrop-blur-sm"
+              <motion.div key={i} className="p-6 bg-surface/50 border border-stroke rounded-2xl hover:border-gray-400 hover:shadow-sm transition-all duration-300"
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.5 }}>
-                <span className="inline-block text-xs font-medium text-white px-3 py-1 rounded-full mb-4" style={{ background: ACCENT }}>0{i + 1}</span>
-                <h3 className="text-white font-medium text-sm mb-2">{p.title}</h3>
-                <p className="text-white/60 text-xs leading-relaxed">{p.desc}</p>
+                <span className="inline-block text-xs font-medium text-black px-3 py-1 rounded-full mb-4" style={{ background: ACCENT }}>0{i + 1}</span>
+                <h3 className="text-text-primary font-medium text-sm mb-2">{p.title}</h3>
+                <p className="text-muted text-xs leading-relaxed">{p.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -430,22 +332,21 @@ const RESULTS = [
 
 function Results() {
   return (
-    <section className="relative overflow-hidden py-20 md:py-28 px-6 border-b border-white/10" style={{ background: '#0d0d0d' }}>
-      <SectionBg src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1600&q=80&auto=format&fit=crop" opacity={0.30} position="right" />
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'rgba(0,0,0,0.45)' }} />
+    <section className="relative overflow-hidden bg-surface/30 py-20 md:py-28 px-6 border-b border-stroke">
+      <SectionBg src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1600&q=80&auto=format&fit=crop" opacity={0.38} position="right" />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
-          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-white/30" /><span className="text-xs text-white/50 uppercase tracking-[0.3em]">Real Results</span></div>
-          <h2 className="text-3xl md:text-5xl text-white mb-12" style={{ fontFamily: "'Instrument Serif',serif" }}>
+          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Real Results</span></div>
+          <h2 className="text-3xl md:text-5xl text-text-primary mb-12" style={{ fontFamily: "'Instrument Serif',serif" }}>
             Real results for growing <em>UK businesses</em>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {RESULTS.map((r, i) => (
-              <motion.div key={i} className="p-8 bg-white/10 border border-white/15 rounded-3xl backdrop-blur-sm"
+              <motion.div key={i} className="p-8 bg-bg border border-stroke rounded-3xl"
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15, duration: 0.6 }}>
-                <p className="text-4xl md:text-5xl text-white mb-2" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{r.value}</p>
-                <p className="text-white text-sm font-medium mb-2">{r.label}</p>
-                <p className="text-white/60 text-xs leading-relaxed">{r.desc}</p>
+                <p className="text-4xl md:text-5xl text-text-primary mb-2" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{r.value}</p>
+                <p className="text-text-primary text-sm font-medium mb-2">{r.label}</p>
+                <p className="text-muted text-xs leading-relaxed">{r.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -628,52 +529,31 @@ const PLANS = [
 
 function Pricing() {
   return (
-    <section id="pricing" className="relative overflow-hidden py-20 md:py-28 px-6">
-      {/* Dark cinematic background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=80&auto=format&fit=crop)', backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.22 }} />
-        <div className="absolute inset-0" style={{ background: 'rgba(6,6,6,0.88)' }} />
-      </div>
+    <section id="pricing" className="relative overflow-hidden bg-surface/30 py-20 md:py-28 px-6 border-b border-stroke">
+      <SectionBg src="https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?w=1600&q=80&auto=format&fit=crop" opacity={0.35} position="right" />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
-          {/* Section header — white on dark */}
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-8 h-px bg-white/30" />
-            <span className="text-xs text-white/50 uppercase tracking-[0.3em]">Transparent Pricing</span>
-          </div>
-          <h2 className="text-3xl md:text-5xl text-white mb-12" style={{ fontFamily: "'Instrument Serif',serif" }}>
-            Fixed monthly pricing — <em>no surprises</em>
-          </h2>
-
-          {/* Pricing cards */}
+          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Transparent Pricing</span></div>
+          <h2 className="text-3xl md:text-5xl text-text-primary mb-12" style={{ fontFamily: "'Instrument Serif',serif" }}>Fixed monthly pricing — <em>no surprises</em></h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
             {PLANS.map((plan, i) => (
               <motion.div key={plan.name}
-                className={`relative rounded-3xl p-8 flex flex-col transition-all duration-300 ${plan.popular ? 'md:scale-105' : ''}`}
-                style={{ background: plan.popular ? '#2a2a2a' : '#1e1e1e', border: '1px solid rgba(255,255,255,0.08)' }}
+                className={`relative p-8 rounded-3xl border transition-all duration-300 ${plan.popular ? 'bg-white border-gray-400 shadow-lg md:scale-105' : 'bg-white border-stroke hover:border-gray-400'}`}
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15, duration: 0.6 }}>
-                {/* Most Popular badge */}
                 {plan.popular && (
-                  <span className="absolute -top-4 left-1/2 -translate-x-1/2 text-xs px-5 py-1.5 rounded-full text-white font-semibold tracking-wide shadow-lg" style={{ background: ACCENT }}>
-                    Most Popular
-                  </span>
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs px-4 py-1 rounded-full text-black font-medium" style={{ background: ACCENT }}>Most Popular</span>
                 )}
-                {/* Plan label */}
-                <p className="text-[10px] font-semibold text-white/40 uppercase tracking-[0.25em] mb-3">{plan.name} Plan</p>
-                {/* Price */}
-                <p className="text-2xl md:text-3xl text-white mb-6" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{plan.price}</p>
-                {/* Features */}
-                <ul className="space-y-3 mb-8 flex-1">
+                <p className="text-xs text-muted uppercase tracking-[0.2em] mb-3">{plan.name} Plan</p>
+                <p className="text-2xl md:text-3xl text-text-primary mb-6" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{plan.price}</p>
+                <ul className="space-y-3 mb-8">
                   {plan.features.map((f, j) => (
-                    <li key={j} className="flex items-start gap-3 text-sm text-white/70">
-                      <span className="shrink-0 mt-0.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px] text-white font-bold" style={{ background: ACCENT }}>✓</span>
+                    <li key={j} className="flex items-center gap-3 text-sm text-muted">
+                      <span className="shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-[9px] text-black" style={{ background: ACCENT }}>✓</span>
                       {f}
                     </li>
                   ))}
                 </ul>
-                {/* CTA button */}
-                <a href="#contact"
-                  className={`block text-center py-3 rounded-xl text-sm font-semibold transition-colors duration-200 ${plan.popular ? 'bg-white text-gray-900 hover:bg-gray-100' : 'border border-white/20 text-white/80 hover:border-white/40 hover:bg-white/5'}`}>
+                <a href="#contact" className={`block text-center py-3 rounded-xl text-sm font-medium transition-colors duration-200 ${plan.popular ? 'bg-gray-900 text-white hover:bg-gray-700' : 'border border-stroke text-text-primary hover:border-gray-500'}`}>
                   {plan.name === 'Scale' ? 'Get a Quote' : 'Get Started'}
                 </a>
               </motion.div>
@@ -688,21 +568,20 @@ function Pricing() {
 // ── Final CTA ─────────────────────────────────────────────────────────────────
 function FinalCTA() {
   return (
-    <section className="relative overflow-hidden py-20 md:py-28 px-6 border-b border-white/10" style={{ background: '#0d0d0d' }}>
-      <SectionBg src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1600&q=80&auto=format&fit=crop" opacity={0.30} position="center" />
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'rgba(0,0,0,0.45)' }} />
+    <section className="relative overflow-hidden bg-surface/30 py-20 md:py-28 px-6 border-b border-stroke">
+      <SectionBg src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1600&q=80&auto=format&fit=crop" opacity={0.38} position="center" />
       <div className="relative z-10 max-w-[800px] mx-auto text-center">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
           <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-8 h-px bg-white/30" /><span className="text-xs text-white/50 uppercase tracking-[0.3em]">Get Started</span><div className="w-8 h-px bg-white/30" />
+            <div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Get Started</span><div className="w-8 h-px bg-stroke" />
           </div>
-          <h2 className="text-4xl md:text-6xl text-white mb-6 leading-tight" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
+          <h2 className="text-4xl md:text-6xl text-text-primary mb-6 leading-tight" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
             Ready to take accounting off your plate?
           </h2>
-          <p className="text-white/70 text-base md:text-lg mb-10 max-w-lg mx-auto">
+          <p className="text-muted text-base md:text-lg mb-10 max-w-lg mx-auto">
             Book a free 30-minute call. No obligation — just clear answers about your numbers, where you're overpaying, and what we'd do differently.
           </p>
-          <a href="#contact" className="btn-lift inline-block bg-white text-gray-900 px-10 py-4 rounded-xl font-medium text-base hover:bg-gray-100">
+          <a href="#contact" className="inline-block bg-gray-900 text-white px-10 py-4 rounded-xl font-medium text-base hover:bg-gray-700 transition-colors duration-200">
             Book Your Free Call →
           </a>
         </motion.div>
@@ -742,12 +621,6 @@ function Reviews() {
     e.preventDefault()
     if (!form.name.trim() || !form.quote.trim()) return
     const initials = form.name.trim().split(/\s+/).slice(0, 2).map(p => p[0]?.toUpperCase() ?? '').join('') || 'AS'
-    submitForm('New Review — Alliance Street Accountancy', {
-      name: form.name.trim(),
-      role: form.role.trim() || 'Verified Client',
-      rating: form.rating,
-      review: form.quote.trim(),
-    }).catch(() => {})
     setReviews(prev => [{ name: form.name.trim(), role: form.role.trim() || 'Verified Client', rating: form.rating, quote: form.quote.trim(), initials }, ...prev])
     setForm({ name: '', role: '', rating: 5, quote: '' })
     setSubmitted(true)
@@ -820,7 +693,7 @@ function Reviews() {
               </div>
               <div className="md:col-span-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <p className="text-xs text-muted">Reviews appear instantly here. We may also feature them on our marketing with your permission.</p>
-                <button type="submit" className="btn-lift bg-gray-900 text-white px-8 py-3 rounded-xl font-medium text-sm hover:bg-gray-800 cursor-pointer">
+                <button type="submit" className="bg-gray-900 text-white px-8 py-3 rounded-xl font-medium text-sm hover:bg-gray-700 transition-colors duration-200 cursor-pointer">
                   {submitted ? 'Thanks — review posted ✓' : 'Submit Review'}
                 </button>
               </div>
@@ -836,59 +709,49 @@ function Reviews() {
 function Contact() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', type: '' })
   const [sent, setSent] = useState(false)
-  const handle = (e: React.FormEvent) => {
-    e.preventDefault()
-    submitForm('New Enquiry — Alliance Street Accountancy', {
-      name: form.name,
-      email: form.email,
-      phone: form.phone,
-      business_type: form.type,
-    }).catch(() => {})
-    setSent(true)
-  }
+  const handle = (e: React.FormEvent) => { e.preventDefault(); setSent(true) }
   return (
-    <section id="contact" className="relative overflow-hidden py-20 md:py-28 px-6 border-b border-white/10" style={{ background: '#0d0d0d' }}>
-      <SectionBg src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1600&q=80&auto=format&fit=crop" opacity={0.30} position="right" />
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'rgba(0,0,0,0.45)' }} />
+    <section id="contact" className="relative overflow-hidden bg-surface/30 py-20 md:py-28 px-6 border-b border-stroke">
+      <SectionBg src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1600&q=80&auto=format&fit=crop" opacity={0.38} position="right" />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
-          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-white/30" /><span className="text-xs text-white/50 uppercase tracking-[0.3em]">Get In Touch</span></div>
+          <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Get In Touch</span></div>
           <div className="lg:grid lg:grid-cols-2 lg:gap-16">
             <div>
-              <h2 className="text-3xl md:text-5xl text-white mb-4" style={{ fontFamily: "'Instrument Serif',serif" }}>
+              <h2 className="text-3xl md:text-5xl text-text-primary mb-4" style={{ fontFamily: "'Instrument Serif',serif" }}>
                 Let's talk about <em>your business</em>
               </h2>
-              <p className="text-white/70 text-sm leading-relaxed mb-8">Send us a message or book a free strategy call. We reply within one working day — every working day.</p>
+              <p className="text-muted text-sm leading-relaxed mb-8">Send us a message or book a free strategy call. We reply within one working day — every working day.</p>
               <div className="space-y-3">
-                <a href="mailto:accounts@alliancestreet.co.uk" className="flex items-center gap-3 text-sm text-white/70 hover:text-white transition-colors"><span className="text-[10px] uppercase tracking-[0.2em] w-14 text-white/40">Email</span> accounts@alliancestreet.co.uk</a>
-                <p className="flex items-start gap-3 text-sm text-white/70"><span className="text-[10px] uppercase tracking-[0.2em] w-14 shrink-0 mt-1 text-white/40">Office</span> Pine Tree House, Gardiners Close,<br />Basildon, Essex, England, SS14 3AN</p>
+                <a href="mailto:Accounts@alliancestreet.co.uk" className="flex items-center gap-3 text-sm text-muted hover:text-text-primary transition-colors"><span className="text-[10px] uppercase tracking-[0.2em] w-14">Email</span> Accounts@alliancestreet.co.uk</a>
+                <p className="flex items-start gap-3 text-sm text-muted"><span className="text-[10px] uppercase tracking-[0.2em] w-14 shrink-0 mt-1">Office</span> Pine Tree House, Gardiners Close,<br />Basildon, Essex, England, SS14 3AN</p>
               </div>
             </div>
             <div className="mt-10 lg:mt-0">
               {sent ? (
-                <div className="p-8 bg-white/10 border border-white/20 rounded-3xl text-center backdrop-blur-sm">
-                  <p className="text-white font-medium">Message received</p>
-                  <p className="text-white/60 text-sm mt-2">We'll be in touch within 24 hours.</p>
+                <div className="p-8 bg-bg border border-stroke rounded-3xl text-center">
+                  <p className="text-text-primary font-medium">Message received</p>
+                  <p className="text-muted text-sm mt-2">We'll be in touch within 24 hours.</p>
                 </div>
               ) : (
                 <form onSubmit={handle} className="space-y-4">
                   {[{ key: 'name', label: 'Name', type: 'text', placeholder: 'Your full name' }, { key: 'email', label: 'Email', type: 'email', placeholder: 'your@email.com' }, { key: 'phone', label: 'Phone', type: 'tel', placeholder: '+44 ...' }].map(({ key, label, type, placeholder }) => (
                     <div key={key}>
-                      <label className="text-xs text-white/50 uppercase tracking-[0.2em] mb-1 block">{label}</label>
+                      <label className="text-xs text-muted uppercase tracking-[0.2em] mb-1 block">{label}</label>
                       <input type={type} placeholder={placeholder} required value={form[key as keyof typeof form]}
                         onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))}
-                        className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white text-sm placeholder:text-white/30 focus:outline-none focus:border-white/50 transition-colors" />
+                        className="w-full bg-bg border border-stroke rounded-xl px-4 py-3 text-text-primary text-sm placeholder:text-muted/50 focus:outline-none focus:border-gray-600 transition-colors" />
                     </div>
                   ))}
                   <div>
-                    <label className="text-xs text-white/50 uppercase tracking-[0.2em] mb-1 block">Business Type</label>
+                    <label className="text-xs text-muted uppercase tracking-[0.2em] mb-1 block">Business Type</label>
                     <select required value={form.type} onChange={e => setForm(f => ({ ...f, type: e.target.value }))}
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-white/50 transition-colors">
-                      <option value="" disabled className="text-gray-800">Select your business type</option>
-                      {['Startup', 'Agency', 'Freelancer', 'eCommerce', 'Other'].map(o => <option key={o} className="text-gray-800">{o}</option>)}
+                      className="w-full bg-bg border border-stroke rounded-xl px-4 py-3 text-text-primary text-sm focus:outline-none focus:border-gray-600 transition-colors">
+                      <option value="" disabled>Select your business type</option>
+                      {['Startup', 'Agency', 'Freelancer', 'eCommerce', 'Other'].map(o => <option key={o}>{o}</option>)}
                     </select>
                   </div>
-                  <button type="submit" className="btn-lift w-full bg-white text-gray-900 py-3 rounded-xl font-medium text-sm hover:bg-gray-100">Send Message</button>
+                  <button type="submit" className="w-full bg-gray-900 text-white py-3 rounded-xl font-medium text-sm hover:bg-gray-700 transition-colors duration-200">Send Message</button>
                 </form>
               )}
             </div>
@@ -910,16 +773,16 @@ function Footer() {
   return (
     <footer className="dark-section pt-16 md:pt-20 pb-8 md:pb-12 overflow-hidden relative">
       <div className="absolute inset-0 overflow-hidden">
-        <video autoPlay loop muted playsInline src={HERO_VIDEO}
+        <HLSVideo src={HLS_SRC} autoPlay muted loop playsInline
           className="absolute top-1/2 left-1/2 min-w-full min-h-full object-cover"
-          style={{ transform: 'translateX(-50%) translateY(-50%)' }} />
+          style={{ transform: 'translateX(-50%) translateY(-50%) scaleY(-1)' }} />
         <div className="absolute inset-0 bg-black/65" />
       </div>
       <div className="relative z-10">
         <div className="overflow-hidden mb-12 md:mb-20" ref={marqueeRef}>
           <div className="marquee-inner whitespace-nowrap inline-flex">
             {Array(20).fill('UK ACCOUNTANT · BOOKKEEPING · VAT SERVICES · TAX PLANNING · CORPORATION TAX · PAYROLL · MTD COMPLIANT · ').map((text, i) => (
-              <span key={i} className="text-3xl md:text-5xl lg:text-7xl pr-8" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic', color: '#ffffff' }}>{text}</span>
+              <span key={i} className="text-3xl md:text-5xl lg:text-7xl text-text-primary/10 pr-8" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{text}</span>
             ))}
           </div>
         </div>
@@ -927,10 +790,10 @@ function Footer() {
           <p className="text-xs text-muted uppercase tracking-[0.3em] mb-6">Let's simplify your accounting</p>
           <div className="relative inline-block rounded-full" onMouseEnter={() => setEmailHov(true)} onMouseLeave={() => setEmailHov(false)}>
             <span className="absolute rounded-full transition-opacity duration-300 pointer-events-none" style={{ inset: '-1px', background: ACCENT, opacity: emailHov ? 1 : 0 }} />
-            <a href="mailto:accounts@alliancestreet.co.uk"
+            <a href="mailto:Accounts@alliancestreet.co.uk"
               className="relative block text-xl md:text-3xl lg:text-4xl text-text-primary px-10 py-5 rounded-full border border-stroke transition-colors duration-300"
               style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic', borderColor: emailHov ? 'transparent' : undefined }}>
-              accounts@alliancestreet.co.uk
+              Accounts@alliancestreet.co.uk
             </a>
           </div>
           <p className="text-muted text-sm mt-4">Serving UK businesses nationwide</p>
@@ -960,7 +823,7 @@ function Footer() {
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-muted mb-4">Contact</p>
               <ul className="space-y-2 text-muted text-xs">
-                <li>accounts@alliancestreet.co.uk</li>
+                <li>Accounts@alliancestreet.co.uk</li>
                 <li className="leading-relaxed">Pine Tree House, Gardiners Close, Basildon, Essex, England, SS14 3AN</li>
               </ul>
             </div>
@@ -982,7 +845,6 @@ function Footer() {
 export default function App() {
   const [isLoading, setIsLoading] = useState(true)
   const handleComplete = useCallback(() => setIsLoading(false), [])
-  useSmoothScroll()
   return (
     <>
       <AnimatePresence>
@@ -990,8 +852,7 @@ export default function App() {
       </AnimatePresence>
       <AnimatePresence>
         {!isLoading && (
-          <motion.div key="main" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
-            <ScrollProgress />
+          <motion.div key="main" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
             <Hero />
             <Trust />
             <Solution />
