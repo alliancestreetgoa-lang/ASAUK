@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { initLenis, initHeroParallax, initScrollAnimations, destroyAnimations } from './animations'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -132,7 +133,7 @@ function Hero() {
   const [taxHov, setTaxHov] = useState(false)
   return (
     <section id="home" className="relative h-screen flex flex-col overflow-hidden">
-      <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" src={HERO_VIDEO} />
+      <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover hero-parallax-video" src={HERO_VIDEO} />
       <div className="relative z-10 px-6 md:px-12 lg:px-16 pt-6">
         <nav className="liquid-glass rounded-xl px-4 py-2 flex items-center justify-between">
           <a href="#home" className="flex items-center"><img src={LOGO_URL} alt="Alliance Street Accountancy Ltd" className="h-12 md:h-14 w-auto object-contain" /></a>
@@ -155,7 +156,7 @@ function Hero() {
             </FadeIn>
             <FadeIn delay={1200} duration={1000}>
               <div className="flex flex-wrap gap-4">
-                <a href="#contact" className="text-white px-8 py-3 rounded-lg font-medium transition-colors" style={{ background: ACCENT }}>Book Free Consultation</a>
+                <a href="#contact" className="text-white px-8 py-3 rounded-lg font-medium btn-press" style={{ background: ACCENT }}>Book Free Consultation</a>
                 <button
                   className="liquid-glass border border-white/20 text-white px-8 py-3 rounded-lg font-medium cursor-pointer transition-all duration-200"
                   style={{ backgroundColor: taxHov ? 'white' : undefined, color: taxHov ? 'black' : undefined }}
@@ -261,7 +262,7 @@ function WhyChooseUs() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {WHY_POINTS.map((p, i) => (
-              <motion.div key={i} className="p-6 bg-surface/50 border border-stroke rounded-2xl hover:border-gray-400 hover:shadow-sm transition-all duration-300"
+              <motion.div key={i} className="p-6 bg-surface/50 border border-stroke rounded-2xl hover:border-gray-400 transition-all duration-300 hover-lift"
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.5 }}>
                 <span className="inline-block text-xs font-medium text-white px-3 py-1 rounded-full mb-4" style={{ background: ACCENT }}>0{i + 1}</span>
                 <h3 className="text-text-primary font-medium text-sm mb-2">{p.title}</h3>
@@ -294,7 +295,7 @@ function Results() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {RESULTS.map((r, i) => (
-              <motion.div key={i} className="p-8 border border-stroke rounded-3xl" style={{ background: 'rgba(255,255,255,0.5)', backdropFilter: 'blur(8px)' }}
+              <motion.div key={i} className="p-8 border border-stroke rounded-3xl hover-lift" style={{ background: 'rgba(255,255,255,0.5)', backdropFilter: 'blur(8px)' }}
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15, duration: 0.6 }}>
                 <p className="text-4xl md:text-5xl mb-2" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic', color: '#111' }}>{r.value}</p>
                 <p className="text-sm font-medium mb-2" style={{ color: '#111' }}>{r.label}</p>
@@ -451,7 +452,7 @@ function Services() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {SERVICES_DATA.map((svc, i) => (
             <motion.div key={svc.name}
-              className="group relative rounded-3xl overflow-hidden cursor-pointer border border-stroke hover:border-gray-400 hover:shadow-md transition-all duration-300"
+              className="group relative rounded-3xl overflow-hidden cursor-pointer border border-stroke hover:border-gray-400 transition-all duration-300 hover-lift"
               onClick={() => setModal({ title: svc.name, tag: svc.tag, img: svc.img, body: svc.body })}
               initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-50px' }} transition={{ duration: 0.7, delay: i * 0.1 }}>
               <div className="relative h-40 overflow-hidden">
@@ -631,7 +632,7 @@ function Reviews() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
             {reviews.map((r, i) => (
-              <motion.div key={r.name + i} className="p-6 bg-surface/50 border border-stroke rounded-2xl flex flex-col"
+              <motion.div key={r.name + i} className="p-6 bg-surface/50 border border-stroke rounded-2xl flex flex-col hover-lift"
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: Math.min(i, 5) * 0.08, duration: 0.5 }}>
                 <StarRow rating={r.rating} />
                 <p className="text-text-primary text-sm leading-relaxed my-4 flex-1">"{r.quote}"</p>
@@ -861,6 +862,20 @@ function Footer() {
 export default function App() {
   const [isLoading, setIsLoading] = useState(true)
   const handleComplete = useCallback(() => setIsLoading(false), [])
+
+  useEffect(() => {
+    if (isLoading) return
+    initLenis()
+    const frame = requestAnimationFrame(() => {
+      initHeroParallax()
+      initScrollAnimations()
+    })
+    return () => {
+      cancelAnimationFrame(frame)
+      destroyAnimations()
+    }
+  }, [isLoading])
+
   return (
     <>
       <AnimatePresence>
