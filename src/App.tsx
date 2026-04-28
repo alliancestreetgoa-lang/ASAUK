@@ -69,22 +69,83 @@ function Modal({ data, onClose }: { data: ModalData; onClose: () => void }) {
 
 function LoadingScreen({ onComplete }: { onComplete: () => void }) {
   const videoRef = useRef<HTMLVideoElement>(null)
-  useEffect(() => {
+  const [entered, setEntered] = useState(false)
+
+  const handleEnter = () => {
+    setEntered(true)
     const v = videoRef.current
     if (!v) return
-    const handleEnded = () => onComplete()
-    v.addEventListener('ended', handleEnded)
-    const fallback = setTimeout(onComplete, 12000)
     v.muted = false
     v.play().catch(() => {
       v.muted = true
       v.play().catch(() => {})
     })
+  }
+
+  useEffect(() => {
+    if (!entered) return
+    const v = videoRef.current
+    if (!v) return
+    const handleEnded = () => onComplete()
+    v.addEventListener('ended', handleEnded)
+    const fallback = setTimeout(onComplete, 15000)
     return () => { v.removeEventListener('ended', handleEnded); clearTimeout(fallback) }
-  }, [onComplete])
+  }, [entered, onComplete])
+
   return (
-    <motion.div className="fixed inset-0 z-[9999] bg-black overflow-hidden" exit={{ opacity: 0 }} transition={{ duration: 0.6 }}>
-      <video ref={videoRef} playsInline className="absolute inset-0 w-full h-full object-cover object-center" src="/loading.mp4" />
+    <motion.div className="fixed inset-0 z-[9999] bg-black overflow-hidden" exit={{ opacity: 0 }} transition={{ duration: 0.8 }}>
+      <video
+        ref={videoRef}
+        playsInline
+        preload="auto"
+        className="absolute inset-0 w-full h-full object-cover object-center"
+        style={{ opacity: entered ? 1 : 0, transition: 'opacity 0.5s ease' }}
+        src="/loading.mp4"
+      />
+
+      <AnimatePresence>
+        {!entered && (
+          <motion.div
+            className="absolute inset-0 flex flex-col items-center justify-center"
+            style={{ background: 'rgba(0,0,0,0.92)' }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <motion.img
+              src={LOGO_URL}
+              alt="Alliance Street"
+              className="h-16 md:h-20 w-auto object-contain mb-10"
+              initial={{ opacity: 0, y: -16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            />
+            <motion.button
+              onClick={handleEnter}
+              className="relative flex items-center gap-3 px-8 py-4 rounded-full text-white font-medium text-sm tracking-widest uppercase cursor-pointer select-none"
+              style={{ background: ACCENT, letterSpacing: '0.2em' }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.7, delay: 0.5 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              <span>Enter</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </motion.button>
+            <motion.button
+              onClick={onComplete}
+              className="mt-5 text-white/40 text-xs uppercase tracking-widest hover:text-white/70 transition-colors cursor-pointer"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 1 }}
+            >
+              Skip
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   )
 }
