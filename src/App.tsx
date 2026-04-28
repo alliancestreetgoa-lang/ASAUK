@@ -79,7 +79,7 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
   }, [onComplete])
   return (
     <motion.div className="fixed inset-0 z-[9999] bg-black overflow-hidden" exit={{ opacity: 0 }} transition={{ duration: 0.6 }}>
-      <video ref={videoRef} autoPlay muted playsInline className="absolute inset-0 w-full h-full object-contain md:object-cover" src="/hero.mp4" />
+      <video ref={videoRef} autoPlay muted playsInline className="absolute inset-0 w-full h-full object-contain md:object-cover" src="/loading.mp4" />
     </motion.div>
   )
 }
