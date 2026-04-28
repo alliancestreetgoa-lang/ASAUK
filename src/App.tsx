@@ -345,6 +345,154 @@ function WhyChooseUs() {
   )
 }
 
+// ── About ─────────────────────────────────────────────────────────────────────
+const TEAM_VALUES = [
+  {
+    icon: '⚖️',
+    title: 'Integrity first',
+    desc: 'We tell you what you need to hear, not just what you want to hear. Honest advice, transparent fees — always.',
+  },
+  {
+    icon: '🎯',
+    title: 'Proactive, not reactive',
+    desc: 'We plan ahead, flag risks early, and hunt for savings year-round rather than scrambling at year-end.',
+  },
+  {
+    icon: '🌍',
+    title: 'International perspective',
+    desc: 'With expertise across UK, UAE and multiple markets, we help founders structure efficiently wherever they operate.',
+  },
+  {
+    icon: '💬',
+    title: 'Plain English, always',
+    desc: 'No jargon. No confusing reports. We explain your numbers in language that actually helps you make decisions.',
+  },
+  {
+    icon: '🔒',
+    title: 'Fixed fees, no surprises',
+    desc: 'You know your monthly cost on day one. No hidden charges, no hourly meters, no shock invoices.',
+  },
+  {
+    icon: '🤝',
+    title: 'Long-term partnership',
+    desc: 'We grow with you. From your first invoice to your Series A, your dedicated accountant knows your business inside out.',
+  },
+]
+
+const ACCREDITATIONS = [
+  { label: 'HMRC Registered Agent', note: 'Authorised to act on behalf of UK businesses with HMRC' },
+  { label: 'ICAEW Affiliated Practice', note: 'Committed to the highest standards of professional conduct' },
+  { label: 'Xero Gold Partner', note: 'Certified experts in cloud-based accounting for modern businesses' },
+  { label: 'QuickBooks Pro Advisor', note: 'Fully certified across the QuickBooks product suite' },
+]
+
+function About() {
+  return (
+    <section id="about" className="relative overflow-hidden bg-bg py-10 md:py-20 px-6 border-b border-stroke">
+      <SectionBg src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1600&q=80&auto=format&fit=crop" opacity={0.45} position="right" />
+      <div className="relative z-10 max-w-[1200px] mx-auto">
+
+        {/* Header */}
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="gsap-line-grow w-8 h-px bg-stroke" />
+            <span className="text-xs text-muted uppercase tracking-[0.3em]">About Us</span>
+          </div>
+
+          {/* Two-column intro */}
+          <div className="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-start mb-12 md:mb-16">
+            <div>
+              <h2 className="gsap-heading-reveal text-3xl md:text-5xl text-text-primary mb-6 leading-tight" style={{ fontFamily: "'Instrument Serif',serif" }}>
+                The team behind <em>your numbers</em>
+              </h2>
+              <p className="text-muted text-base md:text-lg leading-relaxed mb-4">
+                Alliance Street Accountancy was founded on a simple belief: UK businesses deserve an accountant who actually cares about their growth — not just their compliance deadlines.
+              </p>
+              <p className="text-muted text-sm leading-relaxed mb-4">
+                Based in Basildon, Essex, we serve limited companies, agencies, freelancers, and founder-led businesses across the UK and internationally. From your first invoice to complex multi-jurisdiction structures, our team brings deep technical expertise alongside the kind of straight-talking communication that makes accounting feel less like a burden and more like a business advantage.
+              </p>
+              <p className="text-muted text-sm leading-relaxed">
+                We combine cloud-first tools — Xero, QuickBooks, FreeAgent — with human expertise to give you real-time visibility into your business finances, not just a once-a-year report. Our clients average over £12,000 in annual tax savings, and across our entire portfolio, we have never missed an HMRC deadline.
+              </p>
+            </div>
+
+            {/* Stats + Accreditations */}
+            <div className="mt-8 lg:mt-0 space-y-5">
+              {/* Founded / size callouts */}
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { value: '2018', label: 'Year founded' },
+                  { value: '200+', label: 'Active UK clients' },
+                  { value: 'Essex', label: 'Headquartered in' },
+                  { value: 'Global', label: 'International reach' },
+                ].map((s, i) => (
+                  <motion.div key={s.label}
+                    className="p-5 bg-surface/50 border border-stroke rounded-2xl hover-lift"
+                    initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08, duration: 0.5 }}>
+                    <p className="text-2xl md:text-3xl font-light text-text-primary mb-1" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{s.value}</p>
+                    <p className="text-xs text-muted uppercase tracking-[0.2em]">{s.label}</p>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Accreditations */}
+              <div className="p-6 bg-surface/50 border border-stroke rounded-2xl">
+                <p className="text-xs text-muted uppercase tracking-[0.25em] mb-4">Accreditations & Memberships</p>
+                <ul className="space-y-3">
+                  {ACCREDITATIONS.map((a, i) => (
+                    <motion.li key={a.label} className="flex items-start gap-3"
+                      initial={{ opacity: 0, x: 12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08, duration: 0.4 }}>
+                      <span className="mt-0.5 shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-[9px] text-white" style={{ background: ACCENT }}>✓</span>
+                      <div>
+                        <p className="text-text-primary text-sm font-medium">{a.label}</p>
+                        <p className="text-muted text-xs leading-relaxed">{a.note}</p>
+                      </div>
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Values grid */}
+          <div>
+            <p className="text-xs text-muted uppercase tracking-[0.3em] mb-6">Our Values</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {TEAM_VALUES.map((v, i) => (
+                <motion.div key={v.title}
+                  className="p-6 bg-surface/50 border border-stroke rounded-2xl hover-lift"
+                  initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08, duration: 0.5 }}>
+                  <span className="text-2xl mb-3 block">{v.icon}</span>
+                  <h3 className="text-text-primary font-medium text-sm mb-2">{v.title}</h3>
+                  <p className="text-muted text-xs leading-relaxed">{v.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Office / location strip */}
+          <motion.div
+            className="mt-10 p-6 md:p-8 rounded-3xl border border-stroke flex flex-col md:flex-row md:items-center md:justify-between gap-6"
+            style={{ background: 'rgba(var(--color-surface-rgb, 255,255,255),0.3)' }}
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
+            <div>
+              <p className="text-xs text-muted uppercase tracking-[0.25em] mb-2">Our Office</p>
+              <p className="text-text-primary font-medium text-sm">Pine Tree House, Gardiners Close</p>
+              <p className="text-muted text-sm">Basildon, Essex, England, SS14 3AN</p>
+              <a href="mailto:accounts@alliancestreet.co.uk" className="text-sm mt-2 inline-block hover:opacity-80 transition-opacity" style={{ color: '#FB2C36' }}>accounts@alliancestreet.co.uk</a>
+            </div>
+            <a href="#contact"
+              className="shrink-0 text-center text-white px-8 py-3 rounded-xl font-medium text-sm btn-press"
+              style={{ background: ACCENT }}>
+              Book a Free Call
+            </a>
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
 // ── Results ───────────────────────────────────────────────────────────────────
 const RESULTS = [
   { value: '£12,400+', label: 'Average annual tax saved', desc: 'Per limited company, through proactive planning, R&D claims and dividend optimisation.' },
@@ -965,6 +1113,7 @@ export default function App() {
             <Trust />
             <Solution />
             <WhyChooseUs />
+            <About />
             <Results />
             <Services />
             <Pricing />
