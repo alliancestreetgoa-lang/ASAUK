@@ -640,7 +640,7 @@ function Services() {
       <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
         <motion.div className="mb-12" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 1 }}>
           <div className="flex items-center gap-3 mb-3"><div className="gsap-line-grow w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Accounting Services UK</span></div>
-          <h2 className="gsap-heading-reveal text-3xl md:text-5xl text-text-primary" style={{ fontFamily: "'Instrument Serif',serif" }}>Everything you need to <em>stay compliant & grow</em></h2>
+          <h2 className="gsap-heading-reveal text-3xl md:text-5xl text-text-primary" style={{ fontFamily: "'Instrument Serif',serif" }}>Accounting services that <em>keep you compliant & growing</em></h2>
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {SERVICES_DATA.map((svc, i) => (
