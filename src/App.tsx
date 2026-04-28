@@ -382,38 +382,32 @@ const ACCREDITATIONS = [
 
 function About() {
   return (
-    <section id="about" className="relative overflow-hidden bg-bg py-10 md:py-20 px-6 border-b border-stroke">
+    <section id="about" className="relative overflow-hidden bg-bg py-10 md:py-14 px-6 border-b border-stroke">
       <SectionBg src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1600&q=80&auto=format&fit=crop" opacity={0.45} position="right" />
       <div className="relative z-10 max-w-[1200px] mx-auto">
-
-        {/* Header */}
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
-          <div className="flex items-center gap-3 mb-6">
+          <div className="flex items-center gap-3 mb-5">
             <div className="gsap-line-grow w-8 h-px bg-stroke" />
             <span className="text-xs text-muted uppercase tracking-[0.3em]">About Us</span>
           </div>
 
           {/* Two-column intro */}
-          <div className="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-start mb-12 md:mb-16">
+          <div className="lg:grid lg:grid-cols-2 lg:gap-14 lg:items-start mb-8">
             <div>
-              <h2 className="gsap-heading-reveal text-3xl md:text-5xl text-text-primary mb-6 leading-tight" style={{ fontFamily: "'Instrument Serif',serif" }}>
+              <h2 className="gsap-heading-reveal text-3xl md:text-4xl text-text-primary mb-4 leading-tight" style={{ fontFamily: "'Instrument Serif',serif" }}>
                 The team behind <em>your numbers</em>
               </h2>
-              <p className="text-muted text-base md:text-lg leading-relaxed mb-4">
-                Alliance Street Accountancy was founded on a simple belief: UK businesses deserve an accountant who actually cares about their growth — not just their compliance deadlines.
-              </p>
-              <p className="text-muted text-sm leading-relaxed mb-4">
-                Based in Basildon, Essex, we serve limited companies, agencies, freelancers, and founder-led businesses across the UK and internationally. From your first invoice to complex multi-jurisdiction structures, our team brings deep technical expertise alongside the kind of straight-talking communication that makes accounting feel less like a burden and more like a business advantage.
+              <p className="text-muted text-sm leading-relaxed mb-3">
+                Alliance Street Accountancy was founded on a simple belief: UK businesses deserve an accountant who actually cares about their growth — not just compliance deadlines. Based in Basildon, Essex, we serve limited companies, agencies, and founder-led businesses across the UK and internationally.
               </p>
               <p className="text-muted text-sm leading-relaxed">
-                We combine cloud-first tools — Xero, QuickBooks, FreeAgent — with human expertise to give you real-time visibility into your business finances, not just a once-a-year report. Our clients average over £12,000 in annual tax savings, and across our entire portfolio, we have never missed an HMRC deadline.
+                We use cloud-first tools — Xero, QuickBooks, FreeAgent — to give you real-time visibility into your finances. Our clients average over £12,000 in annual tax savings and we have never missed an HMRC deadline across our entire portfolio.
               </p>
             </div>
 
             {/* Stats + Accreditations */}
-            <div className="mt-8 lg:mt-0 space-y-5">
-              {/* Founded / size callouts */}
-              <div className="grid grid-cols-2 gap-4">
+            <div className="mt-6 lg:mt-0 space-y-4">
+              <div className="grid grid-cols-2 gap-3">
                 {[
                   { value: '2018', label: 'Year founded' },
                   { value: '200+', label: 'Active UK clients' },
@@ -421,25 +415,24 @@ function About() {
                   { value: 'Global', label: 'International reach' },
                 ].map((s, i) => (
                   <motion.div key={s.label}
-                    className="p-5 bg-surface/50 border border-stroke rounded-2xl hover-lift"
+                    className="p-4 bg-surface/50 border border-stroke rounded-xl hover-lift"
                     initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08, duration: 0.5 }}>
-                    <p className="text-2xl md:text-3xl font-light text-text-primary mb-1" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{s.value}</p>
+                    <p className="text-xl md:text-2xl font-light text-text-primary mb-0.5" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{s.value}</p>
                     <p className="text-xs text-muted uppercase tracking-[0.2em]">{s.label}</p>
                   </motion.div>
                 ))}
               </div>
 
-              {/* Accreditations */}
-              <div className="p-6 bg-surface/50 border border-stroke rounded-2xl">
-                <p className="text-xs text-muted uppercase tracking-[0.25em] mb-4">Accreditations & Memberships</p>
-                <ul className="space-y-3">
+              <div className="p-4 bg-surface/50 border border-stroke rounded-xl">
+                <p className="text-xs text-muted uppercase tracking-[0.25em] mb-3">Accreditations & Memberships</p>
+                <ul className="space-y-2">
                   {ACCREDITATIONS.map((a, i) => (
-                    <motion.li key={a.label} className="flex items-start gap-3"
+                    <motion.li key={a.label} className="flex items-start gap-2.5"
                       initial={{ opacity: 0, x: 12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08, duration: 0.4 }}>
                       <span className="mt-0.5 shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-[9px] text-white" style={{ background: ACCENT }}>✓</span>
                       <div>
-                        <p className="text-text-primary text-sm font-medium">{a.label}</p>
-                        <p className="text-muted text-xs leading-relaxed">{a.note}</p>
+                        <p className="text-text-primary text-xs font-medium">{a.label}</p>
+                        <p className="text-muted text-xs leading-snug">{a.note}</p>
                       </div>
                     </motion.li>
                   ))}
@@ -450,13 +443,13 @@ function About() {
 
           {/* Values grid */}
           <div>
-            <p className="text-xs text-muted uppercase tracking-[0.3em] mb-6">Our Values</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <p className="text-xs text-muted uppercase tracking-[0.3em] mb-4">Our Values</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {TEAM_VALUES.map((v, i) => (
                 <motion.div key={v.title}
-                  className="p-6 bg-surface/50 border border-stroke rounded-2xl hover-lift"
+                  className="p-4 bg-surface/50 border border-stroke rounded-xl hover-lift"
                   initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08, duration: 0.5 }}>
-                  <h3 className="text-text-primary font-medium text-sm mb-2">{v.title}</h3>
+                  <h3 className="text-text-primary font-medium text-sm mb-1.5">{v.title}</h3>
                   <p className="text-muted text-xs leading-relaxed">{v.desc}</p>
                 </motion.div>
               ))}
