@@ -74,12 +74,17 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
     if (!v) return
     const handleEnded = () => onComplete()
     v.addEventListener('ended', handleEnded)
-    const fallback = setTimeout(onComplete, 9000)
+    const fallback = setTimeout(onComplete, 12000)
+    v.muted = false
+    v.play().catch(() => {
+      v.muted = true
+      v.play().catch(() => {})
+    })
     return () => { v.removeEventListener('ended', handleEnded); clearTimeout(fallback) }
   }, [onComplete])
   return (
     <motion.div className="fixed inset-0 z-[9999] bg-black overflow-hidden" exit={{ opacity: 0 }} transition={{ duration: 0.6 }}>
-      <video ref={videoRef} autoPlay muted playsInline className="absolute inset-0 w-full h-full object-contain md:object-cover" src="/loading.mp4" />
+      <video ref={videoRef} playsInline className="absolute inset-0 w-full h-full object-contain md:object-cover" src="/loading.mp4" />
     </motion.div>
   )
 }
