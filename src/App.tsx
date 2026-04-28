@@ -98,7 +98,7 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
         ref={videoRef}
         playsInline
         preload="auto"
-        className="absolute inset-0 w-full h-full object-cover object-center"
+        className="absolute inset-0 w-full h-full object-contain md:object-cover object-center"
         style={{ opacity: entered ? 1 : 0, transition: 'opacity 0.5s ease' }}
         src="/loading.mp4"
       />
