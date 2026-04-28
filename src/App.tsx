@@ -145,41 +145,96 @@ const NAV_LINKS = ['Services', 'Pricing', 'About', 'Contact']
 
 function Hero() {
   const [taxHov, setTaxHov] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   return (
     <section id="home" className="relative h-screen flex flex-col overflow-hidden">
       <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover hero-parallax-video" src={HERO_VIDEO} />
-      <div className="relative z-10 px-6 md:px-12 lg:px-16 pt-6">
-        <nav className="liquid-glass rounded-xl px-4 py-2 flex items-center justify-between">
-          <a href="#home" className="flex items-center"><img src={LOGO_URL} alt="Alliance Street Accountancy Ltd" className="h-12 md:h-14 w-auto object-contain" /></a>
+
+      {/* Mobile menu overlay */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="fixed inset-0 z-[200] flex flex-col"
+            style={{ background: 'rgba(0,0,0,0.96)' }}
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            <div className="flex items-center justify-between px-6 pt-6 pb-4">
+              <a href="#home" onClick={() => setMenuOpen(false)}>
+                <img src={LOGO_URL} alt="Alliance Street" className="h-12 w-auto object-contain" />
+              </a>
+              <button onClick={() => setMenuOpen(false)} className="text-white p-2" aria-label="Close menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M6 18L18 6" stroke="white" strokeWidth="1.5" strokeLinecap="round"/></svg>
+              </button>
+            </div>
+            <nav className="flex-1 flex flex-col justify-center px-8 gap-2">
+              {NAV_LINKS.map((link, i) => (
+                <motion.a
+                  key={link}
+                  href={`#${link.toLowerCase()}`}
+                  onClick={() => setMenuOpen(false)}
+                  className="text-3xl font-light text-white py-3 border-b border-white/10"
+                  style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}
+                  initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.07, duration: 0.3 }}
+                >
+                  {link}
+                </motion.a>
+              ))}
+              <motion.a
+                href="#contact"
+                onClick={() => setMenuOpen(false)}
+                className="mt-6 text-center text-white py-4 rounded-xl font-medium"
+                style={{ background: ACCENT }}
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }}
+              >
+                Book Free Call
+              </motion.a>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div className="relative z-10 px-4 md:px-12 lg:px-16 pt-4 md:pt-6">
+        <nav className="liquid-glass rounded-xl px-3 md:px-4 py-2 flex items-center justify-between">
+          <a href="#home" className="flex items-center"><img src={LOGO_URL} alt="Alliance Street Accountancy Ltd" className="h-10 md:h-14 w-auto object-contain" /></a>
           <div className="hidden md:flex items-center gap-8">
             {NAV_LINKS.map(link => (
               <a key={link} href={`#${link.toLowerCase()}`} className="text-sm text-white hover:text-gray-300 transition-colors duration-200">{link}</a>
             ))}
           </div>
-          <a href="#contact" className="text-white px-6 py-2 rounded-lg text-sm font-medium transition-colors duration-200 cursor-pointer" style={{ background: ACCENT }}>Book Free Call</a>
+          <div className="flex items-center gap-2">
+            <a href="#contact" className="hidden sm:inline-block text-white px-4 md:px-6 py-2 rounded-lg text-sm font-medium transition-colors duration-200" style={{ background: ACCENT }}>Book Free Call</a>
+            <button
+              onClick={() => setMenuOpen(true)}
+              className="md:hidden p-2 text-white"
+              aria-label="Open menu"
+            >
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 6h16M3 11h16M3 16h16" stroke="white" strokeWidth="1.5" strokeLinecap="round"/></svg>
+            </button>
+          </div>
         </nav>
       </div>
-      <div className="relative z-10 flex-1 flex flex-col justify-end px-6 md:px-12 lg:px-16 pb-12 lg:pb-16">
-        <div>
-          <div className="max-w-4xl">
-            <AnimatedHeading text={"Finance and Accounting Built\nfor International Growth"} className="text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-normal text-white mb-4" />
-            <FadeIn delay={800} duration={1000}>
-              <p className="text-base md:text-lg text-gray-300 mb-5">
-                Finance and Accounting Solutions focused on Growth — tax structuring and advisory services with international expertise across multiple markets. From UK & HMRC compliance to UAE restructuring, Bookkeeping, and Corporate Tax Solutions. ASA is built for founders, limited companies, and ambitious entrepreneurs who'd rather build a business and grow.
-              </p>
-            </FadeIn>
-            <FadeIn delay={1200} duration={1000}>
-              <div className="flex flex-wrap gap-4">
-                <a href="#contact" className="text-white px-8 py-3 rounded-lg font-medium btn-press" style={{ background: ACCENT }}>Book Free Consultation</a>
-                <button
-                  className="liquid-glass border border-white/20 text-white px-8 py-3 rounded-lg font-medium cursor-pointer transition-all duration-200"
-                  style={{ backgroundColor: taxHov ? 'white' : undefined, color: taxHov ? 'black' : undefined }}
-                  onMouseEnter={() => setTaxHov(true)} onMouseLeave={() => setTaxHov(false)}>
-                  Get Free Tax Review
-                </button>
-              </div>
-            </FadeIn>
-          </div>
+
+      <div className="relative z-10 flex-1 flex flex-col justify-end px-5 md:px-12 lg:px-16 pb-10 md:pb-12 lg:pb-16">
+        <div className="max-w-4xl">
+          <AnimatedHeading text={"Finance and Accounting Built\nfor International Growth"} className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-normal text-white mb-4" />
+          <FadeIn delay={800} duration={1000}>
+            <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-5 max-w-2xl">
+              Tax structuring and advisory with international expertise — UK & HMRC compliance, UAE restructuring, bookkeeping, and corporate tax. Built for founders, limited companies, and ambitious entrepreneurs.
+            </p>
+          </FadeIn>
+          <FadeIn delay={1200} duration={1000}>
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3">
+              <a href="#contact" className="text-center text-white px-7 py-3 rounded-lg font-medium btn-press" style={{ background: ACCENT }}>Book Free Consultation</a>
+              <button
+                className="liquid-glass border border-white/20 text-white px-7 py-3 rounded-lg font-medium cursor-pointer transition-all duration-200"
+                style={{ backgroundColor: taxHov ? 'white' : undefined, color: taxHov ? 'black' : undefined }}
+                onMouseEnter={() => setTaxHov(true)} onMouseLeave={() => setTaxHov(false)}>
+                Get Free Tax Review
+              </button>
+            </div>
+          </FadeIn>
         </div>
       </div>
     </section>
@@ -196,11 +251,11 @@ function Trust() {
           initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
           Trusted by UK limited companies, agencies, and freelancers
         </motion.p>
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-4">
           {badges.map((b, i) => (
-            <motion.div key={b.label} className="text-center"
+            <motion.div key={b.label} className="flex sm:flex-col items-center sm:items-center gap-4 sm:gap-0 text-left sm:text-center py-3 sm:py-0 border-b sm:border-b-0 border-stroke last:border-0"
               initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.6 }}>
-              <p className="text-3xl md:text-5xl text-text-primary font-light mb-1" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{b.value}</p>
+              <p className="text-4xl sm:text-3xl md:text-5xl text-text-primary font-light sm:mb-1 shrink-0" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>{b.value}</p>
               <p className="text-xs text-muted uppercase tracking-[0.2em]">{b.label}</p>
             </motion.div>
           ))}
@@ -819,10 +874,10 @@ function Footer() {
       <div className="relative z-10">
         <div className="text-center mb-8">
           <p className="text-xs text-muted uppercase tracking-[0.3em] mb-6">Let's simplify your accounting</p>
-          <div className="relative inline-block rounded-full" onMouseEnter={() => setEmailHov(true)} onMouseLeave={() => setEmailHov(false)}>
+          <div className="relative inline-block rounded-full max-w-full px-4" onMouseEnter={() => setEmailHov(true)} onMouseLeave={() => setEmailHov(false)}>
             <span className="absolute rounded-full transition-opacity duration-300 pointer-events-none" style={{ inset: '-1px', background: ACCENT, opacity: emailHov ? 1 : 0 }} />
             <a href="mailto:accounts@alliancestreet.co.uk?subject=Enquiry%20from%20Alliance%20Street%20Website"
-              className="relative block text-xl md:text-3xl lg:text-4xl text-text-primary px-10 py-5 rounded-full border border-stroke transition-colors duration-300 cursor-pointer no-underline"
+              className="relative block text-sm sm:text-lg md:text-2xl lg:text-4xl text-text-primary px-4 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 rounded-full border border-stroke transition-colors duration-300 cursor-pointer no-underline break-all sm:break-normal"
               style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic', borderColor: emailHov ? 'transparent' : undefined }}>
               accounts@alliancestreet.co.uk
             </a>
@@ -830,9 +885,9 @@ function Footer() {
           <p className="text-muted text-sm mt-4">Serving UK businesses nationwide</p>
         </div>
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-5 border-t border-stroke pt-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-5 border-t border-stroke pt-5">
             <div>
-              <img src={LOGO_URL} alt="Alliance Street Accountancy Ltd" className="h-[9rem] w-auto object-contain mb-4" />
+              <img src={LOGO_URL} alt="Alliance Street Accountancy Ltd" className="h-16 md:h-24 lg:h-32 w-auto object-contain mb-4" />
               <p className="text-muted text-xs leading-relaxed">UK accounting & advisory built for limited companies, agencies, and growing teams.</p>
             </div>
             <div>
