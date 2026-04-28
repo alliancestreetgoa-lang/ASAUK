@@ -1017,7 +1017,7 @@ function Footer() {
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-muted mb-4">Navigation</p>
               <ul className="space-y-2">
-                {[['Home', '#home'], ['About', '#about'], ['Services', '#services'], ['Pricing', '#pricing'], ['Blog', '#'], ['Contact', '#contact']].map(([label, href]) => (
+                {[['Home', '#home'], ['About', '#about'], ['Services', '#services'], ['Pricing', '#pricing'], ['Contact', '#contact']].map(([label, href]) => (
                   <li key={label}><a href={href} className="text-muted text-xs hover:text-text-primary transition-colors">{label}</a></li>
                 ))}
               </ul>
