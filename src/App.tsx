@@ -727,7 +727,7 @@ function FinalCTA() {
             <div className="gsap-line-grow w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Get Started</span><div className="gsap-line-grow w-8 h-px bg-stroke" />
           </div>
           <h2 className="gsap-heading-reveal text-4xl md:text-6xl text-text-primary mb-6 leading-tight" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
-            Ready to take accounting off your plate?
+            Ready to hand off your accounting?
           </h2>
           <p className="text-muted text-base md:text-lg mb-5 max-w-lg mx-auto">
             Book a free 30-minute call. No obligation — just clear answers about your numbers, where you're overpaying, and what we'd do differently.
