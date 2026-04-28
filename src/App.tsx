@@ -463,23 +463,6 @@ function About() {
             </div>
           </div>
 
-          {/* Office / location strip */}
-          <motion.div
-            className="mt-10 p-6 md:p-8 rounded-3xl border border-stroke flex flex-col md:flex-row md:items-center md:justify-between gap-6"
-            style={{ background: 'rgba(var(--color-surface-rgb, 255,255,255),0.3)' }}
-            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
-            <div>
-              <p className="text-xs text-muted uppercase tracking-[0.25em] mb-2">Our Office</p>
-              <p className="text-text-primary font-medium text-sm">Pine Tree House, Gardiners Close</p>
-              <p className="text-muted text-sm">Basildon, Essex, England, SS14 3AN</p>
-              <a href="mailto:accounts@alliancestreet.co.uk" className="text-sm mt-2 inline-block hover:opacity-80 transition-opacity" style={{ color: '#FB2C36' }}>accounts@alliancestreet.co.uk</a>
-            </div>
-            <a href="#contact"
-              className="shrink-0 text-center text-white px-8 py-3 rounded-xl font-medium text-sm btn-press"
-              style={{ background: ACCENT }}>
-              Book a Free Call
-            </a>
-          </motion.div>
         </motion.div>
       </div>
     </section>
