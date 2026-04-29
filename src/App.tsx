@@ -597,8 +597,26 @@ function Services() {
       {modal && <Modal data={modal} onClose={() => setModal(null)} />}
       <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
         <motion.div className="mb-12" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 1 }}>
-          <div className="flex items-center gap-3 mb-3"><div className="gsap-line-grow w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Accounting Services UK</span></div>
-          <h2 className="text-3xl md:text-5xl text-text-primary" style={{ fontFamily: "'Instrument Serif',serif" }}>Accounting services that <em>keep you compliant & growing</em></h2>
+          <div className="flex items-center gap-3 mb-6"><div className="gsap-line-grow w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Accounting Services UK</span></div>
+          <div className="lg:grid lg:grid-cols-2 lg:gap-8 lg:items-start">
+            <div>
+              <h2 className="text-3xl md:text-5xl lg:text-6xl text-text-primary leading-[1.1] tracking-tight mb-6" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
+                Accounting services that keep you compliant & growing
+              </h2>
+              <p className="text-muted text-base md:text-lg leading-relaxed text-pretty">
+                Whether you're a sole trader, limited company, or a fast-growing agency, we handle every aspect of your accounting so you stay compliant, tax-efficient, and focused on your business.
+              </p>
+            </div>
+            <div className="mt-5 lg:mt-0 space-y-4">
+              {['Professional bookkeeping & year-end accounts', 'VAT returns & Making Tax Digital compliance', 'Corporation Tax & Self Assessment', 'Payroll, PAYE & auto-enrolment pensions', 'Strategic tax planning to reduce your liability', 'Company formation & Companies House filings', 'Dedicated UK accountant — same person, every time'].map((item, i) => (
+                <motion.div key={i} className="flex items-center gap-4"
+                  initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.5 }}>
+                  <span className="shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] text-white" style={{ background: ACCENT }}>✓</span>
+                  <p className="text-text-primary text-sm">{item}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {SERVICES_DATA.map((svc, i) => (
@@ -640,7 +658,25 @@ function Pricing() {
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
           <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px" style={{ background: 'hsl(0 0% 60%)' }} /><span className="text-xs uppercase tracking-[0.3em]" style={{ color: 'hsl(0 0% 80%)' }}>Transparent Pricing</span></div>
-          <h2 className="text-3xl md:text-5xl mb-6" style={{ fontFamily: "'Instrument Serif',serif", color: 'hsl(0 0% 95%)' }}>Transparent pricing — <em>no surprises, ever</em></h2>
+          <div className="lg:grid lg:grid-cols-2 lg:gap-8 lg:items-start mb-10">
+            <div>
+              <h2 className="text-3xl md:text-5xl lg:text-6xl leading-[1.1] tracking-tight mb-6" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic', color: 'hsl(0 0% 95%)' }}>
+                Transparent pricing — no surprises, ever
+              </h2>
+              <p className="text-base md:text-lg leading-relaxed text-pretty" style={{ color: 'hsl(0 0% 70%)' }}>
+                One fixed monthly fee covers everything. No hidden extras, no hourly billing, no shock invoices — just clear, predictable accounting support every month.
+              </p>
+            </div>
+            <div className="mt-5 lg:mt-0 space-y-4">
+              {['Fixed monthly fee — know your cost on day one', 'No hourly rates, no unexpected bills', 'All software licences included (Xero / QuickBooks)', 'Dedicated accountant from your very first month', 'Cancel anytime with 30 days notice', 'Covers UK & international compliance needs'].map((item, i) => (
+                <motion.div key={i} className="flex items-center gap-4"
+                  initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.5 }}>
+                  <span className="shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] text-white" style={{ background: ACCENT }}>✓</span>
+                  <p className="text-sm" style={{ color: 'hsl(0 0% 80%)' }}>{item}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
             {PLANS.map((plan, i) => (
               <motion.div key={plan.name}
