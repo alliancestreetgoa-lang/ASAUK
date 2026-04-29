@@ -728,7 +728,7 @@ function FinalCTA() {
             <a href="#contact" className="inline-block text-white px-10 py-4 rounded-xl font-medium text-base transition-colors duration-200" style={{ background: ACCENT }}>
               Book Your Free Call →
             </a>
-            <a href="mailto:accounts@alliancestreet.co.uk" className="text-sm text-muted hover:text-text-primary transition-colors duration-200" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
+            <a href="mailto:accounts@alliancestreet.co.uk" className="inline-block px-10 py-4 rounded-xl font-medium text-base border border-stroke text-text-primary hover:border-gray-400 transition-colors duration-200">
               accounts@alliancestreet.co.uk
             </a>
           </div>
