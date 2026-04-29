@@ -945,6 +945,7 @@ export default function App() {
       <About />
       <Results />
       <Services />
+      <Solution />
       <Pricing />
       <FinalCTA />
       <Reviews />
