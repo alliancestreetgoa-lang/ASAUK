@@ -322,7 +322,7 @@ function WhyChooseUs() {
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
           <div className="flex items-center gap-3 mb-6"><div className="gsap-line-grow w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Why Choose Us</span></div>
-          <h2 className="gsap-heading-reveal text-3xl md:text-5xl text-text-primary font-bold mb-6" style={{ fontFamily: "'Instrument Serif',serif" }}>
+          <h2 className="text-3xl md:text-5xl text-text-primary font-bold mb-6" style={{ fontFamily: "'Instrument Serif',serif" }}>
             Why UK businesses <em>choose us</em>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -390,7 +390,7 @@ function About() {
           {/* Two-column intro */}
           <div className="lg:grid lg:grid-cols-2 lg:gap-14 lg:items-start mb-8">
             <div>
-              <h2 className="gsap-heading-reveal text-3xl md:text-4xl text-text-primary mb-4 leading-tight" style={{ fontFamily: "'Instrument Serif',serif" }}>
+              <h2 className="text-3xl md:text-4xl text-text-primary mb-4 leading-tight" style={{ fontFamily: "'Instrument Serif',serif" }}>
                 The team behind <em>your numbers</em>
               </h2>
               <p className="text-muted text-sm leading-relaxed mb-3">
@@ -632,7 +632,7 @@ function Services() {
       <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
         <motion.div className="mb-12" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 1 }}>
           <div className="flex items-center gap-3 mb-3"><div className="gsap-line-grow w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Accounting Services UK</span></div>
-          <h2 className="gsap-heading-reveal text-3xl md:text-5xl text-text-primary" style={{ fontFamily: "'Instrument Serif',serif" }}>Accounting services that <em>keep you compliant & growing</em></h2>
+          <h2 className="text-3xl md:text-5xl text-text-primary" style={{ fontFamily: "'Instrument Serif',serif" }}>Accounting services that <em>keep you compliant & growing</em></h2>
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {SERVICES_DATA.map((svc, i) => (
@@ -674,7 +674,7 @@ function Pricing() {
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
           <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px" style={{ background: 'hsl(0 0% 60%)' }} /><span className="text-xs uppercase tracking-[0.3em]" style={{ color: 'hsl(0 0% 80%)' }}>Transparent Pricing</span></div>
-          <h2 className="gsap-heading-reveal text-3xl md:text-5xl mb-6" style={{ fontFamily: "'Instrument Serif',serif", color: 'hsl(0 0% 95%)' }}>Transparent pricing — <em>no surprises, ever</em></h2>
+          <h2 className="text-3xl md:text-5xl mb-6" style={{ fontFamily: "'Instrument Serif',serif", color: 'hsl(0 0% 95%)' }}>Transparent pricing — <em>no surprises, ever</em></h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
             {PLANS.map((plan, i) => (
               <motion.div key={plan.name}
@@ -769,7 +769,7 @@ function Reviews() {
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
           <div className="flex items-center gap-3 mb-6"><div className="gsap-line-grow w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Client Reviews</span></div>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
-            <h2 className="gsap-heading-reveal text-3xl md:text-5xl text-text-primary" style={{ fontFamily: "'Instrument Serif',serif" }}>What our clients <em>say about us</em></h2>
+            <h2 className="text-3xl md:text-5xl text-text-primary" style={{ fontFamily: "'Instrument Serif',serif" }}>What our clients <em>say about us</em></h2>
             <div className="flex items-center gap-3">
               <StarRow rating={5} size="md" />
               <span className="text-sm text-muted"><span className="text-text-primary font-medium">4.9 / 5</span> · {reviews.length} reviews</span>
