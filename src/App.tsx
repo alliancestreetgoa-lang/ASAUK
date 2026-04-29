@@ -115,7 +115,13 @@ function AnimatedHeading({ text, className = '' }: { text: string; className?: s
 }
 
 // ── Hero ──────────────────────────────────────────────────────────────────────
-const NAV_LINKS = ['Services', 'Pricing', 'About', 'Contact']
+const NAV_LINKS = [
+  { label: 'Home', href: '#home' },
+  { label: 'Services', href: '#services' },
+  { label: 'Switch to ASB', href: '#contact' },
+  { label: 'Global Coverage', href: '#about' },
+  { label: 'Clients', href: '#reviews' },
+]
 
 function Hero() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -143,15 +149,15 @@ function Hero() {
             <nav className="flex-1 flex flex-col justify-center px-8 gap-2">
               {NAV_LINKS.map((link, i) => (
                 <motion.a
-                  key={link}
-                  href={`#${link.toLowerCase()}`}
+                  key={link.label}
+                  href={link.href}
                   onClick={() => setMenuOpen(false)}
                   className="text-3xl font-light text-white py-3 border-b border-white/10"
                   style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}
                   initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.07, duration: 0.3 }}
                 >
-                  {link}
+                  {link.label}
                 </motion.a>
               ))}
               <motion.a
@@ -176,7 +182,7 @@ function Hero() {
           <a href="#home" className="flex items-center"><img src={LOGO_URL} alt="Alliance Street Accountancy Ltd" className="h-10 md:h-14 w-auto object-contain" /></a>
           <div className="hidden md:flex items-center gap-8">
             {NAV_LINKS.map(link => (
-              <a key={link} href={`#${link.toLowerCase()}`} className="text-sm text-white hover:text-gray-300 transition-colors duration-200">{link}</a>
+              <a key={link.label} href={link.href} className="text-sm text-white hover:text-gray-300 transition-colors duration-200">{link.label}</a>
             ))}
           </div>
           <div className="flex items-center gap-2">
