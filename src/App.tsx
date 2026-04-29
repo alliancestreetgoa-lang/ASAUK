@@ -464,6 +464,7 @@ const RESULTS = [
   { value: '£12,400+', label: 'Average annual tax saved', desc: 'Per limited company, through proactive planning, R&D claims and dividend optimisation.' },
   { value: 'Zero', label: 'Late filing penalties this year', desc: 'Across our entire UK client portfolio — not a single missed HMRC deadline.' },
   { value: '24h', label: 'Average response time', desc: 'Most client queries answered the same working day, in plain English.' },
+  { value: '98%', label: 'Client retention rate', desc: 'The vast majority of clients who join us stay — because great service earns long-term trust.' },
 ]
 
 function Results() {
@@ -479,7 +480,7 @@ function Results() {
           <h2 className="text-3xl md:text-5xl mb-6" style={{ fontFamily: "'Instrument Serif',serif", color: '#fff' }}>
             Real results for growing <em style={{ color: '#FB2C36' }}>UK businesses</em>
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {RESULTS.map((r, i) => (
               <motion.div key={i} className="p-8 border border-white/10 rounded-3xl hover-lift" style={{ background: '#000' }}
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15, duration: 0.6 }}>
