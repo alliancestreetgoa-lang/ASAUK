@@ -756,51 +756,7 @@ function StarRow({ rating, size = 'sm' }: { rating: number; size?: 'sm' | 'md' }
 }
 
 function Reviews() {
-  const [reviews, setReviews] = useState<Review[]>(SEED_REVIEWS)
-  const [form, setForm] = useState({ name: '', role: '', rating: 5, quote: '' })
-  const [submitted, setSubmitted] = useState(false)
-
-  const [sending, setSending] = useState(false)
-  const [error, setError] = useState('')
-  const submit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!form.name.trim() || !form.quote.trim() || sending) return
-    setSending(true)
-    setError('')
-    try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          access_key: WEB3FORMS_KEY,
-          subject: `New Review from ${form.name.trim()} — ${form.rating} stars`,
-          from_name: 'Alliance Street Website — Reviews',
-          name: form.name.trim(),
-          business_role: form.role.trim() || 'N/A',
-          rating: `${form.rating} / 5`,
-          message: form.quote.trim(),
-        }),
-      })
-      const result = await res.json()
-      if (!result.success) {
-        console.error('Web3Forms error:', result)
-        setError(result.message || 'Could not send review. Please try again.')
-        setSending(false)
-        return
-      }
-    } catch (err) {
-      console.error('Network error:', err)
-      setError('Network error. Please check your connection and try again.')
-      setSending(false)
-      return
-    }
-    const initials = form.name.trim().split(/\s+/).slice(0, 2).map(p => p[0]?.toUpperCase() ?? '').join('') || 'AS'
-    setReviews(prev => [{ name: form.name.trim(), role: form.role.trim() || 'Verified Client', rating: form.rating, quote: form.quote.trim(), initials }, ...prev])
-    setForm({ name: '', role: '', rating: 5, quote: '' })
-    setSubmitted(true)
-    setSending(false)
-    setTimeout(() => setSubmitted(false), 4000)
-  }
+  const reviews = SEED_REVIEWS
 
   return (
     <section id="reviews" className="bg-bg py-10 md:py-14 px-6 border-b border-stroke">
@@ -832,49 +788,6 @@ function Reviews() {
             ))}
           </div>
 
-          <div className="rounded-3xl border border-stroke bg-surface/30 p-8 md:p-10">
-            <div className="flex items-center gap-3 mb-2"><div className="gsap-line-grow w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Leave a Review</span></div>
-            <h3 className="text-2xl md:text-3xl text-text-primary mb-2" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>Share your experience</h3>
-            <p className="text-muted text-sm mb-6">Worked with Alliance Street? We would love to hear how it went.</p>
-            <form onSubmit={submit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="text-xs text-muted uppercase tracking-[0.2em] mb-1 block">Your Name</label>
-                <input type="text" required value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-                  placeholder="Jane Doe"
-                  className="w-full bg-bg border border-stroke rounded-xl px-4 py-3 text-text-primary text-sm placeholder:text-muted/50 focus:outline-none focus:border-gray-600 transition-colors" />
-              </div>
-              <div>
-                <label className="text-xs text-muted uppercase tracking-[0.2em] mb-1 block">Business / Role <span className="opacity-50 normal-case tracking-normal">(optional)</span></label>
-                <input type="text" value={form.role} onChange={e => setForm(f => ({ ...f, role: e.target.value }))}
-                  placeholder="Founder, Acme Ltd"
-                  className="w-full bg-bg border border-stroke rounded-xl px-4 py-3 text-text-primary text-sm placeholder:text-muted/50 focus:outline-none focus:border-gray-600 transition-colors" />
-              </div>
-              <div className="md:col-span-2">
-                <label className="text-xs text-muted uppercase tracking-[0.2em] mb-1 block">Rating</label>
-                <div className="flex gap-1 text-2xl">
-                  {[1, 2, 3, 4, 5].map(n => (
-                    <button key={n} type="button" onClick={() => setForm(f => ({ ...f, rating: n }))}
-                      className="cursor-pointer transition-transform hover:scale-110"
-                      style={{ color: n <= form.rating ? '#FBBF24' : 'hsl(0 0% 80%)' }}
-                      aria-label={`${n} star${n > 1 ? 's' : ''}`}>★</button>
-                  ))}
-                </div>
-              </div>
-              <div className="md:col-span-2">
-                <label className="text-xs text-muted uppercase tracking-[0.2em] mb-1 block">Your Review</label>
-                <textarea required rows={4} value={form.quote} onChange={e => setForm(f => ({ ...f, quote: e.target.value }))}
-                  placeholder="Tell us about your experience working with Alliance Street..."
-                  className="w-full bg-bg border border-stroke rounded-xl px-4 py-3 text-text-primary text-sm placeholder:text-muted/50 focus:outline-none focus:border-gray-600 transition-colors resize-none" />
-              </div>
-              <div className="md:col-span-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                <p className="text-xs text-muted">Reviews appear instantly here. We may also feature them on our marketing with your permission.</p>
-                <button type="submit" disabled={sending} className="text-white px-8 py-3 rounded-xl font-medium text-sm transition-colors duration-200 cursor-pointer disabled:opacity-60" style={{ background: ACCENT }}>
-                  {submitted ? 'Thanks — review posted ✓' : sending ? 'Sending…' : 'Submit Review'}
-                </button>
-              </div>
-              {error && <p className="md:col-span-2 text-xs text-red-600">{error}</p>}
-            </form>
-          </div>
         </motion.div>
       </div>
     </section>
