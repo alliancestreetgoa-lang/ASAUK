@@ -306,6 +306,66 @@ function Solution({ label = 'Our Solution' }: { label?: string }) {
   )
 }
 
+// ── Global Solutions ──────────────────────────────────────────────────────────
+const BEFORE_ITEMS = [
+  'Founders flying blind — no real visibility into cash flow or profit margins',
+  'VAT prep takes 2+ weeks every quarter, risking late filing penalties',
+  'No structured reporting — decisions made from scattered Excel sheets',
+  'Bookkeeping backlogged; bank reconciliations done once a year at year-end',
+  'Tax planning is reactive — scrambling for savings the week before deadline',
+]
+const AFTER_ITEMS = [
+  'Real-time P&L, cash flow & tax liability visible on Xero — always current',
+  'VAT returns filed on time every quarter, fully MTD-compliant',
+  'Monthly management accounts delivered by the 10th of each month',
+  'Bookkeeping kept current — bank feeds reconciled weekly',
+  'Year-round proactive tax planning: R&D credits, dividend optimisation & more',
+]
+function GlobalSolutions() {
+  return (
+    <section className="relative overflow-hidden bg-surface/30 py-10 md:py-14 px-6 border-b border-stroke">
+      <SectionBg src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1600&q=80&auto=format&fit=crop" opacity={0.55} position="right" />
+      <div className="relative z-10 max-w-[1200px] mx-auto">
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
+          <div className="flex items-center gap-3 mb-6"><div className="gsap-line-grow w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Global Solutions</span></div>
+          <h2 className="text-3xl md:text-5xl text-text-primary leading-[1.1] tracking-tight mb-8" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
+            Impact
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Before */}
+            <motion.div className="p-8 rounded-2xl border border-stroke bg-bg/80"
+              initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+              <h3 className="text-xl font-semibold text-text-primary mb-5" style={{ fontFamily: "'Instrument Serif',serif" }}>Before:</h3>
+              <ul className="space-y-3">
+                {BEFORE_ITEMS.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-muted">
+                    <span className="shrink-0 mt-0.5 w-4 h-4 rounded-full border border-stroke flex items-center justify-center text-[9px]">✕</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+            {/* After */}
+            <motion.div className="p-8 rounded-2xl text-white"
+              style={{ background: ACCENT }}
+              initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}>
+              <h3 className="text-xl font-semibold mb-5" style={{ fontFamily: "'Instrument Serif',serif" }}>After (with Alliance Street):</h3>
+              <ul className="space-y-3">
+                {AFTER_ITEMS.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-white/90">
+                    <span className="shrink-0 mt-0.5 w-4 h-4 rounded-full bg-white/20 flex items-center justify-center text-[9px] text-white">✓</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
 // ── Why Choose Us ─────────────────────────────────────────────────────────────
 const WHY_POINTS = [
   { title: 'A dedicated UK accountant', desc: 'One named expert who knows your business — not a call centre or rotating junior.' },
@@ -945,7 +1005,7 @@ export default function App() {
       <About />
       <Results />
       <Services />
-      <Solution label="Global Solutions" />
+      <GlobalSolutions />
       <Pricing />
       <FinalCTA />
       <Reviews />
