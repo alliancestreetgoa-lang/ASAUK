@@ -645,7 +645,7 @@ function Services() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
               </div>
               <div className="p-6 bg-black">
-                <p className="text-[10px] uppercase tracking-[0.25em] mb-2" style={{ color: '#FB2C36' }}>{svc.tag}</p>
+                <p className="text-[10px] uppercase tracking-[0.25em] font-bold mb-2" style={{ color: '#FB2C36' }}>{svc.tag}</p>
                 <h3 className="text-white font-semibold mb-2">{svc.name}</h3>
                 <p className="text-gray-400 text-xs leading-relaxed">{svc.desc}</p>
                 <p className="text-xs text-gray-600 mt-3 group-hover:text-white transition-colors">Learn more →</p>
