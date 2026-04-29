@@ -240,7 +240,7 @@ function Hero() {
 
 // ── Trust ─────────────────────────────────────────────────────────────────────
 function Trust() {
-  const badges = [{ value: '200+', label: 'UK Businesses Served' }, { value: '4.9/5', label: 'Average Client Rating' }, { value: '100%', label: 'On-Time HMRC Filings' }]
+  const badges = [{ value: '200+', label: 'UK Businesses Served' }, { value: '4.9/5', label: 'Average Client Rating' }, { value: '100%', label: 'On-Time HMRC Filings' }, { value: '10+', label: 'Years of Experience' }]
   return (
     <section className="bg-bg py-14 border-b border-stroke">
       <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
@@ -248,7 +248,7 @@ function Trust() {
           initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
           Trusted by UK limited companies, agencies, and freelancers
         </motion.p>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-4">
           {badges.map((b, i) => (
             <motion.div key={b.label} className="flex sm:flex-col items-center sm:items-center gap-4 sm:gap-0 text-left sm:text-center py-3 sm:py-0 border-b sm:border-b-0 border-stroke last:border-0"
               initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.6 }}>
@@ -324,7 +324,7 @@ function WhyChooseUs() {
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
           <div className="flex items-center gap-3 mb-6"><div className="gsap-line-grow w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Why Choose Us</span></div>
           <h2 className="text-3xl md:text-5xl text-text-primary mb-6" style={{ fontFamily: "'Instrument Serif',serif" }}>
-            Why UK businesses <em>choose us</em>
+            Why businesses <em>choose us</em>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {WHY_POINTS.map((p, i) => (
