@@ -684,7 +684,7 @@ function Pricing() {
                 {plan.popular && (
                   <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs px-4 py-1 rounded-full font-medium" style={{ background: ACCENT, color: '#fff' }}>Most Popular</span>
                 )}
-                <p className="text-xs uppercase tracking-[0.2em] mb-3" style={{ color: 'hsl(0 0% 50%)' }}>{plan.name} Plan</p>
+                <p className="text-xs uppercase tracking-[0.2em] mb-3" style={{ color: '#FB2C36' }}>{plan.name} Plan</p>
                 <p className="text-2xl md:text-3xl mb-6" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic', color: 'hsl(0 0% 95%)' }}>{plan.price}</p>
                 <ul className="space-y-3 mb-8">
                   {plan.features.map((f, j) => (
