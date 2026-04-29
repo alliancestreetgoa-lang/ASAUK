@@ -632,7 +632,7 @@ function Services() {
     <section id="services" className="relative overflow-hidden py-16 md:py-24 border-b border-stroke">
       <div className="absolute inset-0 pointer-events-none">
         <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600&q=80&auto=format&fit=crop" alt="" className="w-full h-full object-cover object-center" />
-        <div className="absolute inset-0" style={{ background: 'rgba(255,255,255,0.92)' }} />
+        <div className="absolute inset-0" style={{ background: 'rgba(255,255,255,0.30)' }} />
       </div>
       {modal && <Modal data={modal} onClose={() => setModal(null)} />}
       <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
