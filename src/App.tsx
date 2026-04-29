@@ -679,7 +679,7 @@ function Pricing() {
             {PLANS.map((plan, i) => (
               <motion.div key={plan.name}
                 className="relative p-8 rounded-3xl border transition-all duration-300"
-                style={{ background: plan.popular ? 'hsl(0 0% 12%)' : 'hsl(0 0% 9%)', borderColor: plan.popular ? 'hsl(0 0% 28%)' : 'hsl(0 0% 18%)' }}
+                style={{ background: '#000', borderColor: plan.popular ? 'hsl(0 0% 28%)' : 'hsl(0 0% 18%)' }}
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15, duration: 0.6 }}>
                 {plan.popular && (
                   <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs px-4 py-1 rounded-full font-medium" style={{ background: ACCENT, color: '#fff' }}>Most Popular</span>
