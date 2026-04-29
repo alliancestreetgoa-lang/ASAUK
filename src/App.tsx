@@ -629,9 +629,13 @@ const SERVICES_DATA = [
 function Services() {
   const [modal, setModal] = useState<ModalData | null>(null)
   return (
-    <section id="services" className="bg-bg py-16 md:py-24 border-b border-stroke">
+    <section id="services" className="relative overflow-hidden py-16 md:py-24 border-b border-stroke">
+      <div className="absolute inset-0 pointer-events-none">
+        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600&q=80&auto=format&fit=crop" alt="" className="w-full h-full object-cover object-center" />
+        <div className="absolute inset-0" style={{ background: 'rgba(255,255,255,0.92)' }} />
+      </div>
       {modal && <Modal data={modal} onClose={() => setModal(null)} />}
-      <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
+      <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
         <motion.div className="mb-12" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 1 }}>
           <div className="flex items-center gap-3 mb-3"><div className="gsap-line-grow w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Accounting Services UK</span></div>
           <h2 className="text-3xl md:text-5xl text-text-primary" style={{ fontFamily: "'Instrument Serif',serif" }}>Accounting services that <em>keep you compliant & growing</em></h2>
