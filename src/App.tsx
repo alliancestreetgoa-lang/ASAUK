@@ -479,8 +479,11 @@ const RESULTS = [
 
 function Results() {
   return (
-    <section className="relative overflow-hidden bg-surface/30 py-10 md:py-14 px-6 border-b border-stroke">
-      <SectionBg src="/results-bg.png?v=2" opacity={0.95} position="right" overlay={0.5} />
+    <section className="relative overflow-hidden py-10 md:py-14 px-6 border-b border-stroke" style={{ background: '#0a0a0a' }}>
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="section-parallax-bg absolute inset-0" style={{ backgroundImage: `url(/results-bg.png?v=2)`, backgroundSize: 'cover', backgroundPosition: 'right center', opacity: 0.35 }} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.2) 100%)' }} />
+      </div>
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
           <div className="flex items-center gap-3 mb-6"><div className="w-8 h-px bg-white/60" /><span className="text-xs uppercase tracking-[0.3em] font-semibold text-white">Real Results</span></div>
