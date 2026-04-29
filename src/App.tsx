@@ -218,7 +218,15 @@ function Hero() {
 
       <div className="relative z-10 flex-1 flex flex-col justify-end px-5 md:px-12 lg:px-16 pb-10 md:pb-12 lg:pb-16">
         <div className="max-w-4xl">
-          <AnimatedHeading text={"Finance and Accounting Built\nfor International Growth"} className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-normal text-white mb-4" />
+          <motion.h1
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white mb-4 leading-[1.0] tracking-tight"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: 'easeOut' }}
+          >
+            Finance and Accounting Built for{' '}
+            <span style={{ color: '#FB2C36' }}>International Growth</span>
+          </motion.h1>
           <FadeIn delay={800} duration={1000}>
             <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-5 max-w-2xl">
               Tax structuring and advisory with international expertise — UK & HMRC compliance, UAE restructuring, bookkeeping, and corporate tax. Built for founders, limited companies, and ambitious entrepreneurs.
