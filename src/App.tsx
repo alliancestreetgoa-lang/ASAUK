@@ -484,7 +484,7 @@ function Results() {
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15, duration: 0.6 }}>
                 <p className="text-4xl md:text-5xl mb-2" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic', color: '#fff' }}>{r.value}</p>
                 <p className="text-sm font-medium mb-2" style={{ color: '#fff' }}>{r.label}</p>
-                <p className="text-xs leading-relaxed" style={{ color: '#999' }}>{r.desc}</p>
+                <p className="text-xs leading-relaxed text-white">{r.desc}</p>
               </motion.div>
             ))}
           </div>
