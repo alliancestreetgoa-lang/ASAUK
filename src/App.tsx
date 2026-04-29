@@ -688,7 +688,7 @@ function Pricing() {
                 <p className="text-2xl md:text-3xl mb-6" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic', color: 'hsl(0 0% 95%)' }}>{plan.price}</p>
                 <ul className="space-y-3 mb-8">
                   {plan.features.map((f, j) => (
-                    <li key={j} className="flex items-center gap-3 text-sm" style={{ color: 'hsl(0 0% 65%)' }}>
+                    <li key={j} className="flex items-center gap-3 text-sm text-white">
                       <span className="shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-[9px] text-white" style={{ background: ACCENT }}>✓</span>
                       {f}
                     </li>
