@@ -637,18 +637,18 @@ function Services() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {SERVICES_DATA.map((svc, i) => (
             <motion.div key={svc.name}
-              className="group relative rounded-3xl overflow-hidden cursor-pointer border border-stroke hover:border-gray-400 transition-all duration-300 hover-lift"
+              className="group relative rounded-3xl overflow-hidden cursor-pointer border border-white/10 hover:border-white/30 transition-all duration-300 hover-lift"
               onClick={() => setModal({ title: svc.name, tag: svc.tag, img: svc.img, body: svc.body })}
               initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-50px' }} transition={{ duration: 0.7, delay: i * 0.1 }}>
               <div className="relative h-40 overflow-hidden">
                 <img src={svc.img} alt={svc.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
               </div>
-              <div className="p-6 bg-surface/50">
-                <p className="text-[10px] uppercase tracking-[0.25em] text-muted mb-2">{svc.tag}</p>
-                <h3 className="text-text-primary font-semibold mb-2">{svc.name}</h3>
-                <p className="text-muted text-xs leading-relaxed">{svc.desc}</p>
-                <p className="text-xs text-muted/60 mt-3 group-hover:text-text-primary transition-colors">Learn more →</p>
+              <div className="p-6 bg-black">
+                <p className="text-[10px] uppercase tracking-[0.25em] text-gray-500 mb-2">{svc.tag}</p>
+                <h3 className="text-white font-semibold mb-2">{svc.name}</h3>
+                <p className="text-gray-400 text-xs leading-relaxed">{svc.desc}</p>
+                <p className="text-xs text-gray-600 mt-3 group-hover:text-white transition-colors">Learn more →</p>
               </div>
             </motion.div>
           ))}
