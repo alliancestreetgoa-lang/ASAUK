@@ -343,32 +343,6 @@ function WhyChooseUs() {
 }
 
 // ── About ─────────────────────────────────────────────────────────────────────
-const TEAM_VALUES = [
-  {
-    title: 'Integrity first',
-    desc: 'We tell you what you need to hear, not just what you want to hear. Honest advice, transparent fees — always.',
-  },
-  {
-    title: 'Proactive, not reactive',
-    desc: 'We plan ahead, flag risks early, and hunt for savings year-round rather than scrambling at year-end.',
-  },
-  {
-    title: 'International perspective',
-    desc: 'With expertise across UK, UAE and multiple markets, we help founders structure efficiently wherever they operate.',
-  },
-  {
-    title: 'Plain English, always',
-    desc: 'No jargon. No confusing reports. We explain your numbers in language that actually helps you make decisions.',
-  },
-  {
-    title: 'Fixed fees, no surprises',
-    desc: 'You know your monthly cost on day one. No hidden charges, no hourly meters, no shock invoices.',
-  },
-  {
-    title: 'Long-term partnership',
-    desc: 'We grow with you. From your first invoice to your Series A, your dedicated accountant knows your business inside out.',
-  },
-]
 
 const ACCREDITATIONS = [
   { label: 'HMRC Registered Agent', note: 'Authorised to act on behalf of UK businesses with HMRC' },
@@ -438,20 +412,6 @@ function About() {
             </div>
           </div>
 
-          {/* Values grid */}
-          <div>
-            <p className="text-xs text-muted uppercase tracking-[0.3em] mb-4">Our Values</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {TEAM_VALUES.map((v, i) => (
-                <motion.div key={v.title}
-                  className="p-4 bg-surface/50 border border-stroke rounded-xl hover-lift"
-                  initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08, duration: 0.5 }}>
-                  <h3 className="text-text-primary font-medium text-sm mb-1.5">{v.title}</h3>
-                  <p className="text-muted text-xs leading-relaxed">{v.desc}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
 
         </motion.div>
       </div>
