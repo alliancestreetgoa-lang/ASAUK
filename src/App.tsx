@@ -283,7 +283,7 @@ function Solution() {
           <div className="flex items-center gap-3 mb-6"><div className="gsap-line-grow w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Our Solution</span></div>
           <div className="lg:grid lg:grid-cols-2 lg:gap-8 lg:items-start">
             <div>
-              <h2 className="gsap-heading-reveal text-3xl md:text-5xl lg:text-6xl text-text-primary leading-[1.1] tracking-tight mb-6" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
+              <h2 className="text-3xl md:text-5xl lg:text-6xl text-text-primary leading-[1.1] tracking-tight mb-6" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
                 We handle your numbers so you can run your business
               </h2>
               <p className="text-muted text-base md:text-lg leading-relaxed text-pretty">
@@ -720,7 +720,7 @@ function FinalCTA() {
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="gsap-line-grow w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Get Started</span><div className="gsap-line-grow w-8 h-px bg-stroke" />
           </div>
-          <h2 className="gsap-heading-reveal text-4xl md:text-6xl text-text-primary mb-6 leading-tight" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
+          <h2 className="text-4xl md:text-6xl text-text-primary mb-6 leading-tight" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
             Ready to hand off your accounting?
           </h2>
           <p className="text-muted text-base md:text-lg mb-5 max-w-lg mx-auto">
