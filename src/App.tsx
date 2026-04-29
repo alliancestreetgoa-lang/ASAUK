@@ -274,13 +274,13 @@ const SOLUTION_ITEMS = [
   'A dedicated accountant — same person, every month',
 ]
 
-function Solution() {
+function Solution({ label = 'Our Solution' }: { label?: string }) {
   return (
     <section className="relative overflow-hidden bg-surface/30 py-10 md:py-14 px-6 border-b border-stroke">
       <SectionBg src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1600&q=80&auto=format&fit=crop" opacity={0.55} position="right" />
       <div className="relative z-10 max-w-[1200px] mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 1 }}>
-          <div className="flex items-center gap-3 mb-6"><div className="gsap-line-grow w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">Our Solution</span></div>
+          <div className="flex items-center gap-3 mb-6"><div className="gsap-line-grow w-8 h-px bg-stroke" /><span className="text-xs text-muted uppercase tracking-[0.3em]">{label}</span></div>
           <div className="lg:grid lg:grid-cols-2 lg:gap-8 lg:items-start">
             <div>
               <h2 className="text-3xl md:text-5xl lg:text-6xl text-text-primary leading-[1.1] tracking-tight mb-6" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
@@ -945,7 +945,7 @@ export default function App() {
       <About />
       <Results />
       <Services />
-      <Solution />
+      <Solution label="Global Solutions" />
       <Pricing />
       <FinalCTA />
       <Reviews />
