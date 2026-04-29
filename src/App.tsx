@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -67,32 +67,6 @@ function Modal({ data, onClose }: { data: ModalData; onClose: () => void }) {
 }
 
 
-function LoadingScreen({ onComplete }: { onComplete: () => void }) {
-  const videoRef = useRef<HTMLVideoElement>(null)
-
-  useEffect(() => {
-    const v = videoRef.current
-    if (!v) return
-    const handleEnded = () => onComplete()
-    v.addEventListener('ended', handleEnded)
-    const fallback = setTimeout(onComplete, 15000)
-    return () => { v.removeEventListener('ended', handleEnded); clearTimeout(fallback) }
-  }, [onComplete])
-
-  return (
-    <motion.div className="fixed inset-0 z-[9999] bg-black overflow-hidden" exit={{ opacity: 0 }} transition={{ duration: 0.8 }}>
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        playsInline
-        preload="auto"
-        className="absolute inset-0 w-full h-full object-contain md:object-cover object-center"
-        src="/loading.mp4"
-      />
-    </motion.div>
-  )
-}
 
 function FadeIn({ children, delay = 0, duration = 1000, className = '' }: { children: React.ReactNode; delay?: number; duration?: number; className?: string }) {
   const [visible, setVisible] = useState(false)
@@ -1059,11 +1033,7 @@ function Footer() {
 
 // ── App ───────────────────────────────────────────────────────────────────────
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true)
-  const handleComplete = useCallback(() => setIsLoading(false), [])
-
   useEffect(() => {
-    if (isLoading) return
     initLenis()
     const frame = requestAnimationFrame(() => {
       initScrollProgress()
@@ -1077,7 +1047,7 @@ export default function App() {
       cancelAnimationFrame(frame)
       destroyAnimations()
     }
-  }, [isLoading])
+  }, [])
 
   return (
     <>
@@ -1085,27 +1055,18 @@ export default function App() {
         className="scroll-progress-bar"
         style={{ position: 'fixed', top: 0, left: 0, right: 0, height: 3, zIndex: 9999, transformOrigin: 'left center', transform: 'scaleX(0)', background: 'linear-gradient(90deg, #E40014 0%, #FB2C36 100%)', pointerEvents: 'none' }}
       />
-      <AnimatePresence>
-        {isLoading && <LoadingScreen onComplete={handleComplete} />}
-      </AnimatePresence>
-      <AnimatePresence>
-        {!isLoading && (
-          <motion.div key="main" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
-            <Hero />
-            <Trust />
-            <Solution />
-            <WhyChooseUs />
-            <About />
-            <Results />
-            <Services />
-            <Pricing />
-            <FinalCTA />
-            <Reviews />
-            <Contact />
-            <Footer />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <Hero />
+      <Trust />
+      <Solution />
+      <WhyChooseUs />
+      <About />
+      <Results />
+      <Services />
+      <Pricing />
+      <FinalCTA />
+      <Reviews />
+      <Contact />
+      <Footer />
     </>
   )
 }
