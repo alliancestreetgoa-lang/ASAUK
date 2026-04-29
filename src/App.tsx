@@ -648,7 +648,7 @@ function Services() {
                 <p className="text-[10px] uppercase tracking-[0.25em] font-bold mb-2" style={{ color: '#FB2C36' }}>{svc.tag}</p>
                 <h3 className="text-white font-semibold mb-2">{svc.name}</h3>
                 <p className="text-gray-400 text-xs leading-relaxed">{svc.desc}</p>
-                <p className="text-xs text-gray-600 mt-3 group-hover:text-white transition-colors">Learn more →</p>
+                <p className="text-xs mt-3 transition-colors" style={{ color: '#FB2C36' }}>Learn more →</p>
               </div>
             </motion.div>
           ))}
