@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -75,42 +75,6 @@ function FadeIn({ children, delay = 0, duration = 1000, className = '' }: { chil
     <div className={`transition-opacity ${className}`} style={{ opacity: visible ? 1 : 0, transitionDuration: `${duration}ms` }}>
       {children}
     </div>
-  )
-}
-
-function AnimatedHeading({ text, className = '' }: { text: string; className?: string }) {
-  const [animated, setAnimated] = useState(false)
-  const charDelay = 30
-  useEffect(() => { const t = setTimeout(() => setAnimated(true), 200); return () => clearTimeout(t) }, [])
-  const lines = text.split('\n')
-  let globalCharIdx = 0
-  return (
-    <h1 className={className} style={{ letterSpacing: '-0.04em' }}>
-      {lines.map((line, li) => {
-        const words = line.split(' ')
-        return (
-          <span key={li} style={{ display: 'block' }}>
-            {words.map((word, wi) => {
-              const wordChars = word.split('')
-              const wordEl = (
-                <span key={wi} style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
-                  {wordChars.map((char, ci) => {
-                    const delay = globalCharIdx * charDelay
-                    globalCharIdx++
-                    return (
-                      <span key={ci} style={{ display: 'inline-block', opacity: animated ? 1 : 0, transform: animated ? 'translateX(0)' : 'translateX(-18px)', transition: 'opacity 500ms, transform 500ms', transitionDelay: `${delay}ms` }}>
-                        {char}
-                      </span>
-                    )
-                  })}
-                </span>
-              )
-              return wi < words.length - 1 ? <span key={wi}>{wordEl}{'\u00A0'}</span> : wordEl
-            })}
-          </span>
-        )
-      })}
-    </h1>
   )
 }
 
