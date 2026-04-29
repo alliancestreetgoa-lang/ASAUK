@@ -115,6 +115,8 @@ function splitIntoWordSpans(el: HTMLElement) {
         span.className = 'word-split'
         span.style.display = 'inline-block'
         span.style.overflow = 'hidden'
+        span.style.paddingBottom = '0.2em'
+        span.style.marginBottom = '-0.2em'
         const inner = document.createElement('span')
         inner.className = 'word-inner'
         inner.style.display = 'inline-block'
