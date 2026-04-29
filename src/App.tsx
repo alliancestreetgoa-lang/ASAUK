@@ -724,9 +724,14 @@ function FinalCTA() {
           <p className="text-muted text-base md:text-lg mb-5 max-w-lg mx-auto">
             Book a free 30-minute call. No obligation — just clear answers about your numbers, where you're overpaying, and what we'd do differently.
           </p>
-          <a href="#contact" className="inline-block text-white px-10 py-4 rounded-xl font-medium text-base transition-colors duration-200" style={{ background: ACCENT }}>
-            Book Your Free Call →
-          </a>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-2">
+            <a href="#contact" className="inline-block text-white px-10 py-4 rounded-xl font-medium text-base transition-colors duration-200" style={{ background: ACCENT }}>
+              Book Your Free Call →
+            </a>
+            <a href="mailto:accounts@alliancestreet.co.uk" className="text-sm text-muted hover:text-text-primary transition-colors duration-200" style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic' }}>
+              accounts@alliancestreet.co.uk
+            </a>
+          </div>
         </motion.div>
       </div>
     </section>
@@ -891,7 +896,6 @@ function Contact() {
 
 // ── Footer ────────────────────────────────────────────────────────────────────
 function Footer() {
-  const [emailHov, setEmailHov] = useState(false)
   return (
     <footer className="dark-section pt-16 md:pt-20 pb-8 md:pb-12 overflow-hidden relative">
       <div className="absolute inset-0 overflow-hidden">
@@ -901,18 +905,6 @@ function Footer() {
         <div className="absolute inset-0 bg-black/50" />
       </div>
       <div className="relative z-10">
-        <div className="text-center mb-8">
-          <p className="text-xs text-muted uppercase tracking-[0.3em] mb-6">Let's simplify your accounting</p>
-          <div className="relative inline-block rounded-full max-w-full px-4" onMouseEnter={() => setEmailHov(true)} onMouseLeave={() => setEmailHov(false)}>
-            <span className="absolute rounded-full transition-opacity duration-300 pointer-events-none" style={{ inset: '-1px', background: ACCENT, opacity: emailHov ? 1 : 0 }} />
-            <a href="mailto:accounts@alliancestreet.co.uk?subject=Enquiry%20from%20Alliance%20Street%20Website"
-              className="relative block text-sm sm:text-lg md:text-2xl lg:text-4xl text-text-primary px-4 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 rounded-full border border-stroke transition-colors duration-300 cursor-pointer no-underline break-all sm:break-normal"
-              style={{ fontFamily: "'Instrument Serif',serif", fontStyle: 'italic', borderColor: emailHov ? 'transparent' : undefined }}>
-              accounts@alliancestreet.co.uk
-            </a>
-          </div>
-          <p className="text-muted text-sm mt-4">Serving UK businesses nationwide</p>
-        </div>
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-5 border-t border-stroke pt-5">
             <div>
